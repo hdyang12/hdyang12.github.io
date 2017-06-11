@@ -1,0 +1,1039 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="关于在java web上实现分页技术，方式实际上有很多，也各有个的特点，此处我只写些我的认识。">
+<meta name="keywords" content="编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java分页技术">
+<meta property="og:url" content="http://yoursite.com/2016/02/14/Java分页技术/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="关于在java web上实现分页技术，方式实际上有很多，也各有个的特点，此处我只写些我的认识。">
+<meta property="og:image" content="http://yoursite.com/uploads/page1.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/page2.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/page3.jpg">
+<meta property="og:updated_time" content="2016-08-21T17:27:14.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java分页技术">
+<meta name="twitter:description" content="关于在java web上实现分页技术，方式实际上有很多，也各有个的特点，此处我只写些我的认识。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/page1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/14/Java分页技术/"/>
+
+
+
+
+
+  <title>Java分页技术 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/14/Java分页技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java分页技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-14T09:52:25+08:00">
+                2016-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/02/14/Java分页技术/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/02/14/Java分页技术/" class="leancloud_visitors" data-flag-title="Java分页技术">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,264 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  20 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  关于在java web上实现分页技术，方式实际上有很多，也各有个的特点，此处我只写些我的认识。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对于分页技术，我在两个项目中做过。而这两个项目中的分页技术也略有不同。</p>
+<h1 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h1><p>第一种分页技术是我在一个网上图书商城项目用的分页技术。包含了PageBean和JSP的代码实现。闲话不多说，先贴上代码:</p>
+<p>PageBean类:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> yh.mall.pager;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 分页Bean，它会在各层之间传递 </div><div class="line"> * <span class="doctag">@author</span> YH</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> &lt;T&gt;</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageBean</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> pc;	<span class="comment">//当前页码</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> tr;	<span class="comment">//总记录数</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> ps;	<span class="comment">//每页记录数</span></div><div class="line">	<span class="comment">//请求路径和参数，例如：/BookServlet?method=findXXX&amp;cid=1&amp;bname=2</span></div><div class="line">	<span class="keyword">private</span> String url;		</div><div class="line">	<span class="keyword">private</span> List&lt;T&gt; beanList;	<span class="comment">//要写成泛型类,这样就是一个通用Bean了</span></div><div class="line">	</div><div class="line">	<span class="comment">//计算总页数</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getTp</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">int</span> tp = tr/ps;</div><div class="line">		<span class="keyword">return</span> tr % ps == <span class="number">0</span> ? tp : tp+<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPc</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> pc;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPc</span><span class="params">(<span class="keyword">int</span> pc)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.pc = pc;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getTr</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> tr;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTr</span><span class="params">(<span class="keyword">int</span> tr)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.tr = tr;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPs</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> ps;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPs</span><span class="params">(<span class="keyword">int</span> ps)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.ps = ps;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getUrl</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> url;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUrl</span><span class="params">(String url)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.url = url;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">getBeanList</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> beanList;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanList</span><span class="params">(List&lt;T&gt; beanList)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.beanList = beanList;</div><div class="line">	&#125;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"PageBean [beanList="</span> + beanList + <span class="string">", pc="</span> + pc + <span class="string">", ps="</span> + ps</div><div class="line">				+ <span class="string">", tr="</span> + tr + <span class="string">", url="</span> + url + <span class="string">"]"</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>PageConstants类:用于设置常量如:图书每页记录数、订单每页记录数<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> yh.mall.pager;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageConstants</span> &#123;</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BOOK_PAGE_SIZE = <span class="number">12</span>;<span class="comment">//	图书每页记录数</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> Order_PAGESIZE = <span class="number">8</span>;<span class="comment">//	订单每页记录数</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Expression类(后面的dao层会用到,用于sql的where):<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">package yh.mall.pager;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Expression</span> &#123;</div><div class="line">	<span class="keyword">private</span> String name;</div><div class="line">	<span class="keyword">private</span> String <span class="keyword">operator</span>;</div><div class="line">	<span class="keyword">private</span> String <span class="keyword">value</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Expression</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		super();</div><div class="line">		<span class="comment">// TODO Auto-generated constructor stub</span></div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Expression</span>(<span class="params">String name, String <span class="keyword">operator</span>, String <span class="keyword">value</span></span>) </span>&#123;</div><div class="line">		super();</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">operator</span> = <span class="keyword">operator</span>;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">value</span> = <span class="keyword">value</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">return</span> name;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span>(<span class="params">String name</span>) </span>&#123;</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getOperator</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">operator</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOperator</span>(<span class="params">String <span class="keyword">operator</span></span>) </span>&#123;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">operator</span> = <span class="keyword">operator</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getValue</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">value</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span>(<span class="params">String <span class="keyword">value</span></span>) </span>&#123;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">value</span> = <span class="keyword">value</span>;</div><div class="line">	&#125;</div><div class="line">	@<span class="function">Override</span></div><div class="line">	<span class="keyword">public</span> String <span class="title">toString</span>(<span class="params"></span>) &#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"Express [name="</span> + name + <span class="string">", operator="</span> + <span class="keyword">operator</span> + <span class="string">", value="</span></div><div class="line">				+ <span class="keyword">value</span> + <span class="string">"]"</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>pager.jsp<br><figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@ page language=<span class="string">"java"</span> import=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span></span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="ruby">@ taglib prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">_go</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">var</span> pc = $(<span class="string">"#pageCode"</span>).val();<span class="comment">//获取文本框中的当前页码</span></div><div class="line">		<span class="keyword">if</span>(!<span class="regexp">/^[1-9]\d*$/</span>.test(pc)) &#123;<span class="comment">//对当前页码进行整数校验</span></div><div class="line">			alert(<span class="string">'请输入正确的页码！'</span>);</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(pc &gt; $&#123;pb.tp &#125;) &#123;<span class="comment">//判断当前页码是否大于最大页</span></div><div class="line">			alert(<span class="string">'请输入正确的页码！'</span>);</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line">		location = <span class="string">"$&#123;pb.url &#125;&amp;pc="</span>+pc;</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"divBody"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"divContent"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">-上一页,<span class="number">2</span>个上一页，一个是超链接，一个不是，按照需求显示其中一个 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">"$&#123;pb.pc eq 1 &#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spanBtnDisabled"</span>&gt;</span>上一页<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span> </div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;pb.url &#125;&amp;pc=$&#123;pb.pc-1&#125;"</span> <span class="attr">class</span>=<span class="string">"aBtn bold"</span>&gt;</span>上一页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></div><div class="line"></div><div class="line">        </div><div class="line">       </div><div class="line"></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 计算<span class="keyword">begin</span>和<span class="keyword">end</span> -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">      <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 如果总页数&lt;=<span class="number">6</span>，那么显示所有页码，即<span class="keyword">begin</span>=<span class="number">1</span> <span class="keyword">end</span>=$&#123;pb.tp&#125; -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">        <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 设置<span class="keyword">begin</span>=当前页码-<span class="number">2</span>，<span class="keyword">end</span>=当前页码+<span class="number">3</span> -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">          <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 如果<span class="keyword">begin</span>&lt;<span class="number">1</span>，那么让<span class="keyword">begin</span>=<span class="number">1</span> <span class="keyword">end</span>=<span class="number">6</span> -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">          <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 如果<span class="keyword">end</span>&gt;最大页，那么<span class="keyword">begin</span>=最大页-<span class="number">5</span> <span class="keyword">end</span>=最大页 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">	<span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">"$&#123;pb.tp&lt;=6 &#125;"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"begin"</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"end"</span> <span class="attr">value</span>=<span class="string">"$&#123;pb.tp &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"begin"</span> <span class="attr">value</span>=<span class="string">"$&#123;pb.pc-2 &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"end"</span> <span class="attr">value</span>=<span class="string">"$&#123;pb.pc+3 &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;begin&lt;1 &#125;"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"begin"</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"end"</span> <span class="attr">value</span>=<span class="string">"6"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;end&gt;pb.tp &#125;"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"begin"</span> <span class="attr">value</span>=<span class="string">"$&#123;pb.tp-5 &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"end"</span> <span class="attr">value</span>=<span class="string">"$&#123;pb.tp &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">c:set</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">begin</span>=<span class="string">"$&#123;begin &#125;"</span> <span class="attr">end</span>=<span class="string">"$&#123;end &#125;"</span> <span class="attr">var</span>=<span class="string">"i"</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">"$&#123;i eq pb.pc &#125;"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spanBtnSelect"</span>&gt;</span>$&#123;i &#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;pb.url &#125;&amp;pc=$&#123;i &#125;"</span> <span class="attr">class</span>=<span class="string">"aBtn"</span>&gt;</span>$&#123;i &#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 显示点点点 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;end &lt; pb.tp&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spanApostrophe"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></div><div class="line">       </div><div class="line"></div><div class="line">    </div><div class="line">     <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">-下一页 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">         <span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">"$&#123;pb.pc eq pb.tp &#125;"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spanBtnDisabled"</span>&gt;</span>下一页<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;pb.url &#125;&amp;pc=$&#123;pb.pc+1&#125;"</span> <span class="attr">class</span>=<span class="string">"aBtn bold"</span>&gt;</span>下一页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></div><div class="line">        </div><div class="line">         </div><div class="line">    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 共N页 到M页 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>共$&#123;pb.tp &#125;页<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>到<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"inputPageCode"</span> <span class="attr">id</span>=<span class="string">"pageCode"</span> <span class="attr">value</span>=<span class="string">"$&#123;pb.pc &#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>页<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:_go();"</span> <span class="attr">class</span>=<span class="string">"aSubmit"</span>&gt;</span>确定<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>分页JSP在其他页面的插入位置:<br><figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="comment">&lt;!--  用了&lt;%</span></span><span class="ruby">@include</span><span class="xml"><span class="comment">%&gt;标签包含在其他页面当中  --&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"float:left; width: 100%; text-align: center;"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">hr</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">br</span>/&gt;</span></div><div class="line">	<span class="comment">&lt;!-- 静态包含include,包含了一个pager页面 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">%</span></span><span class="ruby">@include file=<span class="string">"/jsps/pager/pager.jsp"</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>JSP页面效果展示:<br><img src="/uploads/page1.jpg" alt=""><br>上述pager.jsp中的其他代码就不说了，在上面写得都很明白。主要说下上一页,下一页以及每页和确定中的url，按上一页举例:<br>href=”${pb.url }&amp;pc=${pb.pc-1}”<br>可以说整个分页技术的核心就在这个url上了。<br>就拿我当前的图书查找举例:pb.url为<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/mall/BookServlet?<span class="function"><span class="keyword">method</span>=<span class="title">findByCategory</span>&amp;<span class="title">cid</span>=5<span class="title">F79D0D246AD4216AC04E9C5FAB3199E</span></span></div></pre></td></tr></table></figure></p>
+<p>假设当前页码为3,那么pb.pc就为3;<br>那么这个url就是:<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/mall/BookServlet?<span class="function"><span class="keyword">method</span>=<span class="title">findByCategory</span>&amp;<span class="title">cid</span>=5<span class="title">F79D0D246AD4216AC04E9C5FAB3199E</span>&amp;<span class="title">pc</span>=2</span></div></pre></td></tr></table></figure></p>
+<p>通过这个url，我们可以知道是进入了servlet层的findByCategory方法，并且传递了2个参数cid和pc；接下来我将贴出findByCategory的代码:<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 按分类查询</div><div class="line"> * <span class="doctag">@param</span> req</div><div class="line"> * <span class="doctag">@param</span> resp</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> * <span class="doctag">@throws</span> ServletException</div><div class="line"> * <span class="doctag">@throws</span> IOException</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="function">String <span class="title">findByCategory</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span></span></div><div class="line">		<span class="keyword">throws</span> ServletException, IOException &#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 1.得到pc：如果页面传，使用页面的；</div><div class="line">	 * 如果没传，pc=1；</div><div class="line">	 */</div><div class="line">	<span class="keyword">int</span> pc = getPc(req);</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 2.得到url</div><div class="line">	 */</div><div class="line">	String url = getUrl(req);</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 3.获取查询条件，本方法是cid，即分类的id</div><div class="line">	 */</div><div class="line">	String cid = req.getParameter(<span class="string">"cid"</span>);</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 4.使用pc和cid调用的service#findByCategory得到PageBean</div><div class="line">	 */</div><div class="line">	PageBean&lt;Book&gt; pb = bookService.findByCategory(cid, pc);</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 5.给PageBean设置url，保存PageBean,转发到/jsps/book/list.jsp</div><div class="line">	 */</div><div class="line">	pb.setUrl(url);</div><div class="line">	req.setAttribute(<span class="string">"pb"</span>, pb);</div><div class="line">	<span class="keyword">return</span> <span class="string">"f:/jsps/book/list.jsp"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取当前页码</div><div class="line"> * <span class="doctag">@param</span> req</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">int</span> <span class="title">getPc</span><span class="params">(HttpServletRequest req)</span></span>&#123;</div><div class="line">	<span class="keyword">int</span> pc = <span class="number">1</span>;</div><div class="line">	String param = req.getParameter(<span class="string">"pc"</span>);</div><div class="line">	<span class="keyword">if</span>(param!=<span class="keyword">null</span>&amp;&amp;!param.trim().isEmpty())&#123;<span class="comment">//如果从页面得到的pc不为null，并且不为空格</span></div><div class="line">		<span class="keyword">try</span>&#123;</div><div class="line">			pc = Integer.parseInt(param);</div><div class="line">		&#125;<span class="keyword">catch</span>(RuntimeException e)&#123;</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> pc;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 截取url，页面中的分页导航中需要使用它作为超链接的目标！</div><div class="line"> * <span class="doctag">@param</span> req</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="comment">/*</span></div><div class="line"> * 比如说请求地址：</div><div class="line"> * http://localhost:8080/mall/BookServlet?method=findByCategory&amp;cid=xxx</div><div class="line"> * 获取的是：/mall/BookServlet + method=findByCategory&amp;cid=xxx</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="function">String <span class="title">getUrl</span><span class="params">(HttpServletRequest req)</span></span>&#123;</div><div class="line">	<span class="comment">//req.getQueryString()得到的是?后面的字符串</span></div><div class="line">	String  url = req.getRequestURI() + <span class="string">"?"</span> +req.getQueryString();</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 如果url中存在pc参数,截取掉，如果不存在那就不用截取。</div><div class="line">	 */</div><div class="line">	<span class="keyword">int</span> index = url.lastIndexOf(<span class="string">"&amp;pc="</span>);</div><div class="line">	<span class="keyword">if</span>(index!=<span class="number">-1</span>)&#123;</div><div class="line">		url = url.substring(<span class="number">0</span>, index);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> url;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>得到相应的service层(BookService)方法代码:<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">	 * 按分类查询</div><div class="line">	 * <span class="doctag">@param</span> cid</div><div class="line">	 * <span class="doctag">@param</span> pc</div><div class="line">	 * <span class="doctag">@return</span></div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> PageBean&lt;Book&gt; findByCategory(String cid,<span class="keyword">int</span> pc)&#123;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="function"><span class="keyword">return</span> bookDao.<span class="title">findByCategory</span><span class="params">(cid, pc)</span></span>;</div><div class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>得到相应的Dao层(BookDao)方法代码:<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 按分类查询</div><div class="line"> * @param cid</div><div class="line"> * @param pc</div><div class="line"> * @return</div><div class="line"> * @throws SQLException </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> PageBean&lt;Book&gt; findByCategory(<span class="keyword">String</span> cid,<span class="built_in">int</span> pc) <span class="keyword">throws</span> SQLException&#123;</div><div class="line">	List&lt;Expression&gt; exprList = <span class="keyword">new</span> ArrayList&lt;Expression&gt;();</div><div class="line">	exprList.<span class="built_in">add</span>(<span class="keyword">new</span> Expression(<span class="string">"cid"</span>,<span class="string">"="</span>,cid));</div><div class="line">	<span class="keyword">return</span> findByCriteria(exprList, pc);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  通用的查询方法</div><div class="line"> * @param exprList</div><div class="line"> * @param pc</div><div class="line"> * @return</div><div class="line"> * @throws SQLException </div><div class="line"> */</div><div class="line"><span class="keyword">private</span> PageBean&lt;Book&gt; findByCriteria(List&lt;Expression&gt; exprList,<span class="built_in">int</span> pc) <span class="keyword">throws</span> SQLException&#123;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 1.得到ps</div><div class="line">	 * 2.得到tr</div><div class="line">	 * 3.得到beanList</div><div class="line">	 * 4.创建PageBean，返回</div><div class="line">	 */</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 1.得到ps</div><div class="line">	 */</div><div class="line">	<span class="built_in">int</span> ps = PageConstants.BOOK_PAGE_SIZE;<span class="comment">//每页记录数</span></div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 2.通过exprList生成where字句</div><div class="line">	 */</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 这里是因为where后面的条件个数不好控制，</div><div class="line">	 * 先写一个where1=1，对后面的语句没有影响，然后后面的都以and开头</div><div class="line">	 */</div><div class="line">	StringBuilder whereSql = <span class="keyword">new</span> StringBuilder(<span class="string">"where 1=1"</span>);</div><div class="line">	List&lt;<span class="keyword">Object</span>&gt; params = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">Object</span>&gt;();<span class="comment">//SQL中有问号，它是对应问号的值。</span></div><div class="line">	<span class="keyword">for</span>(Expression expression:exprList)&#123;</div><div class="line">		</div><div class="line">		<span class="comment">/*</span></div><div class="line">		 * 添加一个条件</div><div class="line">		 * 1.以and开头</div><div class="line">		 * 2.条件的名称</div><div class="line">		 * 3.条件的运算符，可以是=、！=、&gt;、&lt;...is null;is null 没有值</div><div class="line">		 * 4.如果条件不是is null,再追加问号，然后再向params中添加一个与问号对应的值</div><div class="line">		 */</div><div class="line">		whereSql.<span class="built_in">append</span>(<span class="string">" and "</span>).<span class="built_in">append</span>(expression.getName()).<span class="built_in">append</span>(<span class="string">" "</span>)</div><div class="line">		.<span class="built_in">append</span>(expression.getOperator()).<span class="built_in">append</span>(<span class="string">" "</span>);</div><div class="line">		<span class="keyword">if</span>(!expression.getOperator().equals(<span class="string">"is null"</span>))&#123;</div><div class="line">			whereSql.<span class="built_in">append</span>(<span class="string">"?"</span>);</div><div class="line">			params.<span class="built_in">add</span>(expression.getValue());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 3.总记录数</div><div class="line">	 * select count(*) from t_book where</div><div class="line">	 */</div><div class="line">	<span class="keyword">String</span> sql = <span class="string">"select count(*) from t_book "</span> + whereSql;</div><div class="line">	Number number = (Number)qr.query(sql,<span class="keyword">new</span> ScalarHandler(),params.toArray());</div><div class="line">	<span class="built_in">int</span> tr = number.intValue();<span class="comment">//	得到了总记录数</span></div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 4.得到beanList，即当前页记录</div><div class="line">	 */</div><div class="line">	 sql = <span class="string">"select * from t_book "</span> + whereSql + <span class="string">" order by orderBy limit ?,?"</span>;</div><div class="line">	params.<span class="built_in">add</span>((pc<span class="number">-1</span>)*ps);<span class="comment">//第一个问号，当前页首行记录的下标</span></div><div class="line">	params.<span class="built_in">add</span>(ps);<span class="comment">//第二个问号</span></div><div class="line">	List&lt;Book&gt; beanList =</div><div class="line">	qr.query(sql,<span class="keyword">new</span> BeanListHandler&lt;Book&gt;(Book.class),params.toArray());</div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 5.创建PageBean,设置参数</div><div class="line">	 * 其中PageBean没有url，由servlet完成</div><div class="line">	 */</div><div class="line">	PageBean&lt;Book&gt; pb = <span class="keyword">new</span> PageBean&lt;Book&gt;();</div><div class="line">	pb.setBeanList(beanList);</div><div class="line">	pb.setPc(pc);</div><div class="line">	pb.setTr(tr);</div><div class="line">	pb.setPs(ps);</div><div class="line">	<span class="keyword">return</span> pb;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里得到的PageBean<book>对象pb包含了一个pc(当前页码)、ps(每页记录数)、tr(总记录数)、beanList(List<book>当前页的记录);<br>其中url是没有设置的;在servlet层会得到这个pb对象，然后再设置url,传到JSP,JSP又根据这个url在后端执行代码。这样整个pageBean就做好了。</book></book></p>
+<h1 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h1><p>第二种分页技术是我在一个OA系统项目(用了SSH框架)上用的，对比上面那种有所不同。贴上代码:</p>
+<p>pageBean类:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> yh.oa.domain;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 分页功能中的一页的信息</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> tyg</div><div class="line"> * </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageBean</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// 指定的或是页面参数</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> currentPage; <span class="comment">// 当前页</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> pageSize; <span class="comment">// 每页显示多少条</span></div><div class="line"></div><div class="line">	<span class="comment">// 查询数据库</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> recordCount; <span class="comment">// 总记录数</span></div><div class="line">	<span class="keyword">private</span> List recordList; <span class="comment">// 本页的数据列表</span></div><div class="line"></div><div class="line">	<span class="comment">// 计算</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> pageCount; <span class="comment">// 总页数</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> beginPageIndex; <span class="comment">// 页码列表的开始索引（包含）</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> endPageIndex; <span class="comment">// 页码列表的结束索引（包含）</span></div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 只接受前4个必要的属性，会自动的计算出其他3个属性的值</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> currentPage</div><div class="line">	 * <span class="doctag">@param</span> pageSize</div><div class="line">	 * <span class="doctag">@param</span> recordCount</div><div class="line">	 * <span class="doctag">@param</span> recordList</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PageBean</span><span class="params">(<span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize, <span class="keyword">int</span> recordCount, List recordList)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.currentPage = currentPage;</div><div class="line">		<span class="keyword">this</span>.pageSize = pageSize;</div><div class="line">		<span class="keyword">this</span>.recordCount = recordCount;</div><div class="line">		<span class="keyword">this</span>.recordList = recordList;</div><div class="line"></div><div class="line">		<span class="comment">// 计算总页码</span></div><div class="line">		pageCount = (recordCount + pageSize - <span class="number">1</span>) / pageSize;</div><div class="line"></div><div class="line">		<span class="comment">// 计算 beginPageIndex 和 endPageIndex</span></div><div class="line">		<span class="comment">// &gt;&gt; 总页数不多于10页，则全部显示</span></div><div class="line">		<span class="keyword">if</span> (pageCount &lt;= <span class="number">10</span>) &#123;</div><div class="line">			beginPageIndex = <span class="number">1</span>;</div><div class="line">			endPageIndex = pageCount;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">// &gt;&gt; 总页数多于10页，则显示当前页附近的共10个页码</span></div><div class="line">		<span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// 当前页附近的共10个页码（前4个 + 当前页 + 后5个）</span></div><div class="line">			beginPageIndex = currentPage - <span class="number">4</span>;</div><div class="line">			endPageIndex = currentPage + <span class="number">5</span>;</div><div class="line">			<span class="comment">// 当前面的页码不足4个时，则显示前10个页码</span></div><div class="line">			<span class="keyword">if</span> (beginPageIndex &lt; <span class="number">1</span>) &#123;</div><div class="line">				beginPageIndex = <span class="number">1</span>;</div><div class="line">				endPageIndex = <span class="number">10</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 当后面的页码不足5个时，则显示后10个页码</span></div><div class="line">			<span class="keyword">if</span> (endPageIndex &gt; pageCount) &#123;</div><div class="line">				endPageIndex = pageCount;</div><div class="line">				beginPageIndex = pageCount - <span class="number">10</span> + <span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> List <span class="title">getRecordList</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> recordList;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRecordList</span><span class="params">(List recordList)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.recordList = recordList;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCurrentPage</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> currentPage;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCurrentPage</span><span class="params">(<span class="keyword">int</span> currentPage)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.currentPage = currentPage;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPageCount</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> pageCount;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPageCount</span><span class="params">(<span class="keyword">int</span> pageCount)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.pageCount = pageCount;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPageSize</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> pageSize;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPageSize</span><span class="params">(<span class="keyword">int</span> pageSize)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.pageSize = pageSize;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRecordCount</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> recordCount;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRecordCount</span><span class="params">(<span class="keyword">int</span> recordCount)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.recordCount = recordCount;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBeginPageIndex</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> beginPageIndex;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeginPageIndex</span><span class="params">(<span class="keyword">int</span> beginPageIndex)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.beginPageIndex = beginPageIndex;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getEndPageIndex</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> endPageIndex;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEndPageIndex</span><span class="params">(<span class="keyword">int</span> endPageIndex)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.endPageIndex = endPageIndex;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>pageView.jsp<br><figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@ page language=<span class="string">"java"</span> import=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"utf-8"</span></span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="ruby">@ taglib prefix=<span class="string">"s"</span> uri=<span class="string">"/struts-tags"</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">PageSelectorBar</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">PageSelectorMemo</span>&gt;</span></div><div class="line">		页次：$&#123;currentPage&#125;/$&#123;pageCount &#125;页 &amp;nbsp;</div><div class="line">		每页显示：$&#123;pageSize &#125;条 &amp;nbsp;</div><div class="line">		总记录数：$&#123;recordCount &#125;条</div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">PageSelectorSelectorArea</span>&gt;</span></div><div class="line">	</div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: gotoPage(1)"</span> <span class="attr">title</span>=<span class="string">"首页"</span> <span class="attr">style</span>=<span class="string">"cursor: hand;"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"$&#123;pageContext.request.contextPath&#125;/style/blue/images/pageSelector/firstPage.png"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">begin</span>=<span class="string">"%&#123;beginPageIndex&#125;"</span> <span class="attr">end</span>=<span class="string">"%&#123;endPageIndex&#125;"</span> <span class="attr">var</span>=<span class="string">"num"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">s:if</span> <span class="attr">test</span>=<span class="string">"#num == currentPage"</span>&gt;</span> <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 当前页 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">				<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"PageSelectorNum PageSelectorSelected"</span>&gt;</span>$&#123;num&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">s:if</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">s:else</span>&gt;</span> <span class="tag">&lt;<span class="name">%-</span></span><span class="ruby">- 非当前页 -</span><span class="xml"><span class="tag"><span class="attr">-</span>%&gt;</span></span></div><div class="line">				<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"PageSelectorNum"</span> <span class="attr">style</span>=<span class="string">"cursor: hand;"</span> <span class="attr">onClick</span>=<span class="string">"gotoPage($&#123;num&#125;);"</span>&gt;</span>$&#123;num&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">s:else</span>&gt;</span></div><div class="line">			</div><div class="line">		<span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript: gotoPage($&#123;pageCount&#125;)"</span> <span class="attr">title</span>=<span class="string">"尾页"</span> <span class="attr">style</span>=<span class="string">"cursor: hand;"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"$&#123;pageContext.request.contextPath&#125;/style/blue/images/pageSelector/lastPage.png"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">		</div><div class="line">		转到：</div><div class="line">		<span class="tag">&lt;<span class="name">select</span> <span class="attr">onchange</span>=<span class="string">"gotoPage(this.value)"</span> <span class="attr">id</span>=<span class="string">"_pn"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">s:iterator</span> <span class="attr">begin</span>=<span class="string">"1"</span> <span class="attr">end</span>=<span class="string">"%&#123;pageCount&#125;"</span> <span class="attr">var</span>=<span class="string">"num"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"$&#123;num&#125;"</span>&gt;</span>$&#123;num&#125;<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">s:iterator</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">			$(<span class="string">"#_pn"</span>).val(<span class="string">"$&#123;currentPage&#125;"</span>);</div><div class="line">		<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">		</div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">gotoPage</span>(<span class="params"> pageNum </span>)</span>&#123;</div><div class="line">		$(<span class="built_in">document</span>.forms[<span class="number">0</span>]).append(<span class="string">"&lt;input type='hidden' name='pageNum' value='"</span> + pageNum +<span class="string">"'&gt;"</span>);</div><div class="line">		<span class="built_in">document</span>.forms[<span class="number">0</span>].submit();</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>JSP页面效果展示:<br><img src="/uploads/page2.jpg" alt=""><br>这里的数据是从pageBean得到的。</p>
+<p><img src="/uploads/page3.jpg" alt=""><br>这里的页码，首页，尾页和转到第几页都可以点，并跳到相应的页码，分页技术的重点也在这里。<br>pageView.jsp的代码也主要说下页码，首页，尾页和转到第几页的url;按页码举例:<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">onClick=<span class="string">"gotoPage($&#123;num&#125;);</span></div></pre></td></tr></table></figure></p>
+<p>所以整个分页技术的核心在gotoPage(${num})这个function上。<br>再来贴一下这个function:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gotoPage</span>(<span class="params"> pageNum </span>)</span>&#123;	</div><div class="line">	$(<span class="built_in">document</span>.forms[<span class="number">0</span>]).append(<span class="string">"&lt;input type='hidden' name='pageNum' value='"</span> + pageNum +<span class="string">"'&gt;"</span>);</div><div class="line">	<span class="built_in">document</span>.forms[<span class="number">0</span>].submit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>分析一下，第2行代码增加了一个隐藏的输入框,name是pageNum;value是页码(数字);<br>第3行代码做了一个提交的操作。注意:pageView.jsp中并没有form表单,因为它只是一个块，真正使用是在show.jsp中,<br>show.jsp也列出了每页的信息;下面贴出部分show.jsp的代码:<br><figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">s:form</span> <span class="attr">action</span>=<span class="string">"forum_show?id=%&#123;id&#125;"</span>&gt;</span></span></div><div class="line">//略</div><div class="line"><span class="tag">&lt;/<span class="name">s:form</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--分页信息--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="ruby">@ <span class="keyword">include</span> file=<span class="string">"/WEB-INF/jsp/public/pageView.jspf"</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>可以知道document.forms[0].submit();执行之后,提交了表单,并且加了一个值为页码的参数pageNum;<br>接下来看struts.xml代码:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;action <span class="built_in">name</span>=<span class="string">"forum_*"</span> <span class="built_in">class</span>=<span class="string">"forumAction"</span> method=<span class="string">"&#123;1&#125;"</span>&gt;</div><div class="line">	&lt;<span class="literal">result</span> <span class="built_in">name</span>=<span class="string">"list"</span>&gt;/WEB-INF/jsp/forumAction/<span class="built_in">list</span>.jsp&lt;/<span class="literal">result</span>&gt;</div><div class="line">	&lt;<span class="literal">result</span> <span class="built_in">name</span>=<span class="string">"show"</span>&gt;/WEB-INF/jsp/forumAction/show.jsp&lt;/<span class="literal">result</span>&gt;</div><div class="line">&lt;/action&gt;</div></pre></td></tr></table></figure></p>
+<p>可以知道上面表单提交之后其实是去了forumAction的show方法;<br>看servlet代码:<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/** 显示单个版块（主题列表） */</div><div class="line">public String show<span class="params">()</span> throws Exception &#123;</div><div class="line">	<span class="string">//</span> 准备数据：forum</div><div class="line">	Forum forum = forumService.getById<span class="params">(model.getId()</span>);</div><div class="line">	ActionContext.getContext<span class="params">()</span><span class="string">.put</span><span class="params">("forum", forum)</span>;</div><div class="line">	<span class="string">//</span> 准备分页信息 </div><div class="line">	new QueryHelper<span class="params">(Topic.class, "t")</span><span class="string">//</span></div><div class="line">			<span class="string">//</span> 过滤条件</div><div class="line">			<span class="string">.addCondition</span><span class="params">("t.<span class="attr">forum</span>=?", forum)</span><span class="string">//</span></div><div class="line">			<span class="string">.addCondition</span><span class="params">((<span class="attr">viewType</span> == 1)</span>, <span class="string">"t.type=?"</span>, Topic.TYPE_BEST) <span class="string">//</span> 1 表示只看精华帖</div><div class="line">			<span class="string">//</span> 排序条件</div><div class="line">			<span class="string">.addOrderProperty</span><span class="params">((<span class="attr">orderBy</span> == 1)</span>, <span class="string">"t.lastUpdateTime"</span>, asc) <span class="string">//</span> 1 表示只按最后更新时间排序</div><div class="line">			<span class="string">.addOrderProperty</span><span class="params">((<span class="attr">orderBy</span> == 2)</span>, <span class="string">"t.postTime"</span>, asc) <span class="string">//</span> 2 表示只按主题发表时间排序</div><div class="line">			<span class="string">.addOrderProperty</span><span class="params">((<span class="attr">orderBy</span> == 3)</span>, <span class="string">"t.replyCount"</span>, asc) <span class="string">//</span> 3 表示只按回复数量排序</div><div class="line">			<span class="string">.addOrderProperty</span><span class="params">((<span class="attr">orderBy</span> == 0)</span>, <span class="string">"(CASE t.type WHEN 2 THEN 2 ELSE 0 END)"</span>, <span class="literal">false</span>)<span class="string">//</span></div><div class="line">			<span class="string">.addOrderProperty</span><span class="params">((<span class="attr">orderBy</span> == 0)</span>, <span class="string">"t.lastUpdateTime"</span>, <span class="literal">false</span>) <span class="string">//</span> 0 表示默认排序<span class="params">(所有置顶帖在前面，并按最后更新时间降序排列)</span></div><div class="line">			<span class="string">.preparePageBean</span><span class="params">(topicService, pageNum, pageSize)</span>;</div><div class="line"></div><div class="line">	return <span class="string">"show"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个代码中其实只有preparePageBean(topicService, pageNum, pageSize)与分页有关,不过为了便于对show方法的理解,我将贴上QueryHelper类的代码:<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> yh.oa.util;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">import</span> yh.oa.base.DaoSupport;</div><div class="line"><span class="keyword">import</span> yh.oa.domain.PageBean;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.opensymphony.xwork2.ActionContext;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 用于辅助拼接HQL语句</div><div class="line"> * </div><div class="line"> * @author tyg</div><div class="line"> * </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class QueryHelper &#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">String</span> fromClause; <span class="comment">// FROM子句</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">String</span> whereClause = <span class="string">""</span>; <span class="comment">// Where子句</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">String</span> orderByClause = <span class="string">""</span>; <span class="comment">// OrderBy子句</span></div><div class="line"></div><div class="line">	<span class="keyword">private</span> List&lt;<span class="keyword">Object</span>&gt; parameters = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">Object</span>&gt;(); <span class="comment">// 参数列表</span></div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 生成From子句</div><div class="line">	 * </div><div class="line">	 * @param clazz</div><div class="line">	 * @param alias</div><div class="line">	 *            别名</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> QueryHelper(Class clazz, <span class="keyword">String</span> alias) &#123;</div><div class="line">		fromClause = <span class="string">"FROM "</span> + clazz.getSimpleName() + <span class="string">" "</span> + alias;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 拼接Where子句</div><div class="line">	 * </div><div class="line">	 * @param condition</div><div class="line">	 * @param params</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> QueryHelper addCondition(<span class="keyword">String</span> condition, <span class="keyword">Object</span>... params) &#123;</div><div class="line">		<span class="comment">// 拼接</span></div><div class="line">		<span class="keyword">if</span> (whereClause.length() == <span class="number">0</span>) &#123;</div><div class="line">			whereClause = <span class="string">" WHERE "</span> + condition;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			whereClause += <span class="string">" AND "</span> + condition;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// 参数</span></div><div class="line">		<span class="keyword">if</span> (params != <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">Object</span> p : params) &#123;</div><div class="line">				parameters.<span class="built_in">add</span>(p);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 如果第一个参数为true，则拼接Where子句</div><div class="line">	 * </div><div class="line">	 * @param append</div><div class="line">	 * @param condition</div><div class="line">	 * @param params</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> QueryHelper addCondition(<span class="built_in">boolean</span> <span class="built_in">append</span>, <span class="keyword">String</span> condition, <span class="keyword">Object</span>... params) &#123;</div><div class="line">		<span class="keyword">if</span> (<span class="built_in">append</span>) &#123;</div><div class="line">			addCondition(condition, params);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 拼接OrderBy子句</div><div class="line">	 * </div><div class="line">	 * @param propertyName</div><div class="line">	 *            参与排序的属性名</div><div class="line">	 * @param asc</div><div class="line">	 *            true表示升序，false表示降序</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> QueryHelper addOrderProperty(<span class="keyword">String</span> propertyName, <span class="built_in">boolean</span> asc) &#123;</div><div class="line">		<span class="keyword">if</span> (orderByClause.length() == <span class="number">0</span>) &#123;</div><div class="line">			orderByClause = <span class="string">" ORDER BY "</span> + propertyName + (asc ? <span class="string">" ASC"</span> : <span class="string">" DESC"</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			orderByClause += <span class="string">", "</span> + propertyName + (asc ? <span class="string">" ASC"</span> : <span class="string">" DESC"</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 如果第一个参数为true，则拼接OrderBy子句</div><div class="line">	 * </div><div class="line">	 * @param append</div><div class="line">	 * @param propertyName</div><div class="line">	 * @param asc</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> QueryHelper addOrderProperty(<span class="built_in">boolean</span> <span class="built_in">append</span>, <span class="keyword">String</span> propertyName, <span class="built_in">boolean</span> asc) &#123;</div><div class="line">		<span class="keyword">if</span> (<span class="built_in">append</span>) &#123;</div><div class="line">			addOrderProperty(propertyName, asc);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取生成的用于查询数据列表的HQL语句</div><div class="line">	 * </div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">String</span> getListQueryHql() &#123;</div><div class="line">		<span class="keyword">return</span> fromClause + whereClause + orderByClause;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取生成的用于查询总记录数的HQL语句</div><div class="line">	 * </div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">String</span> getCountQueryHql() &#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"SELECT COUNT(*) "</span> + fromClause + whereClause;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取HQL中的参数值列表</div><div class="line">	 * </div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> List&lt;<span class="keyword">Object</span>&gt; getParameters() &#123;</div><div class="line">		<span class="keyword">return</span> parameters;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查询分页信息，并放到值栈栈顶</div><div class="line">	 * </div><div class="line">	 * @param service</div><div class="line">	 * @param pageNum</div><div class="line">	 * @param pageSize</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> preparePageBean(DaoSupport&lt;?&gt; service, <span class="built_in">int</span> pageNum, <span class="built_in">int</span> pageSize) &#123;</div><div class="line">		PageBean pageBean = service.getPageBean(pageNum, pageSize, <span class="keyword">this</span>);</div><div class="line">		ActionContext.getContext().getValueStack().push(pageBean);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>与分页有关的方法是QueryHelper的最后一个方法preparePageBean,这个方法传了3个参数进去:service,页码,每页条数;<br>因为service参数传的是对象topicService。可以知道是从topicService对象中调用getPageBean方法。<br>贴上TopicServiceImpl类中的getPageBean方法代码:<br><figure class="highlight zephir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> PageBean getPageBeanByForum(<span class="keyword">int</span> pageNum, <span class="keyword">int</span> pageSize, Forum forum) &#123;</div><div class="line"></div><div class="line">	<span class="comment">// 查询本页的数据列表</span></div><div class="line">	<span class="keyword">List</span> <span class="keyword">list</span> = getSession().createQuery(<span class="comment">//</span></div><div class="line">			<span class="string">"FROM Topic t WHERE t.forum=? ORDER BY (CASE t.type WHEN 2 THEN 2 ELSE 0 END) DESC, t.lastUpdateTime DESC"</span>)<span class="comment">//</span></div><div class="line">			.setParameter(<span class="number">0</span>, forum)<span class="comment">//</span></div><div class="line">			.setFirstResult((pageNum - <span class="number">1</span>) * pageSize)<span class="comment">//</span></div><div class="line">			.setMaxResults(pageSize)<span class="comment">//</span></div><div class="line">			.<span class="keyword">list</span>();</div><div class="line"></div><div class="line">	<span class="comment">// 查询总记录数量</span></div><div class="line">	<span class="keyword">Long</span> count = (<span class="keyword">Long</span>) getSession().createQuery(<span class="comment">//</span></div><div class="line">			<span class="string">"SELECT COUNT(*) FROM Topic t WHERE t.forum=?"</span>)<span class="comment">//</span></div><div class="line">			.setParameter(<span class="number">0</span>, forum)<span class="comment">//</span></div><div class="line">			.uniqueResult();</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> PageBean(pageNum, pageSize, count.intValue(), <span class="keyword">list</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个方法执行完，会返回一个知道了当前页码，每页显示多少条，总记录数以及本页的数据列表的PageBean对象；<br>而这4个属性知道后，可以自动计算出后面的3个属性:总页数，页码的开始索引，结束索引。<br>最终这个PageBean对象会被传递到JSP页面，显示效果。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>比较上述两种方法:<br>PageBean<strong><em>相同点</em></strong>:两个PageBean类都包含当前页码、每页记录数、总记录数、本页的数据列表四个属性。总页码根据总记录数和每页记录数得到()。</p>
+<p>PageBean<strong><em>不同点</em></strong>(第一种PageBean简述为P1,第二种PageBean简述为P2):P1多了属性url，在JSP中直接点击访问servlet方法获取PageBean再返回到JSP。P2没有这个url是因为点击页码的时候进行的是表单提交的操作，而对应要访问的方法写在了form的action中。P2比P1多了2个属性:页码列表的开始索引和结束索引，是因为第一种方法将这个计算放在了JSP中进行。<br>细节方面这里就不详细说了，个人觉得我第一种方法比较好，比较灵活，因为还用到了PageConstants类和Expression类;常量的设置比较便捷，并且能够根据各种条件查找相应的数据。第一种方法中P1中用了url的方式和第二种方法用表单提交的方式，个人感觉其实是差不多的，只是侧重的点不同罢了。单单从分页技术来看，我跟倾向于第一种方式，虽然可能复杂了点，但是使用起来更灵活，对于后期的维护和功能的修改是更有好处的。当然他们也有可以互相结合的地方，只是我当时没有想到而已。比如P1中可以多出页码列表的开始索引和结束索引，这样JSP页面就可以不必写的那么麻烦了。</p>
+<p>最后:在写代码的时候多做思考,一个会思考的程序员才能更快地成长！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/13/如何避免写出烂代码？/" rel="next" title="如何避免写出烂代码？">
+                <i class="fa fa-chevron-left"></i> 如何避免写出烂代码？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/15/Java线程/" rel="prev" title="Java线程">
+                Java线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一种"><span class="nav-number">1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二种"><span class="nav-number">2.</span> <span class="nav-text">第二种</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

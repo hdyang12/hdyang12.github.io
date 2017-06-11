@@ -1,0 +1,1040 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程,Hibernate," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Hibernate学习笔记">
+<meta name="keywords" content="编程,Hibernate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate">
+<meta property="og:url" content="http://yoursite.com/2016/02/23/hibernate/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="Hibernate学习笔记">
+<meta property="og:updated_time" content="2016-02-25T02:36:47.547Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hibernate">
+<meta name="twitter:description" content="Hibernate学习笔记">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/23/hibernate/"/>
+
+
+
+
+
+  <title>Hibernate | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/23/hibernate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-23T21:51:25+08:00">
+                2016-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/02/23/hibernate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/02/23/hibernate/" class="leancloud_visitors" data-flag-title="Hibernate">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,674 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Hibernate学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Hibernate-数据访问层"><a href="#Hibernate-数据访问层" class="headerlink" title="Hibernate(数据访问层)"></a>Hibernate(数据访问层)</h1><p><strong>概念:</strong>是数据访问层的框架,对JDBC进行了封装,是针对数据库访问提出的面向对象的解决方案(ORM);<br>使用Hibernate可以直接访问对象,将访问转换成SQL执行对象–&gt;数据库<br>Hibernate:采用数据库与Entity映射,对JDBC封装程度较重,自动生成SQL,对于基本的操作,开发效率高<br>MyBatis:采用SQL与Entity映射,对JDBC封装程度较轻,自己写SQL,更具灵活性<br><strong>Hibernate与MyBatis共同点</strong>:对JDBC进行了封装,采用ORM思想解决了Entity和数据库的映射问题<br>ORM思想:Object Relation Mapping对象关系映射(java对象和关系数据库直接的映射)<br>主配置文件:hibernate.cfg.xml;配置数据库连接参数,框架参数,映射关系文件;实体类,映射关系文件</p>
+<h2 id="Hibernate常用API"><a href="#Hibernate常用API" class="headerlink" title="Hibernate常用API"></a>Hibernate常用API</h2><p>Configuration,SessionFactory,Session,Transaction,Query</p>
+<h2 id="Hibernate主键生成方式"><a href="#Hibernate主键生成方式" class="headerlink" title="Hibernate主键生成方式"></a>Hibernate主键生成方式</h2><p>sequence:是采用序列方式生成主键,适用于Oracle数据库;<br>identity:采用数据库自增长机制生成主键,适用于Oracle之外的其他数据库<generator class="identity"><br>native:根据当前配置的数据库方言,自动选择sequence或者identity<br>increment:Hibernate提供的一种生成主键方式,获取当前表中主键的最大值,然后加1作为新的主键(在并发量高时,可能会生成重复的主键)<br>assigned:Hibernate不负责生成主键,需要程序员自己处理主键的生成。<br>uuid/hilo:采用uuid或hilo算法生成一个主键值,这个主键值是一个不规则的长数字</generator></p>
+<h2 id="创建Session工具类"><a href="#创建Session工具类" class="headerlink" title="创建Session工具类"></a>创建Session工具类</h2><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Configuration conf=new Configuration().configure(<span class="string">"/hibernate.cfg.xml"</span>)<span class="comment">;</span></div><div class="line"><span class="attribute">SessionFactory</span> = conf.buildSessionFactory()<span class="comment">;</span></div><div class="line"><span class="attribute">session</span> = SessionFactory.openSession()<span class="comment">;</span></div><div class="line">session.save(e)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<h2 id="开启事务"><a href="#开启事务" class="headerlink" title="开启事务"></a>开启事务</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Transaction ts</span> = session.beginTransaction();</div></pre></td></tr></table></figure>
+<h2 id="回滚事务"><a href="#回滚事务" class="headerlink" title="回滚事务"></a>回滚事务</h2><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ts.rollback()<span class="comment">;</span></div></pre></td></tr></table></figure>
+<h2 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h2><p>Hibernate创建每个Session对象时,都会给该Session分配一块独立的缓存区(一级缓存,Session级缓存),用于存放该Session查询出来的对象。<br>Session取数据时,会优先向缓存区取数据,没有才去数据库查询,降低数据库访问次数,提高代码效率。<br>一级缓存是Session独享,每个Session不能访问其他Session的缓存区,Session的save、update、delete操作会触发缓存更新。线程不安全</p>
+<h2 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h2><p>SessionFactory级别的缓存(全局),二级缓存的数据是Session间共享的。</p>
+<h2 id="延迟加载-提升内存资源利用率-降低对数据库访问次数"><a href="#延迟加载-提升内存资源利用率-降低对数据库访问次数" class="headerlink" title="延迟加载(提升内存资源利用率,降低对数据库访问次数)"></a>延迟加载(提升内存资源利用率,降低对数据库访问次数)</h2><p>在使用Hibernate方法查询数据时,返回的是一个空对象(只有id),只有在使用这个对象时,才会触发查询数据库,写入数据<br>使用延迟加载要<strong>避免Session提前关闭</strong>,要在视图层保持session的开启</p>
+<h2 id="关联映射"><a href="#关联映射" class="headerlink" title="关联映射"></a>关联映射</h2><h3 id="一对多关联"><a href="#一对多关联" class="headerlink" title="一对多关联"></a>一对多关联</h3><p>通过增/删/改/查一,自动增/删/改/查多<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- replies属性，本类与Reply的一对多--&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"replies"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">key</span> <span class="attr">column</span>=<span class="string">"topicId"</span>&gt;</span><span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">one-to-many</span> <span class="attr">class</span>=<span class="string">"Reply"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">set</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="多对一关联"><a href="#多对一关联" class="headerlink" title="多对一关联"></a>多对一关联</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- topic属性，本类与Topic的多对一--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">many-to-one</span> <span class="attr">name</span>=<span class="string">"topic"</span> <span class="attr">class</span>=<span class="string">"Topic"</span> <span class="attr">column</span>=<span class="string">"topicId"</span>&gt;</span><span class="tag">&lt;/<span class="name">many-to-one</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="多对多关联"><a href="#多对多关联" class="headerlink" title="多对多关联"></a>多对多关联</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- users属性，本类与User的多对多(Role类) --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"users"</span> <span class="attr">table</span>=<span class="string">"itcast_user_role"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">key</span> <span class="attr">column</span>=<span class="string">"roleId"</span>&gt;</span><span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">many-to-many</span> <span class="attr">class</span>=<span class="string">"User"</span> <span class="attr">column</span>=<span class="string">"userId"</span>&gt;</span><span class="tag">&lt;/<span class="name">many-to-many</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">set</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- roles属性，本类与Role的多对多(User类) --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"roles"</span> <span class="attr">table</span>=<span class="string">"itcast_user_role"</span> <span class="attr">lazy</span>=<span class="string">"false"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">key</span> <span class="attr">column</span>=<span class="string">"userId"</span>&gt;</span><span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">many-to-many</span> <span class="attr">class</span>=<span class="string">"Role"</span> <span class="attr">column</span>=<span class="string">"roleId"</span>&gt;</span><span class="tag">&lt;/<span class="name">many-to-many</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">set</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="一对一关联"><a href="#一对一关联" class="headerlink" title="一对一关联"></a>一对一关联</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"name"</span> /&gt;</div></pre></td></tr></table></figure>
+<h2 id="继承关联"><a href="#继承关联" class="headerlink" title="继承关联"></a>继承关联</h2><p>级联操作:通过关联映射,在对一方进行增删改查时,连带增删改关联的另一方数据。<code>(cascade=&quot;save-update/delete/all&quot;)</code></p>
+<h2 id="实体查询"><a href="#实体查询" class="headerlink" title="实体查询"></a>实体查询</h2><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="literal">void</span> testQueryAllDept()&#123;  </div><div class="line"><span class="built_in">String</span> hql=<span class="string">"from Employee"</span>;  </div><div class="line">       <span class="comment">//hql="from com.sh.Entity";  </span></div><div class="line">Query query=session.createQuery(hql);  </div><div class="line">  </div><div class="line"><span class="built_in">List</span>&lt;Employee&gt; <span class="built_in">list</span>= query.<span class="built_in">list</span>();  </div><div class="line">  </div><div class="line"><span class="comment">//...  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有条件的 实体查询 :<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="literal">void</span> testQueryAllDept()&#123;  </div><div class="line"><span class="built_in">String</span> hql=<span class="string">"from Deptas model where mode.deptName like '%部%' "</span>;  </div><div class="line">       <span class="comment">//hql="from com.sh.Entity";  </span></div><div class="line">Query query=session.createQuery(hql);  </div><div class="line">  </div><div class="line"><span class="built_in">List</span>&lt;Employee&gt; <span class="built_in">list</span>= query.<span class="built_in">list</span>();  </div><div class="line">  </div><div class="line"><span class="comment">//...  </span></div><div class="line">&#125; </div><div class="line"> <span class="keyword">public</span> <span class="literal">void</span> testQueryDeptByGt()&#123;  </div><div class="line">  </div><div class="line"> <span class="built_in">String</span> hql=<span class="string">"from Dept model where model.createDate&gt; '2012-03-10'"</span>;  </div><div class="line"> Query query=session.createQuery(hql);  </div><div class="line"> <span class="built_in">List</span>&lt;Employee&gt; <span class="built_in">list</span>= query.<span class="built_in">list</span>();  </div><div class="line"> &#125; </div><div class="line"> <span class="comment">// delete  删除  </span></div><div class="line"><span class="keyword">public</span> <span class="literal">void</span> testDelDeptByHql()&#123;  </div><div class="line">        Transaction tr=session.beginTransaction();  </div><div class="line">        <span class="built_in">String</span> hql=<span class="string">"delete Dept as model where model.deptId=6"</span>;  </div><div class="line">        Query query=session.createQuery(hql);  </div><div class="line">        query.executeUpdate();  </div><div class="line">        tr.commit();  </div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="属性查询"><a href="#属性查询" class="headerlink" title="属性查询"></a>属性查询</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">public void testQueryDeptName()&#123;  </div><div class="line">    String hql=<span class="string">"select model.deptName from Dept as model"</span>;  </div><div class="line">    <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery(hql);  </div><div class="line">    <span class="keyword">List</span>&lt;String&gt; deptNameList=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">    <span class="comment">//...  </span></div><div class="line">&#125;  </div><div class="line">       public void testQueryDeptName()&#123;  </div><div class="line">    String hql=<span class="string">"select model.deptName,model.createDate from Dept as model"</span>;  </div><div class="line">    <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery(hql);  </div><div class="line">    <span class="keyword">List</span>&lt;Object[]&gt; prsList=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">               <span class="keyword">for</span>()&#123;  </div><div class="line">               &#125;                 </div><div class="line">    <span class="comment">//...  </span></div><div class="line">&#125;  </div><div class="line">      </div><div class="line">   <span class="comment">//采用对象进行 保存 查询的字段(要添加 对应字段的构造方法)  </span></div><div class="line">    public void testQueryDeptName()&#123;  </div><div class="line">    String hql=<span class="string">"select new Dapt(model.deptName,model.createDate) from Dept as model"</span>;  </div><div class="line">    <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery(hql);  </div><div class="line">    <span class="keyword">List</span>&lt;Dept&gt; deptList=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">               <span class="keyword">for</span>(Dept <span class="keyword">d</span>:deptList)&#123;  </div><div class="line">                  </div><div class="line">                  <span class="keyword">d</span>.setDeptName(<span class="string">"test"</span>);  </div><div class="line">                  session.saveOrUpdate(dept);  </div><div class="line">               &#125;                 </div><div class="line">    <span class="comment">//...  </span></div><div class="line">&#125;  </div><div class="line">  </div><div class="line">      </div><div class="line">   <span class="comment">//如果采用对象 保存上面查询出来的对象  如果对其进行更新的操作 是不会成功的  </span></div><div class="line">  </div><div class="line">public void testSaveDept()&#123;  </div><div class="line">    Transction  tr=session.beginTransactino();  </div><div class="line">    String hql=<span class="string">"select new Dept(model.deptName,model.createDate) from Dept as model"</span>;  </div><div class="line">    <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery();  </div><div class="line">    <span class="keyword">List</span>&lt;Dept&gt; deptList=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">    <span class="keyword">for</span>(Dept dept:deptList)&#123;  </div><div class="line">        System.<span class="keyword">out</span>.println(dept.deptName);  </div><div class="line">        dept.setDetpName(<span class="string">"test"</span>);  </div><div class="line">        session.saveOrUpdate(dept);  </div><div class="line">    &#125;  </div><div class="line">    tr.commit();  </div><div class="line">      <span class="comment">// 最后 根本就没有更新 而是 在数据库中 插入 新的记录  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="查询单个对象"><a href="#查询单个对象" class="headerlink" title="查询单个对象"></a>查询单个对象</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> testQueryUn()&#123;  </div><div class="line">        <span class="keyword">String</span> hql=<span class="string">"select model.deptName from Dept as model where model.deptId=2"</span>;  </div><div class="line">        Query query=session.createQuery(hql);  </div><div class="line">        query.setMaxResults(<span class="number">1</span>);  </div><div class="line">        <span class="keyword">String</span> deptName=(<span class="keyword">String</span>)query.uniqueResult();  </div><div class="line">        System.out.<span class="built_in">println</span>(deptNamae);  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="绑定参数"><a href="#绑定参数" class="headerlink" title="绑定参数"></a>绑定参数</h2><ul>
+<li><p>使用 “:”加参数名 绑定参数</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public void  testQueryByParamsName()&#123;  </div><div class="line">           <span class="comment">//使用  ":参数名" 来传递参数  </span></div><div class="line">    String hql="from Dept <span class="keyword">as</span> model where   </div><div class="line">odel.deptName=:deptName and model.createDate=:createDate";  </div><div class="line">  </div><div class="line">    <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery(hql);  </div><div class="line">    <span class="keyword">query</span>.setString(<span class="string">"deptName"</span>,<span class="string">"test"</span>);  </div><div class="line">    <span class="keyword">query</span>.setString(<span class="string">"ceateDate"</span>,<span class="string">"2000-02-10"</span>);  </div><div class="line">    <span class="keyword">List</span>&lt;Dept&gt; deptList=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">    <span class="keyword">for</span>()&#123;&#125;  </div><div class="line">      </div><div class="line">    <span class="comment">//...  </span></div><div class="line">      </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用 “?” 按照位置来绑定参数</p>
+</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void testQueryByParamsID()&#123;  </div><div class="line">    String hql=<span class="string">"from Dept as model where model.deptName=? and model.createDate=?"</span>;  </div><div class="line">    <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery(hql);  </div><div class="line">    <span class="keyword">query</span>.setString(0,<span class="string">"test"</span>);  </div><div class="line">    <span class="keyword">query</span>.setString(1,<span class="string">"2000-02-02"</span>);  </div><div class="line">    <span class="keyword">List</span>&lt;Dept&gt; <span class="keyword">list</span>=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">    <span class="keyword">for</span>()&#123;&#125;  </div><div class="line">    <span class="comment">//..  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>采用setEntity() 将参数和一个持久化对象进行绑定</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public void testQueryByDept()&#123;  </div><div class="line">        Dept dept=(Dept)Session.<span class="built_in">get</span>(Dept.clas,new Integer(2));  </div><div class="line">        String hql=<span class="string">"select Employee  as model where model.dept=?"</span>  </div><div class="line">        <span class="keyword">Query</span> <span class="keyword">query</span>=session.createQuery(hql);  </div><div class="line">        <span class="keyword">query</span>.setEntity(0,dept);  </div><div class="line">        <span class="keyword">List</span>&lt;Employee&gt; empList=<span class="keyword">query</span>.<span class="keyword">list</span>();  </div><div class="line">        <span class="keyword">for</span>()&#123;&#125;  </div><div class="line">        <span class="comment">//..  </span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h1 id="注"><a href="#注" class="headerlink" title="注"></a>注</h1><p>用Query是不能insert的;<br>使用HQL语句来完成插入操作是不能实现的,不管你使用insert into….values…还是insert into…..select…..都不行<br>原因：因为Hibernate的HQL语言是用于面向对象实现查询功能的,然而在插入操作中是不会牵涉任何查询动作的,所以HQL不能用于insert语句的插入操作,而select、update、delete语句都可以有可能的查询实现,比如：<br>select语句时标准的查询,这个就不用再说了<br>update语句:update 对象名 set…..where……<br>delete语句:delete from 对象名 where …..<br>看到了没有,update与delete牵涉到where的查询筛选过程,这个过程是需要采用HQL来实现的,然而insert永远牵涉不到查询筛选过程，所以Hibernate没有对插入做insert实现。<br>update语句:<br>既然都用了hibernate支持类，就别拼hql语句了，直接set属性值，再调用getHibernateTemplate().update(obj)就行了~ </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/Hibernate/" rel="tag"># Hibernate</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/23/Linux命令行/" rel="next" title="Linux命令行">
+                <i class="fa fa-chevron-left"></i> Linux命令行
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/24/数据结构之树和二叉树/" rel="prev" title="数据结构之———树和二叉树">
+                数据结构之———树和二叉树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hibernate-数据访问层"><span class="nav-number">1.</span> <span class="nav-text">Hibernate(数据访问层)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hibernate常用API"><span class="nav-number">1.1.</span> <span class="nav-text">Hibernate常用API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hibernate主键生成方式"><span class="nav-number">1.2.</span> <span class="nav-text">Hibernate主键生成方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Session工具类"><span class="nav-number">1.3.</span> <span class="nav-text">创建Session工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启事务"><span class="nav-number">1.4.</span> <span class="nav-text">开启事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回滚事务"><span class="nav-number">1.5.</span> <span class="nav-text">回滚事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一级缓存"><span class="nav-number">1.6.</span> <span class="nav-text">一级缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二级缓存"><span class="nav-number">1.7.</span> <span class="nav-text">二级缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟加载-提升内存资源利用率-降低对数据库访问次数"><span class="nav-number">1.8.</span> <span class="nav-text">延迟加载(提升内存资源利用率,降低对数据库访问次数)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联映射"><span class="nav-number">1.9.</span> <span class="nav-text">关联映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一对多关联"><span class="nav-number">1.9.1.</span> <span class="nav-text">一对多关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对一关联"><span class="nav-number">1.9.2.</span> <span class="nav-text">多对一关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对多关联"><span class="nav-number">1.9.3.</span> <span class="nav-text">多对多关联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对一关联"><span class="nav-number">1.9.4.</span> <span class="nav-text">一对一关联</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承关联"><span class="nav-number">1.10.</span> <span class="nav-text">继承关联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体查询"><span class="nav-number">1.11.</span> <span class="nav-text">实体查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性查询"><span class="nav-number">1.12.</span> <span class="nav-text">属性查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询单个对象"><span class="nav-number">1.13.</span> <span class="nav-text">查询单个对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定参数"><span class="nav-number">1.14.</span> <span class="nav-text">绑定参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注"><span class="nav-number">2.</span> <span class="nav-text">注</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

@@ -1,0 +1,1103 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="分布式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="详细描述如何快速搭建一个Storm集群(搭建Zookeeper集群及安装Storm)">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Storm集群安装部署步骤">
+<meta property="og:url" content="http://yoursite.com/2016/05/11/Storm集群安装部署步骤/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="详细描述如何快速搭建一个Storm集群(搭建Zookeeper集群及安装Storm)">
+<meta property="og:image" content="http://yoursite.com/uploads/storm1.jpg">
+<meta property="og:updated_time" content="2016-05-15T13:24:43.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Storm集群安装部署步骤">
+<meta name="twitter:description" content="详细描述如何快速搭建一个Storm集群(搭建Zookeeper集群及安装Storm)">
+<meta name="twitter:image" content="http://yoursite.com/uploads/storm1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/11/Storm集群安装部署步骤/"/>
+
+
+
+
+
+  <title>Storm集群安装部署步骤 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/11/Storm集群安装部署步骤/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Storm集群安装部署步骤</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-11T12:50:25+08:00">
+                2016-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Storm/" itemprop="url" rel="index">
+                    <span itemprop="name">Storm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/05/11/Storm集群安装部署步骤/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/05/11/Storm集群安装部署步骤/" class="leancloud_visitors" data-flag-title="Storm集群安装部署步骤">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,606 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  详细描述如何快速搭建一个Storm集群(搭建Zookeeper集群及安装Storm)
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Storm集群组件"><a href="#Storm集群组件" class="headerlink" title="Storm集群组件"></a>Storm集群组件</h1><p>Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）。其分别对应的角色如下：</p>
+<ul>
+<li>主控节点（Master Node）上运行一个被称为Nimbus的后台程序，它负责在Storm集群内分发代码，分配任务给工作机器，并且负责监控集群运行状态。Nimbus的作用类似于Hadoop中JobTracker的角色。</li>
+<li>每个工作节点（Work Node）上运行一个被称为Supervisor的后台程序。Supervisor负责监听从Nimbus分配给它执行的任务，据此启动或停止执行任务的工作进程。每一个工作进程执行一个Topology的子集；一个运行中的Topology由分布在不同工作节点上的多个工作进程组成。</li>
+</ul>
+<p><img src="/uploads/storm1.jpg" alt=""><br>Nimbus和Supervisor节点之间所有的协调工作是通过Zookeeper集群来实现的。此外，Nimbus和Supervisor进程都是快速失败（fail-fast)和无状态（stateless）的；Storm集群所有的状态要么在Zookeeper集群中，要么存储在本地磁盘上。这意味着你可以用kill -9来杀死Nimbus和Supervisor进程，它们在重启后可以继续工作。这个设计使得Storm集群拥有不可思议的稳定性。</p>
+<h1 id="安装Storm集群"><a href="#安装Storm集群" class="headerlink" title="安装Storm集群"></a>安装Storm集群</h1><p>依次完成的安装步骤：</p>
+<ul>
+<li>搭建Zookeeper集群；</li>
+<li>安装Storm依赖库；</li>
+<li>下载并解压Storm发布版本；</li>
+<li>修改storm.yaml配置文件；</li>
+<li>启动Storm各个后台进程。</li>
+</ul>
+<h2 id="搭建Zookeeper集群"><a href="#搭建Zookeeper集群" class="headerlink" title="搭建Zookeeper集群"></a>搭建Zookeeper集群</h2><p>Storm使用Zookeeper协调集群，由于Zookeeper并不用于消息传递，所以Storm给Zookeeper带来的压力相当低。大多数情况下，单个节点的Zookeeper集群足够胜任，不过为了确保故障恢复或者部署大规模Storm集群，可能需要更大规模节点的Zookeeper集群（对于Zookeeper集群的话，官方推荐的最小节点数为3个）。在Zookeeper集群的每台机器上完成以下安装部署步骤：</p>
+<ul>
+<li>下载安装Java JDK，官方下载链接为点击<a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank" rel="external">这里</a>，JDK版本为JDK 6或以上。</li>
+<li>根据Zookeeper集群的负载情况，合理设置Java堆大小，尽可能避免发生swap，导致Zookeeper性能下降。保守期间，4GB内存的机器可以为Zookeeper分配3GB最大堆空间。</li>
+<li>下载后解压安装Zookeeper包，官方下载链接点击<a href="http://hadoop.apache.org/zookeeper/releases.html" target="_blank" rel="external">这里</a></li>
+<li>根据Zookeeper集群节点情况，创建如下格式的Zookeeper配置文件zoo.cfg：<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">dataDir=/var/zookeeper/config</div><div class="line">clientPort=2181</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line"><span class="section">server.1=zoo1:2888:3888		//server.1=192.168.111.101:2888:3888	</span></div><div class="line"><span class="section">server.2=zoo2:2888:3888		//server.2=192.168.111.102:2888:3888	</span></div><div class="line"><span class="section">server.3=zoo3:2888:3888		//server.3=192.168.111.103:2888:3888</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中，dataDir指定Zookeeper的数据文件目录；其中server.id=host:port:port，id是为每个Zookeeper节点的编号，保存在dataDir目录下的myid文件中，zoo1~zoo3表示各个Zookeeper节点的hostname，第一个port是用于连接leader的端口，第二个port是用于leader选举的端口。</p>
+<ul>
+<li>在dataDir目录下创建myid文件，文件中只包含一行，且内容为该节点对应的server.id中的id编号。</li>
+<li>启动Zookeeper服务：<br>java -cp zookeeper.jar:lib/log4j-1.2.15.jar:conf \ org.apache.zookeeper.server.quorum.QuorumPeerMain zoo.cfg<br>也可以通过<strong>bin/zkServer.sh</strong>脚本启动Zookeeper服务。<br>7）通过Zookeeper客户端测试服务是否可用：<br>Java客户端下，执行如下命令：<br>java -cp zookeeper.jar:src/java/lib/log4j-1.2.15.jar:conf:src/java/lib/jline-0.9.94.jar \ org.apache.zookeeper.ZooKeeperMain -server 127.0.0.1:2181<br>也可以通过<strong>bin/zkCli.sh</strong>脚本启动Zookeeper Java客户端。</li>
+</ul>
+<p>注意事项：<br>由于Zookeeper是快速失败（fail-fast)的，且遇到任何错误情况，进程均会退出，因此，最好能通过监控程序将Zookeeper管理起来，保证Zookeeper退出后能被自动重启。<br>Zookeeper运行过程中会在dataDir目录下生成很多日志和快照文件，而Zookeeper运行进程并不负责定期清理合并这些文件，导致占用大量磁盘空间，因此，需要通过cron等方式定期清除没用的日志和快照文件。具体命令格式如下：<br>java -cp zookeeper.jar:log4j.jar:conf org.apache.zookeeper.server.PurgeTxnLog <datadir> <snapdir> -n <count><br>也可以在 zoo.cfg中加配置:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">autopurge.<span class="attribute">purgeInterval</span>=24</div></pre></td></tr></table></figure></count></snapdir></datadir></p>
+<h2 id="安装Storm依赖库"><a href="#安装Storm依赖库" class="headerlink" title="安装Storm依赖库"></a>安装Storm依赖库</h2><p>接下来，需要在Nimbus和Supervisor机器上安装Storm的依赖库，具体如下：</p>
+<p>ZeroMQ 2.1.7 – 请勿使用2.1.10版本，因为该版本的一些严重bug会导致Storm集群运行时出现奇怪的问题。少数用户在2.1.7版本会遇到”IllegalArgumentException”的异常，此时降为2.1.4版本可修复这一问题。<br>JZMQ<br>Java 6<br>Python 2.6.6<br>unzip<br>以上依赖库的版本是经过Storm测试的，Storm并不能保证在其他版本的Java或Python库下可运行。</p>
+<h3 id="安装ZMQ-2-1-7"><a href="#安装ZMQ-2-1-7" class="headerlink" title="安装ZMQ 2.1.7"></a>安装ZMQ 2.1.7</h3><p>下载后编译安装ZMQ：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">wget http:<span class="comment">//download.zeromq.org/zeromq-2.1.7.tar.gz</span></div><div class="line">tar -xzf zeromq-<span class="number">2.1</span>.<span class="number">7</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></div><div class="line">cd zeromq-<span class="number">2.1</span>.<span class="number">7</span></div><div class="line">./configure</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure></p>
+<p>注意事项：</p>
+<ol>
+<li>如果安装过程报错uuid找不到，则通过如下的包安装uuid库：<br>sudo yum install e2fsprogsl  -b current<br>sudo yum install e2fsprogs-devel  -b current<h3 id="安装JZMQ"><a href="#安装JZMQ" class="headerlink" title="安装JZMQ"></a>安装JZMQ</h3></li>
+</ol>
+<p>下载后编译安装JZMQ：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/nathanmarz/jzmq.git</div><div class="line"><span class="keyword">cd</span> jzmq</div><div class="line">./autogen.<span class="keyword">sh</span></div><div class="line">./configure</div><div class="line"><span class="keyword">make</span></div><div class="line">sudo <span class="keyword">make</span> install</div></pre></td></tr></table></figure></p>
+<p>为了保证JZMQ正常工作，可能需要完成以下配置：</p>
+<ul>
+<li>正确设置 JAVA_HOME环境变量</li>
+<li>安装Java开发包</li>
+<li>升级autoconf</li>
+</ul>
+<h3 id="安装Java-6"><a href="#安装Java-6" class="headerlink" title="安装Java 6"></a>安装Java 6</h3><ul>
+<li>下载并安装JDK 6</li>
+<li>配置JAVA_HOME环境变量；</li>
+<li>运行java、javac命令，测试java正常安装。</li>
+</ul>
+<h3 id="安装Python2-6-6"><a href="#安装Python2-6-6" class="headerlink" title="安装Python2.6.6"></a>安装Python2.6.6</h3><ul>
+<li>下载Python2.6.6：<br>点击<a href="http://www.python.org/ftp/python/2.6.6/Python-2.6.6.tar.bz2" target="_blank" rel="external">这里</a></li>
+<li><p>编译安装Python2.6.6：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tar –jxvf Python<span class="number">-2.6</span><span class="number">.6</span>.tar.bz2</div><div class="line">cd Python<span class="number">-2.6</span><span class="number">.6</span></div><div class="line">./configure</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试Python2.6.6：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ python -V</div><div class="line">Python <span class="number">2.6</span><span class="number">.6</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装unzip"><a href="#安装unzip" class="headerlink" title="安装unzip"></a>安装unzip</h3><ul>
+<li><p>如果使用RedHat系列Linux系统，执行以下命令安装unzip：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-<span class="builtin-name">get</span> install unzip</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果使用Debian系列Linux系统，执行以下命令安装unzip：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">install</span> unzip</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="下载并解压Storm发布版本"><a href="#下载并解压Storm发布版本" class="headerlink" title="下载并解压Storm发布版本"></a>下载并解压Storm发布版本</h2><p>下一步，需要在Nimbus和Supervisor机器上安装Storm发行版本。</p>
+<ul>
+<li>下载Storm发行版本，推荐使用Storm0.9.6：</li>
+<li>解压到安装目录下：<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">unzip</span> <span class="selector-tag">storm-0</span><span class="selector-class">.8</span><span class="selector-class">.1</span><span class="selector-class">.zip</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="修改storm-yaml配置文件"><a href="#修改storm-yaml配置文件" class="headerlink" title="修改storm.yaml配置文件"></a>修改storm.yaml配置文件</h2><p>Storm发行版本解压目录下有一个conf/storm.yaml文件，用于配置Storm。默认配置在这里可以查看。conf/storm.yaml中的配置选项将覆盖defaults.yaml中的默认配置。以下配置选项是必须在conf/storm.yaml中进行配置的：</p>
+<ul>
+<li>storm.zookeeper.servers: Storm集群使用的Zookeeper集群地址，其格式如下：<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">storm</span><span class="selector-class">.zookeeper</span><span class="selector-class">.servers</span>:</div><div class="line">  <span class="selector-tag">-</span> "111<span class="selector-class">.222</span><span class="selector-class">.333</span><span class="selector-class">.444</span>"</div><div class="line">  <span class="selector-tag">-</span> "555<span class="selector-class">.666</span><span class="selector-class">.777</span><span class="selector-class">.888</span>"</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果Zookeeper集群使用的不是默认端口，那么还需要storm.zookeeper.port选项。</p>
+<ul>
+<li>storm.local.dir: Nimbus和Supervisor进程用于存储少量状态，如jars、confs等的本地磁盘目录，需要提前创建该目录并给以足够的访问权限。然后在storm.yaml中配置该目录，如：<br>storm.local.dir: “/home/admin/storm/workdir”</li>
+<li>java.library.path: Storm使用的本地库（ZMQ和JZMQ）加载路径，默认为”/usr/local/lib:/opt/local/lib:/usr/lib”，一般来说ZMQ和JZMQ默认安装在/usr/local/lib 下，因此不需要配置即可。</li>
+<li>nimbus.host: Storm集群Nimbus机器地址，各个Supervisor工作节点需要知道哪个机器是Nimbus，以便下载Topologies的jars、confs等文件，如：<br>nimbus.host: “111.222.333.444”</li>
+<li>supervisor.slots.ports: 对于每个Supervisor工作节点，需要配置该工作节点可以运行的worker数量。每个worker占用一个单独的端口用于接收消息，该配置选项即用于定义哪些端口是可被worker使用的。默认情况下，每个节点上可运行4个workers，分别在6700、6701、6702和6703端口，如：<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">supervisor.slots.ports:</div><div class="line">    -<span class="ruby"> <span class="number">6700</span></span></div><div class="line">    -<span class="ruby"> <span class="number">6701</span></span></div><div class="line">    -<span class="ruby"> <span class="number">6702</span></span></div><div class="line">    -<span class="ruby"> <span class="number">6703</span></span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="启动Storm各个后台进程"><a href="#启动Storm各个后台进程" class="headerlink" title="启动Storm各个后台进程"></a>启动Storm各个后台进程</h2><p>最后一步，启动Storm的所有后台进程。和Zookeeper一样，Storm也是快速失败（fail-fast)的系统，这样Storm才能在任意时刻被停止，并且当进程重启后被正确地恢复执行。这也是为什么Storm不在进程内保存状态的原因，即使Nimbus或Supervisors被重启，运行中的Topologies不会受到影响。</p>
+<p>以下是启动Storm各个后台进程的方式：</p>
+<p>Nimbus: 在Storm主控节点上运行”bin/storm nimbus &gt;/dev/null 2&gt;&amp;1 &amp;”启动Nimbus后台程序，并放到后台执行；<br>Supervisor: 在Storm各个工作节点上运行”bin/storm supervisor &gt;/dev/null 2&gt;&amp;1 &amp;”启动Supervisor后台程序，并放到后台执行；<br>UI: 在Storm主控节点上运行”bin/storm ui &gt;/dev/null 2&gt;&amp;1 &amp;”启动UI后台程序，并放到后台执行，启动后可以通过<a href="http://{nimbus" target="_blank" rel="external">http://{nimbus</a> host}:8080观察集群的worker资源使用情况、Topologies的运行状态等信息。<br>上述开启进程的方式可以写成.sh脚本的形式,如:start.sh; 开启的话 bash start.sh<br>注意事项：<br>Storm后台进程被启动后，将在Storm安装部署目录下的logs/子目录下生成各个进程的日志文件。<br>经测试，Storm UI必须和Storm Nimbus部署在同一台机器上，否则UI无法正常工作，因为UI进程会检查本机是否存在Nimbus链接。<br>为了方便使用，可以将bin/storm加入到系统环境变量中。<br>至此，Storm集群已经部署、配置完毕，可以向集群提交拓扑运行了。</p>
+<h2 id="storm启动验证"><a href="#storm启动验证" class="headerlink" title="storm启动验证"></a>storm启动验证</h2><p>启动storm集群后，访问storm ui (<a href="http://{nimbus" target="_blank" rel="external">http://{nimbus</a> host}:8080) ,若页面正常访问且supervisor全部启动则启动正常</p>
+<h1 id="向集群提交任务"><a href="#向集群提交任务" class="headerlink" title="向集群提交任务"></a>向集群提交任务</h1><p>1）启动Storm Topology：</p>
+<p>storm jar allmycode.jar org.me.MyTopology arg1 arg2 arg3<br>其中，allmycode.jar是包含Topology实现代码的jar包，org.me.MyTopology的main方法是Topology的入口，arg1、arg2和arg3为org.me.MyTopology执行时需要传入的参数。</p>
+<p>2）停止Storm Topology：</p>
+<p>storm kill {toponame}<br>其中，{toponame}为Topology提交到Storm集群时指定的Topology任务名称。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>主要要修改的地方:<br>zookeeper中<br>zoo.cfg的dataDir、Server list<br>保存在dataDir目录下的myid文件中的id和Server id相同</p>
+<p>Storm中:<br>conf下的storm.yaml中的:<br>storm.zookeeper.servers:安装了zookeeper的集群机子的ip<br>storm.local.dir:storm-local地址<br>supervisor.slots.ports:  slot端口<br>nimbus.host:nimbus所在的机子ip<br>drpc.servers:drpc所在的机子的ip<br>其中:nimbus所在的机子需要开启 nimbus、ui、supervisor、logviewer<br>     drpc所在的机子需要开启 drpc、supervisor、logviewer<br>     没有nimbus也没有drpc所在的机子需要开启supervisor、logviewer<br>容易出错的地方:<br>可能会由于没有权限的原因导致启动失败<br>chmod +x storm<br>chmod +x zkServer.sh</p>
+<p>可能会出现无法识别指令<br>./zkServer.sh start    需要在前面加 ./</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/10/一些想了解的书/" rel="next" title="一些了解的书">
+                <i class="fa fa-chevron-left"></i> 一些了解的书
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/20/Spring各个包的作用/" rel="prev" title="Spring各个包的作用">
+                Spring各个包的作用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Storm集群组件"><span class="nav-number">1.</span> <span class="nav-text">Storm集群组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Storm集群"><span class="nav-number">2.</span> <span class="nav-text">安装Storm集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建Zookeeper集群"><span class="nav-number">2.1.</span> <span class="nav-text">搭建Zookeeper集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Storm依赖库"><span class="nav-number">2.2.</span> <span class="nav-text">安装Storm依赖库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装ZMQ-2-1-7"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装ZMQ 2.1.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装JZMQ"><span class="nav-number">2.2.2.</span> <span class="nav-text">安装JZMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Java-6"><span class="nav-number">2.2.3.</span> <span class="nav-text">安装Java 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Python2-6-6"><span class="nav-number">2.2.4.</span> <span class="nav-text">安装Python2.6.6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装unzip"><span class="nav-number">2.2.5.</span> <span class="nav-text">安装unzip</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载并解压Storm发布版本"><span class="nav-number">2.3.</span> <span class="nav-text">下载并解压Storm发布版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改storm-yaml配置文件"><span class="nav-number">2.4.</span> <span class="nav-text">修改storm.yaml配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Storm各个后台进程"><span class="nav-number">2.5.</span> <span class="nav-text">启动Storm各个后台进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#storm启动验证"><span class="nav-number">2.6.</span> <span class="nav-text">storm启动验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向集群提交任务"><span class="nav-number">3.</span> <span class="nav-text">向集群提交任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

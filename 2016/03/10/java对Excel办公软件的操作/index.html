@@ -1,0 +1,1017 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程,Excel," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="介绍java如何通过jar包将数据存入或取出到Excel中">
+<meta name="keywords" content="编程,Excel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java对Excel办公软件的操作">
+<meta property="og:url" content="http://yoursite.com/2016/03/10/java对Excel办公软件的操作/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="介绍java如何通过jar包将数据存入或取出到Excel中">
+<meta property="og:updated_time" content="2016-05-20T00:14:57.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java对Excel办公软件的操作">
+<meta name="twitter:description" content="介绍java如何通过jar包将数据存入或取出到Excel中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/10/java对Excel办公软件的操作/"/>
+
+
+
+
+
+  <title>java对Excel办公软件的操作 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/10/java对Excel办公软件的操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java对Excel办公软件的操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-10T11:35:25+08:00">
+                2016-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/03/10/java对Excel办公软件的操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/03/10/java对Excel办公软件的操作/" class="leancloud_visitors" data-flag-title="java对Excel办公软件的操作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,386 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  介绍java如何通过jar包将数据存入或取出到Excel中
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>java操作excel的组件除了apache的poi，还有jexcelapi(jxl)。</p>
+<h2 id="jxl和poi区别"><a href="#jxl和poi区别" class="headerlink" title="jxl和poi区别"></a>jxl和poi区别</h2><p>POI为apache公司的一个子项目,主要是提供一组操作windows文档的Java API.<br>Java Excel俗称jxl是一开放源码项目，通过它Java开发人员可以读取Excel文件的内容、创建新的Excel文件、更新已经存在的Excel文件。使用该API非Windows操作系统也可以通过纯Java应用来处理Excel数据表。因为是使用Java编写的，所以我们在Web应用中可以通过JSP、Servlet来调用API实现对Excel数据表的访问。</p>
+<p>就这两者的区别,主要谈下JVM虚拟机内存消耗的情况.<br>数据量3000条数据,每条60列.JVM虚拟机内存大小64M.<br>使用POI:运行到2800条左右就报内存溢出.<br>使用JXL:3000条全部出来,并且内存还有21M的空间.<br>可想而知,在对内存的消耗方面差距还是挺大的.<br>也许是由于JXL在对资源回收利用方面做的还挺不错的.<br>关于两者效率方面,没有研究过,我想这个也是基于大数据量而言的,数据量小的话基本上差别不大,也不难被发觉.但是大的数据量,POI消耗的JVM内存远比JXL消耗的多.但相比提供的功能的话,JXL又相对弱了点.所以如果要实现的功能比较复杂的情况下可以考虑使用POI,但如果只想生成一些大数据量可以考虑使用JXL,或者CSV也是一个不错的选择,不过CSV并不是真正的excel.<br>其中jExcelAPI功能相对POI比较弱一点，但jExcelAPI对中文支持非常好，而且API是纯Java的，并不依赖Windows系统，即使运行在Linux下，它同样能够正确的处理Excel文件。<br>另外需要说明的是，jExcelAPI对图形和图表的支持很有限，而且仅仅识别PNG格式。</p>
+<h2 id="使用poi组件操作Excel"><a href="#使用poi组件操作Excel" class="headerlink" title="使用poi组件操作Excel"></a>使用poi组件操作Excel</h2><h3 id="网页下载案例"><a href="#网页下载案例" class="headerlink" title="网页下载案例"></a>网页下载案例</h3><p>Controller层代码:<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Excel下载</div><div class="line"> * @param response</div><div class="line"> * @throws Exception</div><div class="line"> */</div><div class="line">@RequestMapping(<span class="string">"/download"</span>)</div><div class="line"><span class="keyword">public</span> void excelDownload(HttpServletResponse response) throws Exception&#123;</div><div class="line">	ArrayList&lt;Student&gt; stuList = <span class="keyword">new</span> <span class="type">ArrayList</span>&lt;Student&gt;();</div><div class="line">	Student stu1 = <span class="keyword">new</span> <span class="type">Student</span>(<span class="string">"张三"</span>, <span class="string">"男"</span>, <span class="number">18</span>, <span class="keyword">new</span> <span class="type">Date</span>());</div><div class="line">	Student stu2 = <span class="keyword">new</span> <span class="type">Student</span>(<span class="string">"李四"</span>, <span class="string">"男"</span>, <span class="number">50</span>, <span class="keyword">new</span> <span class="type">Date</span>());</div><div class="line">	Student stu3 = <span class="keyword">new</span> <span class="type">Student</span>(<span class="string">"王五"</span>, <span class="string">"男"</span>, <span class="number">19</span>, <span class="keyword">new</span> <span class="type">Date</span>());</div><div class="line">	stuList.add(stu1);</div><div class="line">	stuList.add(stu2);</div><div class="line">	stuList.add(stu3);</div><div class="line">	<span class="keyword">String</span> fileName = <span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(<span class="string">"yyyyMMddhhmmssSSS"</span>).format(<span class="keyword">new</span> <span class="type">Date</span>());</div><div class="line">	fileName=<span class="string">"D:/"</span>+fileName+<span class="string">".xls"</span>;</div><div class="line">	System.out.println(<span class="string">"fileName:"</span>+fileName);</div><div class="line">	OutputStream out = <span class="keyword">new</span> <span class="type">FileOutputStream</span>(fileName);</div><div class="line">	<span class="comment">//放入一行头文件</span></div><div class="line">	<span class="keyword">String</span>[] headers = &#123;<span class="string">"姓名"</span>,<span class="string">"性别"</span>,<span class="string">"年龄"</span>,<span class="string">"日期"</span>&#125;;</div><div class="line">	<span class="keyword">String</span>[] params = &#123;<span class="string">"name"</span>,<span class="string">"sex"</span>,<span class="string">"age"</span>,<span class="string">"date"</span>&#125;;</div><div class="line">	<span class="keyword">String</span> str = <span class="string">"age:18,青年,50,中年;name:张三,张二"</span>;</div><div class="line">	<span class="keyword">String</span> timestr = <span class="string">"yyyy-MM-dd"</span>;</div><div class="line">	ExcelUtils.exportExcel(<span class="string">"测试"</span>, headers, params, stuList, Student.class, out, str, timestr);</div><div class="line">	<span class="comment">//上面已经将生成额excel放入到out中了;这个方法中的一个方法response.getOutputStream()可以得到out</span></div><div class="line">	ExcelUtils.download(fileName, response); </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ExcelUtils代码:<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> yh.utils;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.OutputStream;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"><span class="keyword">import</span> java.<span class="built_in">text</span>.SimpleDateFormat;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"><span class="keyword">import</span> java.util.<span class="keyword">HashMap</span>;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFCell;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFCellStyle;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFFont;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFRichTextString;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFRow;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFSheet;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.util.HSSFColor;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Excel的工具类 可分为4种：</div><div class="line"> * 1.包括：表格名,标题行内容,各标题对应的参数名,数据(用了泛型,保证通用性),实体对象的类型,用于反射,输出流(exportExcel)</div><div class="line"> * 2.包括：表格名,标题行内容,各标题对应的参数名,数据(用了泛型,保证通用性),实体对象的类型,用于反射,输出流,需要改变的内容(</div><div class="line"> * exportExcelChangeValue)</div><div class="line"> * 3.包括：表格名,标题行内容,各标题对应的参数名,数据(用了泛型,保证通用性),实体对象的类型,用于反射,输出流</div><div class="line"> * ,改变日期格式(exportExcelChangeDateFormat)</div><div class="line"> * 4.包括：表格名,标题行内容,各标题对应的参数名,数据(用了泛型,保证通用性),实体对象的类型</div><div class="line"> * ,用于反射,输出流,需要改变的内容,日期格式(exportExcel)</div><div class="line"> * </div><div class="line"> * @author YH</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class ExcelUtils &#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * </div><div class="line">	 * @param title</div><div class="line">	 *            表格名</div><div class="line">	 * @param headers</div><div class="line">	 *            标题行内容</div><div class="line">	 * @param params</div><div class="line">	 *            各标题对应的参数名</div><div class="line">	 * @param stuList</div><div class="line">	 *            数据(用了泛型,保证通用性)</div><div class="line">	 * @param clazz</div><div class="line">	 *            实体对象的类型,用于反射</div><div class="line">	 * @param out</div><div class="line">	 *            输出流</div><div class="line">	 * @throws Exception</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> exportExcel(<span class="keyword">String</span> title, <span class="keyword">String</span>[] headers,</div><div class="line">			<span class="keyword">String</span>[] params, ArrayList&lt;T&gt; stuList, Class&lt;T&gt; clazz,</div><div class="line">			OutputStream out) <span class="keyword">throws</span> Exception &#123;</div><div class="line">		exportExcel(title, headers, params, stuList, clazz, out, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * </div><div class="line">	 * @param title</div><div class="line">	 *            表格名</div><div class="line">	 * @param headers</div><div class="line">	 *            标题行内容</div><div class="line">	 * @param params</div><div class="line">	 *            各标题对应的参数名</div><div class="line">	 * @param stuList</div><div class="line">	 *            数据(用了泛型,保证通用性)</div><div class="line">	 * @param clazz</div><div class="line">	 *            实体对象的类型,用于反射</div><div class="line">	 * @param out</div><div class="line">	 *            输出流</div><div class="line">	 * @param str</div><div class="line">	 *            需要改变的内容;比如:String str =</div><div class="line">	 *            "age:18,青年,50,中年;name:张三,张二";如果age属性的值为18</div><div class="line">	 *            ,改为青年;为50,改为中年。name属性值为张三,改为张二。</div><div class="line">	 * @throws Exception</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> exportExcelChangeValue(<span class="keyword">String</span> title,</div><div class="line">			<span class="keyword">String</span>[] headers, <span class="keyword">String</span>[] params, ArrayList&lt;T&gt; stuList,</div><div class="line">			Class&lt;T&gt; clazz, OutputStream out, <span class="keyword">String</span> <span class="built_in">str</span>) <span class="keyword">throws</span> Exception &#123;</div><div class="line">		exportExcel(title, headers, params, stuList, clazz, out, <span class="built_in">str</span>, <span class="keyword">null</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * </div><div class="line">	 * @param title</div><div class="line">	 *            表格名</div><div class="line">	 * @param headers</div><div class="line">	 *            标题行内容</div><div class="line">	 * @param params</div><div class="line">	 *            各标题对应的参数名</div><div class="line">	 * @param stuList</div><div class="line">	 *            数据(用了泛型,保证通用性)</div><div class="line">	 * @param clazz</div><div class="line">	 *            实体对象的类型,用于反射</div><div class="line">	 * @param out</div><div class="line">	 *            输出流</div><div class="line">	 * @param str</div><div class="line">	 *            日期格式</div><div class="line">	 * @throws Exception</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> exportExcelChangeDateFormat(<span class="keyword">String</span> title,</div><div class="line">			<span class="keyword">String</span>[] headers, <span class="keyword">String</span>[] params, ArrayList&lt;T&gt; stuList,</div><div class="line">			Class&lt;T&gt; clazz, OutputStream out, <span class="keyword">String</span> <span class="built_in">str</span>) <span class="keyword">throws</span> Exception &#123;</div><div class="line">		exportExcel(title, headers, params, stuList, clazz, out, <span class="keyword">null</span>, <span class="built_in">str</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * </div><div class="line">	 * @author YH</div><div class="line">	 * @param title</div><div class="line">	 *            表格名</div><div class="line">	 * @param headers</div><div class="line">	 *            标题行内容</div><div class="line">	 * @param params</div><div class="line">	 *            各标题对应的参数名</div><div class="line">	 * @param stuList</div><div class="line">	 *            数据(用了泛型,保证通用性)</div><div class="line">	 * @param clazz</div><div class="line">	 *            实体对象的类型,用于反射</div><div class="line">	 * @param out</div><div class="line">	 *            输出流</div><div class="line">	 * @param str</div><div class="line">	 *            需要改变的内容;比如:String str = "age:18,青年,50,中年;name:张三,张二";</div><div class="line">	 *            如果age属性的值为18,改为青年;为50,改为中年。</div><div class="line">	 * @param timestr</div><div class="line">	 *            日期格式</div><div class="line">	 * @throws Exception</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> exportExcel(<span class="keyword">String</span> title, <span class="keyword">String</span>[] headers,</div><div class="line">			<span class="keyword">String</span>[] params, ArrayList&lt;T&gt; stuList, Class&lt;T&gt; clazz,</div><div class="line">			OutputStream out, <span class="keyword">String</span> <span class="built_in">str</span>, <span class="keyword">String</span> timestr) <span class="keyword">throws</span> Exception &#123;</div><div class="line">		<span class="comment">// 声明一个工作薄</span></div><div class="line">		HSSFWorkbook workbook = <span class="keyword">new</span> HSSFWorkbook();</div><div class="line">		<span class="comment">// 生成一个表格</span></div><div class="line">		HSSFSheet sheet = workbook.createSheet(title);</div><div class="line">		<span class="comment">// 设置表格默认列宽度为15个字节</span></div><div class="line">		sheet.setDefaultColumnWidth((<span class="keyword">short</span>) <span class="number">15</span>);</div><div class="line">		<span class="comment">// 生成一个样式</span></div><div class="line">		HSSFCellStyle style = workbook.createCellStyle();</div><div class="line">		<span class="comment">// 设置这些样式</span></div><div class="line">		<span class="comment">// style.setFillForegroundColor(HSSFColor.SKY_BLUE.index);</span></div><div class="line">		style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);</div><div class="line">		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style.setBorderRight(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style.setBorderTop(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);</div><div class="line">		<span class="comment">// 生成一个字体</span></div><div class="line">		HSSFFont font = workbook.<span class="built_in">createFont</span>();</div><div class="line">		font.setColor(HSSFColor.VIOLET.index);</div><div class="line">		font.setFontHeightInPoints((<span class="keyword">short</span>) <span class="number">12</span>);</div><div class="line">		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);</div><div class="line">		<span class="comment">// 把字体应用到当前的样式</span></div><div class="line">		style.setFont(font);</div><div class="line">		<span class="comment">// 生成并设置另一个样式</span></div><div class="line">		HSSFCellStyle style2 = workbook.createCellStyle();</div><div class="line">		<span class="comment">// style2.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);</span></div><div class="line">		style2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);</div><div class="line">		style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style2.setBorderRight(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style2.setBorderTop(HSSFCellStyle.BORDER_THIN);</div><div class="line">		style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);</div><div class="line">		style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);</div><div class="line">		<span class="comment">// 生成另一个字体</span></div><div class="line">		HSSFFont font2 = workbook.<span class="built_in">createFont</span>();</div><div class="line">		font2.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);</div><div class="line">		<span class="comment">// 把字体应用到当前的样式</span></div><div class="line">		style2.setFont(font2);</div><div class="line">		<span class="comment">// 产生表格标题行</span></div><div class="line">		HSSFRow row = sheet.createRow(<span class="number">0</span>);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">short</span> i = <span class="number">0</span>; i &lt; headers.length; i++) &#123;</div><div class="line">			HSSFCell cell = row.createCell(i);</div><div class="line">			cell.setCellStyle(style);</div><div class="line">			HSSFRichTextString <span class="built_in">text</span> = <span class="keyword">new</span> HSSFRichTextString(headers[i]);</div><div class="line">			cell.setCellValue(<span class="built_in">text</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="comment">// 遍历集合数据，产生数据行</span></div><div class="line">			<span class="built_in">int</span> index = <span class="number">0</span>;</div><div class="line">			Field field = <span class="keyword">null</span>;</div><div class="line">			<span class="keyword">if</span> (<span class="built_in">str</span> == <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">for</span> (T t : stuList) &#123;</div><div class="line">					index++;</div><div class="line">					row = sheet.createRow(index);</div><div class="line">					<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; params.length; i++) &#123;</div><div class="line">						HSSFCell cell = row.createCell(i);</div><div class="line">						cell.setCellStyle(style2);</div><div class="line">						field = clazz.getDeclaredField(params[i]);</div><div class="line">						field.setAccessible(<span class="keyword">true</span>);</div><div class="line"></div><div class="line">						<span class="keyword">String</span> value = <span class="string">""</span>;</div><div class="line">						<span class="keyword">if</span> (field.<span class="built_in">get</span>(t) != <span class="keyword">null</span>) &#123;</div><div class="line">							<span class="keyword">if</span> (field.<span class="built_in">get</span>(t) <span class="keyword">instanceof</span> Date &amp;&amp; timestr != <span class="keyword">null</span>) &#123;</div><div class="line">								SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(</div><div class="line">										timestr);</div><div class="line">								value = sdf.format(field.<span class="built_in">get</span>(t));</div><div class="line">							&#125; <span class="keyword">else</span> &#123;</div><div class="line">								value = field.<span class="built_in">get</span>(t).toString();</div><div class="line">							&#125;</div><div class="line">						&#125;</div><div class="line">						HSSFRichTextString richString = <span class="keyword">new</span> HSSFRichTextString(</div><div class="line">								value);</div><div class="line">						HSSFFont font3 = workbook.<span class="built_in">createFont</span>();</div><div class="line">						font3.setColor(HSSFColor.BLUE.index);</div><div class="line">						richString.applyFont(font3);</div><div class="line">						cell.setCellValue(richString);</div><div class="line">					&#125;</div><div class="line"></div><div class="line">				&#125;</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				ArrayList&lt;<span class="keyword">String</span>&gt; changeParamsList = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">String</span>&gt;();</div><div class="line">				Map&lt;<span class="keyword">String</span>, Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;&gt; changeParams = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;&gt;();</div><div class="line">				<span class="keyword">String</span>[] strs = <span class="built_in">str</span>.<span class="built_in">split</span>(<span class="string">";"</span>);</div><div class="line">				<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; strs.length; i++) &#123;</div><div class="line">					<span class="keyword">String</span>[] strs1 = strs[i].<span class="built_in">split</span>(<span class="string">":"</span>);</div><div class="line">					<span class="keyword">String</span>[] strs2 = strs1[<span class="number">1</span>].<span class="built_in">split</span>(<span class="string">","</span>);</div><div class="line">					Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt;();</div><div class="line">					<span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; strs2.length; j += <span class="number">2</span>) &#123;</div><div class="line">						<span class="built_in">map</span>.put(strs2[j], strs2[j + <span class="number">1</span>]);</div><div class="line">					&#125;</div><div class="line">					changeParamsList.<span class="built_in">add</span>(strs1[<span class="number">0</span>]);</div><div class="line">					changeParams.put(strs1[<span class="number">0</span>], <span class="built_in">map</span>);</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">for</span> (T t : stuList) &#123;</div><div class="line">					index++;</div><div class="line">					row = sheet.createRow(index);</div><div class="line">					<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; params.length; i++) &#123;</div><div class="line">						HSSFCell cell = row.createCell(i);</div><div class="line">						cell.setCellStyle(style2);</div><div class="line">						field = clazz.getDeclaredField(params[i]);</div><div class="line">						field.setAccessible(<span class="keyword">true</span>);</div><div class="line">						<span class="keyword">String</span> value = <span class="string">""</span>;</div><div class="line">						<span class="keyword">if</span> (field.<span class="built_in">get</span>(t) != <span class="keyword">null</span>) &#123;</div><div class="line">							<span class="keyword">if</span> (field.<span class="built_in">get</span>(t) <span class="keyword">instanceof</span> Date &amp;&amp; timestr != <span class="keyword">null</span>) &#123;</div><div class="line">								SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(</div><div class="line">										timestr);</div><div class="line">								value = sdf.format(field.<span class="built_in">get</span>(t));</div><div class="line">							&#125; <span class="keyword">else</span> &#123;</div><div class="line">								value = field.<span class="built_in">get</span>(t).toString();</div><div class="line">							&#125;</div><div class="line">						&#125;</div><div class="line">						<span class="keyword">for</span> (<span class="keyword">String</span> param : changeParamsList) &#123;</div><div class="line">							<span class="keyword">if</span> (param.equals(params[i])) &#123;</div><div class="line">								Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = changeParams</div><div class="line">										.<span class="built_in">get</span>(param);</div><div class="line">								<span class="keyword">if</span> (<span class="built_in">map</span>.<span class="built_in">get</span>(value) != <span class="keyword">null</span>) &#123;</div><div class="line">									value = <span class="built_in">map</span>.<span class="built_in">get</span>(value);</div><div class="line">								&#125;</div><div class="line">							&#125;</div><div class="line">						&#125;</div><div class="line">						HSSFRichTextString richString = <span class="keyword">new</span> HSSFRichTextString(</div><div class="line">								value);</div><div class="line">						HSSFFont font3 = workbook.<span class="built_in">createFont</span>();</div><div class="line">						font3.setColor(HSSFColor.BLUE.index);</div><div class="line">						richString.applyFont(font3);</div><div class="line">						cell.setCellValue(richString);</div><div class="line">					&#125;</div><div class="line"></div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			workbook.write(out);</div><div class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 文件的下载</div><div class="line">	 * </div><div class="line">	 * @param path</div><div class="line">	 * @param response</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> download(<span class="keyword">String</span> path, HttpServletResponse response) &#123;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="comment">// path是指欲下载的文件的路径。</span></div><div class="line">			File file = <span class="keyword">new</span> File(path);</div><div class="line">			<span class="comment">// 取得文件名。</span></div><div class="line">			<span class="keyword">String</span> filename = file.getName();</div><div class="line">			<span class="comment">// 以流的形式下载文件。</span></div><div class="line">			InputStream fis = <span class="keyword">new</span> FileInputStream(path);</div><div class="line">			<span class="built_in">byte</span>[] buffer = <span class="keyword">new</span> <span class="built_in">byte</span>[(<span class="built_in">int</span>) file.length()];</div><div class="line">			fis.read(buffer);</div><div class="line">			fis.close();</div><div class="line">			<span class="comment">// 清空response</span></div><div class="line">			response.reset();</div><div class="line">			<span class="comment">// 设置response的Header</span></div><div class="line">			response.addHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment;filename="</span></div><div class="line">					+ <span class="keyword">new</span> <span class="keyword">String</span>(filename.getBytes()));</div><div class="line">			response.addHeader(<span class="string">"Content-Length"</span>, <span class="string">""</span> + file.length());</div><div class="line">			OutputStream toClient = <span class="keyword">new</span> BufferedOutputStream(</div><div class="line">					response.getOutputStream());</div><div class="line">			response.setContentType(<span class="string">"application/vnd.ms-excel;charset=gb2312"</span>);</div><div class="line">			toClient.write(buffer);</div><div class="line">			toClient.flush();</div><div class="line">			toClient.close();</div><div class="line">		&#125; <span class="keyword">catch</span> (IOException ex) &#123;</div><div class="line">			ex.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Excel的读取操作(ExcelTest):<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> yh.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFCell;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFRow;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFSheet;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 通过poi实现对Excel文件的读取 对xls的操作只需要poi的jar包</div><div class="line"> * </div><div class="line"> * @author UCMED</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> class ExcelTest &#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 读取xls类型</div><div class="line">	 */</div><div class="line">	@Test</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> xlsTest() &#123;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			readXls();</div><div class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">			<span class="comment">// TODO Auto-generated catch block</span></div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> readXls() <span class="keyword">throws</span> IOException &#123;</div><div class="line">		InputStream is = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\20160322025438546.xls"</span>);</div><div class="line">		HSSFWorkbook hssfWorkbook = <span class="keyword">new</span> HSSFWorkbook(is);</div><div class="line"></div><div class="line">		<span class="comment">// 循环工作表Sheet</span></div><div class="line">		<span class="keyword">for</span> (<span class="built_in">int</span> numSheet = <span class="number">0</span>; numSheet &lt; hssfWorkbook.getNumberOfSheets(); numSheet++) &#123;</div><div class="line">			HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);</div><div class="line">			<span class="keyword">if</span> (hssfSheet == <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">continue</span>;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="comment">// 循环行Row</span></div><div class="line">			<span class="keyword">for</span> (<span class="built_in">int</span> rowNum = <span class="number">0</span>; rowNum &lt;= hssfSheet.getLastRowNum(); rowNum++) &#123;</div><div class="line">				HSSFRow hssfRow = hssfSheet.getRow(rowNum);</div><div class="line">				<span class="keyword">if</span> (hssfRow == <span class="keyword">null</span>) &#123;</div><div class="line">					<span class="keyword">continue</span>;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				<span class="comment">// 循环列Cell</span></div><div class="line">				<span class="keyword">for</span> (<span class="built_in">int</span> cellNum = <span class="number">0</span>; cellNum &lt;= hssfRow.getLastCellNum(); cellNum++) &#123;</div><div class="line">					HSSFCell hssfCell = hssfRow.getCell(cellNum);</div><div class="line">					<span class="keyword">if</span> (hssfCell == <span class="keyword">null</span>) &#123;</div><div class="line">						<span class="keyword">continue</span>;</div><div class="line">					&#125;</div><div class="line"></div><div class="line">					System.out.<span class="built_in">print</span>(<span class="string">"    "</span> + getValue(hssfCell));</div><div class="line">				&#125;</div><div class="line">				System.out.<span class="built_in">println</span>();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">String</span> getValue(HSSFCell hssfCell) &#123;</div><div class="line">		<span class="keyword">if</span> (hssfCell.getCellType() == hssfCell.CELL_TYPE_BOOLEAN) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">String</span>.valueOf(hssfCell.getBooleanCellValue());</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (hssfCell.getCellType() == hssfCell.CELL_TYPE_NUMERIC) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">String</span>.valueOf(hssfCell.getNumericCellValue());</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">String</span>.valueOf(hssfCell.getStringCellValue());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><em>需要的jar包支持:</em></strong><br>poi-3.14.jar</p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>项目地址点<a href="https://github.com/hdyang12/ExcelAPI" target="_blank" rel="external">这里</a><br><a href="http://www.cnblogs.com/hongten/p/java_poi_excel_xls_xlsx.html" target="_blank" rel="external">参考地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/Excel/" rel="tag"># Excel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/06/FileZilla/" rel="next" title="FileZilla使用">
+                <i class="fa fa-chevron-left"></i> FileZilla使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/10/JQuery的使用/" rel="prev" title="jQuery的使用">
+                jQuery的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jxl和poi区别"><span class="nav-number">1.</span> <span class="nav-text">jxl和poi区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用poi组件操作Excel"><span class="nav-number">2.</span> <span class="nav-text">使用poi组件操作Excel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网页下载案例"><span class="nav-number">2.1.</span> <span class="nav-text">网页下载案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">3.</span> <span class="nav-text">项目地址</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

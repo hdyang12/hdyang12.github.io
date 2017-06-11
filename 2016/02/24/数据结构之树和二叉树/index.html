@@ -1,0 +1,1097 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程,数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="树和二叉树介绍和使用">
+<meta name="keywords" content="编程,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之———树和二叉树">
+<meta property="og:url" content="http://yoursite.com/2016/02/24/数据结构之树和二叉树/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="树和二叉树介绍和使用">
+<meta property="og:image" content="http://yoursite.com/uploads/tree1.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree2.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree3.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree4.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree5.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree6.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree7.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree8.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree9.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree10.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/tree11.jpg">
+<meta property="og:updated_time" content="2016-08-21T17:30:49.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构之———树和二叉树">
+<meta name="twitter:description" content="树和二叉树介绍和使用">
+<meta name="twitter:image" content="http://yoursite.com/uploads/tree1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/24/数据结构之树和二叉树/"/>
+
+
+
+
+
+  <title>数据结构之———树和二叉树 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/24/数据结构之树和二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构之———树和二叉树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T22:22:22+08:00">
+                2016-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/02/24/数据结构之树和二叉树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/02/24/数据结构之树和二叉树/" class="leancloud_visitors" data-flag-title="数据结构之———树和二叉树">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,311 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  21 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  树和二叉树介绍和使用
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><h2 id="树定义"><a href="#树定义" class="headerlink" title="树定义"></a>树定义</h2><p><strong>树(tree)</strong>是由n(n&gt;=0)个<strong>结点</strong>组成的有限集合(树中元素通常称为结点)。n=0的数称为<strong>空树</strong>;n&gt;0的树T由以下两个条件约定构成:</p>
+<ul>
+<li>有一个特殊的结点称为根(root)节点，它只有后继结点,没有前驱结点。</li>
+<li>除根节点之外的其他结点分为m(m&gt;=0)个互不相交的集合T0,T1,…,Tm-1;其中每个集合Ti(0&lt;=i&lt;m)本身又是一棵树,称为根的<strong>子树(subtree)</strong>。</li>
+</ul>
+<p>树是<strong>递归定义</strong>的。树是由结点组成的、结点之间具有层次关系的非线性结构。</p>
+<h3 id="树图解"><a href="#树图解" class="headerlink" title="树图解"></a>树图解</h3><p><img src="/uploads/tree1.jpg" alt=""></p>
+<h2 id="树的术语"><a href="#树的术语" class="headerlink" title="树的术语"></a>树的术语</h2><h3 id="父母、孩子与兄弟结点"><a href="#父母、孩子与兄弟结点" class="headerlink" title="父母、孩子与兄弟结点"></a>父母、孩子与兄弟结点</h3><p>结点的前驱结点称为其父母(parent)结点,结点的后继结点称为其孩子(child)结点。一棵树中,只有根节点没有父母结点,其他结点有且仅有一个父母结点。<br>例如:图6-2(c)中的根节点A没有父母结点,A是B、C、D的父母结点,B、C、D是A的孩子结点。<br><strong>兄弟结点</strong>:拥有同一个父母结点的多个结点之间称为兄弟(sibling)结点。例如图6-2(c)中B、C、D是兄弟结点;但F、G不是兄弟结点。<br>结点的祖先是指其父母结点,以及父母的父母结点等,直至根结点;结点的后代(子孙)是指其所有的孩子结点以及孩子的孩子结点等。</p>
+<h3 id="度"><a href="#度" class="headerlink" title="度"></a>度</h3><p>结点的度(degree)是结点所拥有子树的棵树。例如图6-2(c)中A的度是3,E的度是0;<br>度为0的结点称为<strong>叶子(leaf)结点</strong>,又称为<strong>终端结点</strong>。<br>树的度指的是树中各节点的度的最大值。</p>
+<h3 id="结点层次、树的高度"><a href="#结点层次、树的高度" class="headerlink" title="结点层次、树的高度"></a>结点层次、树的高度</h3><p>结点的层次(level)属性反映结点处于树中的层次位置。根节点的层次为1,其他结点的层次是其父母结点的层次加1。<br>树的<strong>高度(height)或深度(depth)</strong>是树中结点的<strong>最大层次树</strong>;</p>
+<h3 id="边、路径"><a href="#边、路径" class="headerlink" title="边、路径"></a>边、路径</h3><p>例如图6-2(c)中A结点是B结点的父母结点,有序对(A,B)称为连接这两个结点的分支,也称为<strong>边(edge)</strong>。<br><strong>路径长度(path length)</strong>为路径上的边数。例如图6-2(c)中从A到E的路径是(A,B,E),路径长度为2。</p>
+<h3 id="无序树、有序树"><a href="#无序树、有序树" class="headerlink" title="无序树、有序树"></a>无序树、有序树</h3><p><strong>无序树</strong>:结点的子树T0,T1…,Tm-1之间没有次序,<strong>可以交换位置</strong>,称为无序树,简称树。<br><strong>有序树</strong>:结点的子树T0,T1…,Tm-1从左至右是有次序的,<strong>不能交换位置</strong>,则称该树为有序树(ordered tree)。<br>注:有序树不是要排序,而是:不能交换位置。</p>
+<h3 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h3><p>森林(forest)是m(m&gt;=0)棵互不相交的<strong>树的集合</strong>。给森林加上一个根节点就变成一棵树,将树的根节点删除就变成森林。</p>
+<h3 id="树的表示法"><a href="#树的表示法" class="headerlink" title="树的表示法:"></a>树的表示法:</h3><ul>
+<li>图示法:图6-2(c)</li>
+<li>横向凹入表示法:<br><img src="/uploads/tree2.jpg" alt=""></li>
+<li>广义表表示法:A(B(E,F),C(G),D(H,I,J))。<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><strong>二叉树</strong>是n(n&gt;=0)个结点组成的有限集合,n=0时称为空二叉树;n&gt;0的二叉树由一个根结点和两棵互不相交的、分别称为左子树和右子树的子二叉树构成。二叉树也是递归定义的。在树中定义的度,层次等术语,同样适用于二叉树。<br><strong>二叉树的结点最多只有两棵子树</strong>,所以二叉树的度<strong>最多</strong>为2。二叉树的子树有左右之分,即使只有一个子树也要区分是左子树还是右子树。<h3 id="二叉树的基本形态-5种"><a href="#二叉树的基本形态-5种" class="headerlink" title="二叉树的基本形态(5种)"></a>二叉树的基本形态(5种)</h3></li>
+<li>空二叉树</li>
+<li>只有一个根节点的二叉树</li>
+<li>由根节点、非空的子左树和空的右子树组成的二叉树</li>
+<li>由根节点、空的子左树和非空的右子树组成的二叉树</li>
+<li>由根节点、非空的子左树和非空的右子树组成的二叉树</li>
+</ul>
+<p><strong>二叉树不是度为2的有序树</strong></p>
+<h3 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h3><ul>
+<li>若根节点的层次为1,则二叉树第i层最多有2^(i-1)个结点(i&gt;=1)</li>
+<li>在高度为h的二叉树中,最多有2^h -1个结点(h&gt;=0)</li>
+<li>设一棵二叉树的叶子结点数为n0,2度结点树为n2,则n0=n2 + 1<br>证明:设二叉树结点树为n,1度结点树为n1,则:<strong>n = n0 + n1 + n2</strong>;<br>因1度结点有1个子女,2度结点有2个子女,叶子结点没有子女,根结点不是任何结点的子女,二叉树的结点总数可以表示为:n=0<em>n0 + 1</em>n1 + 2<em>n2 +1<br>综合上述两式可得:<em>*n0 = n2 +1</em></em>;</li>
+</ul>
+<h3 id="满二叉树与完全二叉树"><a href="#满二叉树与完全二叉树" class="headerlink" title="满二叉树与完全二叉树"></a>满二叉树与完全二叉树</h3><p><strong>满二叉树</strong>:一棵高度为h的满二叉树是具有2^h -1个结点(h&gt;=0)的二叉树。<strong>满二叉树中每一层的结点数目都达到最大值</strong><br><strong>完全二叉树</strong>:一棵具有<strong>n</strong>个结点高度为h的二叉树,如果它的每个结点都与高度为h的满二叉树中序号为<strong>0~n-1</strong>的结点一一对应,则称这棵二叉树为完全二叉树。<br><strong>满二叉树是完全二叉树,而完全二叉树不一定是满二叉树</strong>。完全二叉树的第1~h-1层是满二叉树。</p>
+<h3 id="二叉树的遍历规则"><a href="#二叉树的遍历规则" class="headerlink" title="二叉树的遍历规则"></a>二叉树的遍历规则</h3><p>二叉树的遍历规则有<strong>孩子优先</strong>和<strong>兄弟优先</strong>(每个结点仅被访问一次)</p>
+<h4 id="孩子优先的遍历规则"><a href="#孩子优先的遍历规则" class="headerlink" title="孩子优先的遍历规则"></a>孩子优先的遍历规则</h4><ul>
+<li>先根次序:访问根结点,遍历左子树,遍历右子树。</li>
+<li>中根次序:遍历左子树,访问根节点,遍历右子树。</li>
+<li>后根次序:遍历左子树,遍历右子树,访问根节点。<h4 id="兄弟优先的遍历规则"><a href="#兄弟优先的遍历规则" class="headerlink" title="兄弟优先的遍历规则"></a>兄弟优先的遍历规则</h4>二叉树的<strong>层次遍历</strong>是按层次次序进行的。遍历过程是从根结点开始,逐层深入,从左至右依次访问完当前层的所有结点,再访问下一层。<br>二叉树层次遍历的特点是<strong>兄弟优先</strong>(对于任意一个结点,其兄弟结点在其孩子结点之前访问)。<h3 id="二叉树的表示和实现"><a href="#二叉树的表示和实现" class="headerlink" title="二叉树的表示和实现"></a>二叉树的表示和实现</h3><h4 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h4>二叉树主要采用链式存储结构,顺序存储结构仅适用于完全二叉树和满二叉树。<h5 id="二叉树的顺序存储结构"><a href="#二叉树的顺序存储结构" class="headerlink" title="二叉树的顺序存储结构"></a>二叉树的顺序存储结构</h5>二叉树的顺序存储结构仅适用于完全二叉树和满二叉树<br><img src="/uploads/tree3.jpg" alt=""><br>将完全二叉树的结点按次序进行编号,实际上是对完全二叉树的一次层次遍历。<h5 id="二叉树的链式存储结构"><a href="#二叉树的链式存储结构" class="headerlink" title="二叉树的链式存储结构"></a>二叉树的链式存储结构</h5>二叉树通常采用链式存储结构，每个结点至少要有两条链分别连接左、右孩子结点，才能表达二叉树的层次关系。二叉树的链式存储结构主要有二叉链表和三叉链表。<h4 id="二叉树的二叉链表实现"><a href="#二叉树的二叉链表实现" class="headerlink" title="二叉树的二叉链表实现"></a>二叉树的二叉链表实现</h4>BinaryNode类:<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> binarytree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryNode</span>&lt;<span class="type">T</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> T <span class="keyword">data</span>;	<span class="comment">//数据域,存储数据元素</span></div><div class="line">	<span class="keyword">public</span> BinaryNode&lt;T&gt; left,right;	<span class="comment">//链域,分别指向左、右孩子结点</span></div><div class="line">	<span class="comment">//构造结点,参数分别指定元素和左、右孩子结点</span></div><div class="line">	<span class="keyword">public</span> BinaryNode(T <span class="keyword">data</span>,BinaryNode&lt;T&gt; left,BinaryNode&lt;T&gt; right)&#123;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">data</span> = <span class="keyword">data</span>;</div><div class="line">		<span class="keyword">this</span>.left = left;</div><div class="line">		<span class="keyword">this</span>.right = right;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//构造指定值得叶子结点</span></div><div class="line">	<span class="keyword">public</span> BinaryNode(T <span class="keyword">data</span>)&#123;</div><div class="line">		<span class="keyword">this</span>(<span class="keyword">data</span>,<span class="literal">null</span>,<span class="literal">null</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">public</span> BinaryNode()&#123;</div><div class="line">		<span class="keyword">this</span>(<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>BinaryTree类:<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> binarytree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> BinaryTree&lt;T&gt; &#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">	<span class="keyword">public</span> BinaryNode&lt;T&gt; root; <span class="comment">// 根结点,结点结构为二叉链表</span></div><div class="line"></div><div class="line">	<span class="keyword">public</span> BinaryTree() &#123;</div><div class="line">		<span class="keyword">this</span>.root = <span class="keyword">null</span>;</div><div class="line">	&#125; <span class="comment">// 构造空二叉树</span></div><div class="line"></div><div class="line">	<span class="comment">// 以先根和中根次序遍历序列构造二叉树</span></div><div class="line">	<span class="keyword">public</span> BinaryTree(T[] prelist, T[] inlist) &#123;</div><div class="line">		<span class="keyword">this</span>.root = create(prelist, inlist, <span class="number">0</span>, <span class="number">0</span>, prelist.length);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 标明空子树的先根序列构造一棵二叉树</span></div><div class="line">	<span class="keyword">public</span> BinaryTree(T[] prelist) &#123;</div><div class="line">		<span class="keyword">this</span>.root = create(prelist);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 以先根和中根序列创建一棵子树，子树根结点值是prelist[preStart]，n指定子序列长度，返回所创建子树的根结点</div><div class="line">	 * </div><div class="line">	 * @param prelist</div><div class="line">	 * @param inlist</div><div class="line">	 * @param preStart</div><div class="line">	 * @param inStart</div><div class="line">	 * @param n</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> BinaryNode&lt;T&gt; create(T[] prelist, T[] inlist, <span class="keyword">int</span> preStart,</div><div class="line">			<span class="keyword">int</span> inStart, <span class="keyword">int</span> n) &#123;</div><div class="line">		<span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		T elem = prelist[preStart]; <span class="comment">// 根结点值</span></div><div class="line">		BinaryNode&lt;T&gt; p = <span class="keyword">new</span> BinaryNode&lt;T&gt;(elem); <span class="comment">// 创建叶子结点</span></div><div class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">		<span class="keyword">while</span> (i &lt; n &amp;&amp; !elem.equals(inlist[inStart + i]))</div><div class="line">			i++;</div><div class="line">		p.left = create(prelist, inlist, preStart + <span class="number">1</span>, inStart, i); <span class="comment">// 创建左子树</span></div><div class="line">		p.right = create(prelist, inlist, preStart + i + <span class="number">1</span>, inStart + i + <span class="number">1</span>, n</div><div class="line">				- <span class="number">1</span> - i); <span class="comment">// 创建右子树</span></div><div class="line">		<span class="keyword">return</span> p;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 以标明空子树的先根序列构造一棵子二叉树,子树的根值是prelist[i],返回所创建子树的根结点</div><div class="line">	 * </div><div class="line">	 * @param prelist</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> BinaryNode&lt;T&gt; create(T[] prelist) &#123;</div><div class="line">		BinaryNode&lt;T&gt; p = <span class="keyword">null</span>;</div><div class="line">		<span class="keyword">if</span> (i &lt; prelist.length) &#123;</div><div class="line">			T elem = prelist[i];</div><div class="line">			i++;</div><div class="line">			<span class="keyword">if</span> (elem != <span class="keyword">null</span>) &#123;</div><div class="line">				p = <span class="keyword">new</span> BinaryNode&lt;T&gt;(elem); <span class="comment">// 创建叶子结点</span></div><div class="line">				p.left = create(prelist); <span class="comment">// 创建p的子左树</span></div><div class="line">				p.right = create(prelist); <span class="comment">// 创建p的右子树</span></div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> p;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">boolean</span> isEmpty() &#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.root == <span class="keyword">null</span>;</div><div class="line">	&#125; <span class="comment">// 判断二叉树是否空</span></div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 先根次序遍历二叉树</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> preOrder() &#123;</div><div class="line">		System.out.<span class="keyword">print</span>(<span class="string">"先根次序遍历二叉树:  "</span>);</div><div class="line">		preOrder(root); <span class="comment">// 调用先根次序遍历二叉树的递归方法</span></div><div class="line">		System.out.<span class="keyword">println</span>();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 先根次序遍历以p结点为根的子二叉树,递归方法</div><div class="line">	 * </div><div class="line">	 * @param p</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> preOrder(BinaryNode&lt;T&gt; p) &#123;</div><div class="line">		<span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</div><div class="line">			System.out.<span class="keyword">print</span>(p.data.toString() + <span class="string">""</span>); <span class="comment">// 访问当前结点</span></div><div class="line">			preOrder(p.left); <span class="comment">// 按先根次序遍历当前结点的左子树,递归调用</span></div><div class="line">			preOrder(p.right); <span class="comment">// 按先根次序遍历当前结点的右子树,递归调用</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 中根次序遍历二叉树</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> inOrder() &#123;</div><div class="line">		System.out.<span class="keyword">print</span>(<span class="string">"中根次序遍历二叉树:  "</span>);</div><div class="line">		inOrder(root);</div><div class="line">		System.out.<span class="keyword">println</span>();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 中根次序遍历以p结点为根的子二叉树,递归方法</div><div class="line">	 * </div><div class="line">	 * @param p</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> inOrder(BinaryNode&lt;T&gt; p) &#123;</div><div class="line">		<span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</div><div class="line">			inOrder(p.left); <span class="comment">// 中跟次序遍历左子树,递归调用</span></div><div class="line">			System.out.<span class="keyword">print</span>(p.data.toString() + <span class="string">""</span>);</div><div class="line">			inOrder(p.right); <span class="comment">// 中跟次序遍历右子树,递归调用</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 后根次序遍历二叉树</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> postOrder() &#123;</div><div class="line">		System.out.<span class="keyword">print</span>(<span class="string">"后根次序遍历二叉树:  "</span>);</div><div class="line">		postOrder(root);</div><div class="line">		System.out.<span class="keyword">println</span>();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 后根次序遍历以p结点为根的子二叉树,递归方法</div><div class="line">	 * </div><div class="line">	 * @param p</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> postOrder(BinaryNode&lt;T&gt; p) &#123;</div><div class="line">		<span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</div><div class="line">			postOrder(p.left); <span class="comment">// 后跟次序遍历左子树,递归调用</span></div><div class="line">			postOrder(p.right); <span class="comment">// 后跟次序遍历右子树,递归调用</span></div><div class="line">			System.out.<span class="keyword">print</span>(p.data.toString() + <span class="string">""</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 返回二叉树的结点个数</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="keyword">count</span>() &#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">count</span>(root);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 返回以p结点为根的子树的结点个数</div><div class="line">	 * </div><div class="line">	 * @param p</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">count</span>(BinaryNode&lt;T&gt; p) &#123;</div><div class="line">		<span class="keyword">if</span> (p == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span> + <span class="keyword">count</span>(p.left) + <span class="keyword">count</span>(p.right);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 返回二叉树的高度</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> height() &#123;</div><div class="line">		<span class="keyword">return</span> height(root);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> height(BinaryNode&lt;T&gt; p) &#123;</div><div class="line">		<span class="keyword">if</span> (p == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		<span class="keyword">int</span> lh = height(p.left);</div><div class="line">		<span class="keyword">int</span> rh = height(p.right);</div><div class="line">		<span class="keyword">return</span> (lh &gt;= rh) ? lh + <span class="number">1</span> : rh + <span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查找并返回首次出现的关键字为key元素结点</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> BinaryNode&lt;T&gt; search(T key) &#123;</div><div class="line">		<span class="keyword">return</span> search(root, key);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> BinaryNode&lt;T&gt; search(BinaryNode&lt;T&gt; p, T key) &#123;</div><div class="line">		<span class="keyword">if</span> (p == <span class="keyword">null</span> || key == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		<span class="keyword">if</span> (p.data.equals(key))</div><div class="line">			<span class="keyword">return</span> p;</div><div class="line">		BinaryNode&lt;T&gt; <span class="keyword">find</span> = search(p.left, key);</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">find</span> == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">find</span> = search(p.right, key);</div><div class="line">		<span class="keyword">return</span> <span class="keyword">find</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获得父母结点</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> BinaryNode&lt;T&gt; getParent(BinaryNode&lt;T&gt; node) &#123;</div><div class="line">		<span class="keyword">if</span> (root == <span class="keyword">null</span> || node == <span class="keyword">null</span> || node == root)</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		<span class="keyword">return</span> getParent(root, node);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> BinaryNode&lt;T&gt; getParent(BinaryNode&lt;T&gt; p, BinaryNode&lt;T&gt; node) &#123;</div><div class="line">		<span class="keyword">if</span> (p == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		<span class="keyword">if</span> (p.left == node || p.right == node)</div><div class="line">			<span class="keyword">return</span> p;</div><div class="line">		BinaryNode&lt;T&gt; <span class="keyword">find</span> = getParent(p.left, node);</div><div class="line">		<span class="keyword">if</span> (<span class="keyword">find</span> == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">find</span> = getParent(p.right, node);</div><div class="line">		<span class="keyword">return</span> <span class="keyword">find</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="构造并遍历二叉树"><a href="#构造并遍历二叉树" class="headerlink" title="构造并遍历二叉树"></a>构造并遍历二叉树</h4><p>构造图6-11(a)中所示二叉树,以先根、中根、后根三种次序遍历二叉树<br>BinaryTree_test类:<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> binarytree;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> class BinaryTree_test &#123;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> BinaryTree&lt;<span class="keyword">String</span>&gt; make() &#123;</div><div class="line">		BinaryTree&lt;<span class="keyword">String</span>&gt; bitree = <span class="keyword">new</span> BinaryTree&lt;<span class="keyword">String</span>&gt;();</div><div class="line">		BinaryNode&lt;<span class="keyword">String</span>&gt; child_b, child_c, child_d;</div><div class="line">		child_d = <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"D"</span>, <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"H"</span>), <span class="keyword">null</span>);</div><div class="line">		child_b = <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"B"</span>, child_d, <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(</div><div class="line">				<span class="string">"E"</span>));</div><div class="line">		child_c = <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"C"</span>, <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"F"</span>),</div><div class="line">				<span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"G"</span>));</div><div class="line">		bitree.root = <span class="keyword">new</span> BinaryNode&lt;<span class="keyword">String</span>&gt;(<span class="string">"A"</span>, child_b, child_c);</div><div class="line">		<span class="keyword">return</span> bitree;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 遍历二叉树</div><div class="line">	 */</div><div class="line">	@Test</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> foreach() &#123;</div><div class="line">		BinaryTree&lt;<span class="keyword">String</span>&gt; bitree = make();</div><div class="line">		bitree.preOrder(); <span class="comment">// 先根次序遍历二叉树</span></div><div class="line">		bitree.inOrder(); <span class="comment">// 中根次序遍历二叉树</span></div><div class="line">		bitree.postOrder(); <span class="comment">// 后根次序遍历二叉树</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 构造二叉树</div><div class="line">	 */</div><div class="line">	@Test</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> createTree() &#123;</div><div class="line">		<span class="keyword">String</span>[] prelist = &#123; <span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"D"</span>, <span class="string">"G"</span>, <span class="string">"C"</span>, <span class="string">"E"</span>, <span class="string">"F"</span>, <span class="string">"H"</span> &#125;; <span class="comment">// 先根序列</span></div><div class="line">		<span class="keyword">String</span>[] inlist = &#123; <span class="string">"D"</span>, <span class="string">"G"</span>, <span class="string">"B"</span>, <span class="string">"A"</span>, <span class="string">"E"</span>, <span class="string">"C"</span>, <span class="string">"H"</span>, <span class="string">"F"</span> &#125;; <span class="comment">// 中根序列</span></div><div class="line">		BinaryTree&lt;<span class="keyword">String</span>&gt; bitree = <span class="keyword">new</span> BinaryTree&lt;<span class="keyword">String</span>&gt;(prelist, inlist);</div><div class="line">		bitree.preOrder();</div><div class="line">		bitree.inOrder();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 构造空二叉排序树,并查找</div><div class="line">	 */</div><div class="line">	@Test</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> BinarySortTree_ex() &#123;</div><div class="line">		<span class="comment">// 构造空二叉排序树</span></div><div class="line">		BinarySortTree&lt;Integer&gt; bstree = <span class="keyword">new</span> BinarySortTree&lt;Integer&gt;();</div><div class="line">		<span class="built_in">int</span>[] values = &#123; <span class="number">54</span>, <span class="number">18</span>, <span class="number">66</span>, <span class="number">87</span>, <span class="number">36</span>, <span class="number">12</span>, <span class="number">54</span>, <span class="number">81</span>, <span class="number">15</span>, <span class="number">76</span>, <span class="number">57</span>, <span class="number">6</span>, <span class="number">40</span>, <span class="number">99</span>,</div><div class="line">				<span class="number">85</span>, <span class="number">99</span> &#125;;</div><div class="line">		<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; values.length; i++)</div><div class="line">			bstree.insert(<span class="keyword">new</span> Integer(values[i])); <span class="comment">// 插入二叉排序树</span></div><div class="line">		bstree.inOrder(); <span class="comment">// 中根次序遍历二叉排序树,得到按关键字升序排序的数据元素序列</span></div><div class="line">		Integer <span class="built_in">key</span> = <span class="keyword">new</span> Integer(values[values.length - <span class="number">1</span>]); <span class="comment">// 查找数组中最后一个数</span></div><div class="line">		System.out.<span class="built_in">println</span>(<span class="string">"查找"</span> + <span class="built_in">key</span> + <span class="string">","</span></div><div class="line">				+ (bstree.search(<span class="built_in">key</span>) != <span class="keyword">null</span> ? <span class="string">""</span> : <span class="string">"不"</span>) + <span class="string">"成功"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>foreach()输出结果:<br>先根次序遍历二叉树:  ABDHECFG<br>中根次序遍历二叉树:  HDBEAFCG<br>后根次序遍历二叉树:  HDEBFGCA</p>
+<h4 id="构造二叉树"><a href="#构造二叉树" class="headerlink" title="构造二叉树"></a>构造二叉树</h4><p>唯一确定一棵二叉树的方法有三种</p>
+<ul>
+<li>先根和中根序列表示<br>已知二叉树的先根和中根两种次序的遍历序列,可以唯一确定一棵二叉树。(见BinaryTree类和BinaryTree_make类)</li>
+<li>标明空子树的先根序列表示</li>
+<li>广义表表示</li>
+</ul>
+<h2 id="二叉排序树和平衡二叉树"><a href="#二叉排序树和平衡二叉树" class="headerlink" title="二叉排序树和平衡二叉树"></a>二叉排序树和平衡二叉树</h2><p>二叉排序树是一种既支持排序、又支持高效的查找、插入、删除操作的数据组织方案，它的查找等操作效率可达到O(log2 n)。</p>
+<h3 id="二叉排序树"><a href="#二叉排序树" class="headerlink" title="二叉排序树"></a>二叉排序树</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p><strong>二叉排序树</strong>或者是一棵空树,或者是具有下列性质的二叉树:</p>
+<ul>
+<li>每个结点都有一个作为查找依据的关键字,所有结点的关键字互不相同</li>
+<li>若一个结点的左子树不空,则左子树上所有结点的关键字均小于这个结点的关键字;若一个结点的右子树不空,则右子树上所有结点的关键字均大于这个结点的关键字</li>
+<li>每个结点的左右子树也分别为二叉排序树</li>
+</ul>
+<p>一棵二叉排序树如图8-15所示。对该二叉排序树按中根次序遍历,得到按关键字升序排列的数据元素序列为{6,12,18,36,54,57,66,76,81,87,99}。<br><img src="/uploads/tree4.jpg" alt=""></p>
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p>在一棵二叉排序树中,查找关键字为key元素结点,算法描述如下:</p>
+<ul>
+<li>从根结点开始,设p指向根结点</li>
+<li>将p结点的关键字与key比较,若两者相等,则查找成功;若key较小,则在p的左子树中继续查找;若key较大,则在p的右子树中继续查找。</li>
+<li>重复执行上一步,直到查找成功或p为空。若p为空,则查找不成功。<br>在图8-15所示的二叉排序树中,查找76的路径是(54,66,87,76),到达结点76,查找成功;查找40的路径是(54,18,36),经过叶子结点36,查找不成功。由此可知,在二叉排序树中,一次查找经过从根结点到某结点的一条路径而不需要遍历整棵树,若查找成功则到达指定结点,否则经过某个叶子结点。因此,二叉排序树能够提供快速查找功能。二叉排序树又称为二叉查找树。</li>
+</ul>
+<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>一棵二叉排序树,插入一个结点之后必须仍然是二叉排序树。每插入一个结点,首先需要找到该结点在二叉排序树中的插入位置,若具有相同关键字的结点已经在二叉排序树中,则不插入;否则将新结点作为叶子结点链接在其查找不成功时的一条路径之尾,该路径从根结点到某个原叶子结点。因此,给定一棵二叉排序树,一个结点的插入位置是唯一的。<br>在图8-15的二叉排序树中,欲插入40,查找40的路径是(54,18,36),查找不成功,将结点40作为原叶子结点36的右孩子插入到该棵二叉排序树中。</p>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>在二叉排序树中删除一个结点,首先查找该结点,若存在,则根据结点的度对二叉排序树进行不同程度的调整,使删除结点后的二叉树仍然是二叉排序树。<br><img src="/uploads/tree5.jpg" alt=""><br>由于删除和插入的规则不同,若删除一个非叶结点,再将其立即插入,则删除前和删除后的二叉排序树不一定相同。<br><img src="/uploads/tree6.jpg" alt=""><br>查找和插入代码:<br><strong>构造空二叉排序树,并查找的代码在上面的BinaryTree_test类中</strong><br>BinarySortTree类:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> binarytree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySortTree</span>&lt;<span class="type">T extends Comparable&lt;T</span>&gt;&gt; <span class="title">extends</span> <span class="title">BinaryTree</span>&lt;<span class="type">T</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// 构造空二叉排序树</span></div><div class="line">	<span class="keyword">public</span> BinarySortTree() &#123;</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">	&#125; <span class="comment">// 调用父类的默认构造方法</span></div><div class="line"></div><div class="line">	<span class="comment">// 将values数组元素依次插入构造一棵二叉排序树</span></div><div class="line">	<span class="keyword">public</span> BinarySortTree(T[] values) &#123;</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">		<span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; values.length; i++)</div><div class="line">			<span class="keyword">this</span>.insert(values[i]); <span class="comment">// 将元素插入到当前的二叉排序树中</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">//查找并返回首次出现的关键字为key元素结点,若查找不成功,则返回null,非递归算法</span></div><div class="line">	<span class="keyword">public</span> BinaryNode&lt;T&gt; search(T key) &#123;</div><div class="line">		<span class="keyword">if</span> (key == <span class="literal">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">		BinaryNode&lt;T&gt; p = <span class="keyword">this</span>.root;</div><div class="line">		<span class="keyword">while</span> (p != <span class="literal">null</span> &amp;&amp; p.<span class="keyword">data</span>.compareTo(key) != <span class="number">0</span>)</div><div class="line">			<span class="keyword">if</span> (p.<span class="keyword">data</span>.compareTo(key) &gt; <span class="number">0</span>) <span class="comment">// 若key较小</span></div><div class="line">				p = p.left; <span class="comment">// 进入左子树</span></div><div class="line">			<span class="keyword">else</span></div><div class="line">				p = p.right; <span class="comment">// 进入右子树</span></div><div class="line">		<span class="keyword">return</span> p;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 插入元素x结点,不插入关键字重复元素和空对象</span></div><div class="line">	<span class="keyword">public</span> void insert(T x) &#123;</div><div class="line">		<span class="keyword">if</span> (x == <span class="literal">null</span>)</div><div class="line">			<span class="keyword">return</span>; <span class="comment">// 不能插入空对象</span></div><div class="line">		<span class="keyword">if</span> (root == <span class="literal">null</span>)</div><div class="line">			root = new BinaryNode&lt;T&gt;(x); <span class="comment">// 建立根结点</span></div><div class="line">		<span class="keyword">else</span> &#123; <span class="comment">// 插入x到以root为根的二叉排序树中</span></div><div class="line">			BinaryNode&lt;T&gt; p = <span class="keyword">this</span>.root, parent = <span class="literal">null</span>;</div><div class="line">			<span class="keyword">while</span> (p != <span class="literal">null</span>) &#123;</div><div class="line">				parent = p;</div><div class="line">				<span class="keyword">if</span> (x.compareTo(p.<span class="keyword">data</span>) == <span class="number">0</span>)</div><div class="line">					<span class="keyword">return</span>; <span class="comment">// 不插入关键字重复的元素</span></div><div class="line">				<span class="keyword">if</span> (x.compareTo(p.<span class="keyword">data</span>) &lt; <span class="number">0</span>)</div><div class="line">					p = p.left;</div><div class="line">				<span class="keyword">else</span></div><div class="line">					p = p.right;</div><div class="line">			&#125;</div><div class="line">			p = new BinaryNode&lt;T&gt;(x); <span class="comment">// 建立叶子结点p</span></div><div class="line">			<span class="keyword">if</span> (x.compareTo(parent.<span class="keyword">data</span>) &lt; <span class="number">0</span>)</div><div class="line">				parent.left = p; <span class="comment">// p作为parent的左孩子</span></div><div class="line">			<span class="keyword">else</span></div><div class="line">				parent.right = p; <span class="comment">// p作为parent的右孩子</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">//删除元素为x的结点,返回删除结点,若没删除,返回null</span></div><div class="line">	<span class="keyword">public</span> BinaryNode&lt;T&gt; remove(T x)&#123;</div><div class="line">		<span class="keyword">if</span>(root == <span class="literal">null</span> || x == <span class="literal">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">		<span class="keyword">return</span> remove(x,root,<span class="literal">null</span>);	<span class="comment">//在以root为根的二叉排序树中删除值为x的结点</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">//在以p为根的子树中删除元素为x的结点,parent是p的父母结点,返回删除结点,递归算法</span></div><div class="line">	<span class="keyword">private</span> BinaryNode&lt;T&gt; remove(T x, BinaryNode&lt;T&gt; p, BinaryNode&lt;T&gt; parent) &#123;</div><div class="line">		<span class="keyword">if</span>(p == <span class="literal">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">		<span class="keyword">if</span>(x.compareTo(p.<span class="keyword">data</span>)&lt;<span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> remove(x,p.left,p);	<span class="comment">//在p的左子树中删除x,递归调用</span></div><div class="line">		<span class="keyword">if</span>(x.compareTo(p.<span class="keyword">data</span>)&gt;<span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> remove(x,p.right,p);	<span class="comment">//在p的右子树中删除x,递归调用</span></div><div class="line">		<span class="keyword">if</span>(p.left!=<span class="literal">null</span> &amp;&amp; p.right!= <span class="literal">null</span>)&#123;	<span class="comment">//找到待删除结点p,p是2度结点</span></div><div class="line">			BinaryNode&lt;T&gt; insucc = p.right;	<span class="comment">//寻找p在中根次序下的后继结点insucc</span></div><div class="line">			<span class="keyword">while</span>(insucc.left!= <span class="literal">null</span>)</div><div class="line">				insucc = insucc.left;</div><div class="line">			p.<span class="keyword">data</span> = insucc.<span class="keyword">data</span>;	<span class="comment">//以后继结点值替换</span></div><div class="line">			<span class="keyword">return</span> remove(p.<span class="keyword">data</span>,p.right,p);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(parent==<span class="literal">null</span>)&#123;	<span class="comment">//p是一度或叶子结点,删除根结点,即p==root</span></div><div class="line">			<span class="keyword">if</span>(p.left!=<span class="literal">null</span>)</div><div class="line">				root = p.left;</div><div class="line">			<span class="keyword">else</span> root = p.right;</div><div class="line">			<span class="keyword">return</span> p;	<span class="comment">//返回删除结点p</span></div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(p == parent.left)	<span class="comment">//p是1度或叶子结点,p是parent的左孩子</span></div><div class="line">			<span class="keyword">if</span>(p.left!=<span class="literal">null</span>)</div><div class="line">				parent.left = p.left;	<span class="comment">//以p的左子树填补</span></div><div class="line">			<span class="keyword">else</span> parent.left = p.right;</div><div class="line">		<span class="keyword">else</span>		<span class="comment">//p是parent的右孩子</span></div><div class="line">			<span class="keyword">if</span>(p.left!=<span class="literal">null</span>)	</div><div class="line">				parent.right=p.left;</div><div class="line">			<span class="keyword">else</span> parent.right=p.right;</div><div class="line">		<span class="keyword">return</span> p;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="二叉排序树的查找性能分析"><a href="#二叉排序树的查找性能分析" class="headerlink" title="二叉排序树的查找性能分析"></a>二叉排序树的查找性能分析</h4><p>由于二叉排序树的插入和删除操作花费时间的主要部分是查找操作,所以二叉排序树的各操作性能由查找效率决定。<br>二叉排序树的平均查找长度为O(log2 n)~O(n)。<br>二叉排序树的查找效率与二叉树的高度有关,高度越低,查找效率越高。因此提高二叉排序树查找效率的办法是尽量降低二叉排序树的高度。</p>
+<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p><strong>平衡二叉树</strong>或者是一棵空二叉树，或者是具有下列性质的二叉排序树:</p>
+<ul>
+<li>它的左子树和右子树都是平衡二叉树</li>
+<li>左子树与右子树的高度只差的绝对值不超过1</li>
+</ul>
+<p><strong>结点的平衡因子 = 右子树的高度 - 左子树的高度</strong><br>在平衡二叉树中,插入或删除一个结点可能破坏二叉树的平衡性,因此,在插入或删除时都要调整二叉树,使之始终保持平衡状态。</p>
+<h4 id="平衡二叉树的插入"><a href="#平衡二叉树的插入" class="headerlink" title="平衡二叉树的插入"></a>平衡二叉树的插入</h4><p>在一棵平衡二叉树中插入一个结点,如果插入后破坏了二叉树的平衡性,则需要调整一棵最小不平衡子树,在保证排序树特性的前提下,调整最小不平衡子树中各节点的连接关系,以达到新的平衡。<br><strong>最小不平衡子树:</strong>离插入结点最近,且以平衡因子绝对值大于1的结点为根的子树。<br>设关键字序列为{54,36,12,87,95,66,18},依次插入结点构造一棵平衡二叉树的过程如图8-23所示:<br><img src="/uploads/tree7.jpg" alt=""></p>
+<h4 id="调整平衡的模式"><a href="#调整平衡的模式" class="headerlink" title="调整平衡的模式"></a>调整平衡的模式</h4><p>4种:LL、RR、LR、RL</p>
+<h5 id="LL型调整"><a href="#LL型调整" class="headerlink" title="LL型调整"></a>LL型调整</h5><p>当在A的左孩子(L)的左子树(L)上插入结点<br><img src="/uploads/tree8.jpg" alt=""></p>
+<h5 id="RR型调整"><a href="#RR型调整" class="headerlink" title="RR型调整"></a>RR型调整</h5><p>当在A的右孩子(R)的右子树(R)上插入结点<br><img src="/uploads/tree9.jpg" alt=""></p>
+<h5 id="LR型调整"><a href="#LR型调整" class="headerlink" title="LR型调整"></a>LR型调整</h5><p>当在A的左孩子B(L)的右子树(R)上插入结点<br><img src="/uploads/tree10.jpg" alt=""></p>
+<h5 id="RL型调整"><a href="#RL型调整" class="headerlink" title="RL型调整"></a>RL型调整</h5><p>当在A的右孩子B(R)的左子树(L)上插入结点<br><img src="/uploads/tree11.jpg" alt=""></p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>项目地址在<a href="https://github.com/hdyang12/BinaryTree" target="_blank" rel="external">这里</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/23/hibernate/" rel="next" title="Hibernate">
+                <i class="fa fa-chevron-left"></i> Hibernate
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/26/生成解析二维码/" rel="prev" title="生成解析二维码">
+                生成解析二维码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">1.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树定义"><span class="nav-number">1.1.</span> <span class="nav-text">树定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#树图解"><span class="nav-number">1.1.1.</span> <span class="nav-text">树图解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的术语"><span class="nav-number">1.2.</span> <span class="nav-text">树的术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#父母、孩子与兄弟结点"><span class="nav-number">1.2.1.</span> <span class="nav-text">父母、孩子与兄弟结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#度"><span class="nav-number">1.2.2.</span> <span class="nav-text">度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结点层次、树的高度"><span class="nav-number">1.2.3.</span> <span class="nav-text">结点层次、树的高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边、路径"><span class="nav-number">1.2.4.</span> <span class="nav-text">边、路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无序树、有序树"><span class="nav-number">1.2.5.</span> <span class="nav-text">无序树、有序树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#森林"><span class="nav-number">1.2.6.</span> <span class="nav-text">森林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的表示法"><span class="nav-number">1.2.7.</span> <span class="nav-text">树的表示法:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">1.3.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的基本形态-5种"><span class="nav-number">1.3.1.</span> <span class="nav-text">二叉树的基本形态(5种)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的性质"><span class="nav-number">1.3.2.</span> <span class="nav-text">二叉树的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#满二叉树与完全二叉树"><span class="nav-number">1.3.3.</span> <span class="nav-text">满二叉树与完全二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的遍历规则"><span class="nav-number">1.3.4.</span> <span class="nav-text">二叉树的遍历规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#孩子优先的遍历规则"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">孩子优先的遍历规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兄弟优先的遍历规则"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">兄弟优先的遍历规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的表示和实现"><span class="nav-number">1.3.5.</span> <span class="nav-text">二叉树的表示和实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树的存储结构"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">二叉树的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的顺序存储结构"><span class="nav-number">1.3.5.1.1.</span> <span class="nav-text">二叉树的顺序存储结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二叉树的链式存储结构"><span class="nav-number">1.3.5.1.2.</span> <span class="nav-text">二叉树的链式存储结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树的二叉链表实现"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">二叉树的二叉链表实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造并遍历二叉树"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">构造并遍历二叉树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造二叉树"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">构造二叉树</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉排序树和平衡二叉树"><span class="nav-number">1.4.</span> <span class="nav-text">二叉排序树和平衡二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树"><span class="nav-number">1.4.1.</span> <span class="nav-text">二叉排序树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉排序树的查找性能分析"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">二叉排序树的查找性能分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">1.4.2.</span> <span class="nav-text">平衡二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树的插入"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">平衡二叉树的插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调整平衡的模式"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">调整平衡的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LL型调整"><span class="nav-number">1.4.2.3.1.</span> <span class="nav-text">LL型调整</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RR型调整"><span class="nav-number">1.4.2.3.2.</span> <span class="nav-text">RR型调整</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LR型调整"><span class="nav-number">1.4.2.3.3.</span> <span class="nav-text">LR型调整</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RL型调整"><span class="nav-number">1.4.2.3.4.</span> <span class="nav-text">RL型调整</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">1.5.</span> <span class="nav-text">项目地址</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

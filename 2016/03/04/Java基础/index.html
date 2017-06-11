@@ -1,0 +1,1069 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Java不常见的一些基础知识">
+<meta name="keywords" content="编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础">
+<meta property="og:url" content="http://yoursite.com/2016/03/04/Java基础/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="Java不常见的一些基础知识">
+<meta property="og:image" content="http://yoursite.com/uploads/shortcut1.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/shortcut2.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/shortcut3.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/variable1.png">
+<meta property="og:image" content="http://yoursite.com/uploads/variable2.png">
+<meta property="og:image" content="http://yoursite.com/uploads/variable3.png">
+<meta property="og:updated_time" content="2016-03-27T13:54:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础">
+<meta name="twitter:description" content="Java不常见的一些基础知识">
+<meta name="twitter:image" content="http://yoursite.com/uploads/shortcut1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/04/Java基础/"/>
+
+
+
+
+
+  <title>Java基础 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/04/Java基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-04T10:08:25+08:00">
+                2016-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/03/04/Java基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/03/04/Java基础/" class="leancloud_visitors" data-flag-title="Java基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,155 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Java不常见的一些基础知识
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><h2 id="eclipse快捷键的使用"><a href="#eclipse快捷键的使用" class="headerlink" title="eclipse快捷键的使用"></a>eclipse快捷键的使用</h2><h3 id="列编辑功能"><a href="#列编辑功能" class="headerlink" title="列编辑功能"></a>列编辑功能</h3><p>要使用 Eclipse 的列编辑功能，只需要通过快捷键Alt+Shift+A 进入列编辑模式，修改完成后，再按一次 Alt+Shift+A 退出列编辑模式。<br>有了列编辑功能，就可以对一块代码进行编辑了：<br>比如一块代码的缩进，只需要选中代码块按Tab就可以了；<br>又比如想在每行第二个字符前加入一个“test”，那么只需要向下拖动光标，使定位在每行的第二个字符，然后就可以插入啦。<br><img src="/uploads/shortcut1.jpg" alt=""></p>
+<h3 id="引入包-import"><a href="#引入包-import" class="headerlink" title="引入包(import)"></a>引入包(import)</h3><p><strong><em>Ctrl+Shift+O</em></strong><br>引入所使用的全部包</p>
+<h3 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h3><p><strong><em>Ctrl+Shift+F</em></strong><br>主要用于使代码排列整齐</p>
+<h3 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h3><p><strong><em>Ctrl+S</em></strong></p>
+<h3 id="保存所有"><a href="#保存所有" class="headerlink" title="保存所有"></a>保存所有</h3><p><strong><em>Ctrl+Shift+S</em></strong></p>
+<h3 id="搜索对话框"><a href="#搜索对话框" class="headerlink" title="搜索对话框"></a>搜索对话框</h3><p><strong><em>Ctrl+H</em></strong></p>
+<h4 id="Eclipse全局搜索使用方法"><a href="#Eclipse全局搜索使用方法" class="headerlink" title="Eclipse全局搜索使用方法"></a>Eclipse全局搜索使用方法</h4><ul>
+<li>使用快捷键“ctrl+H”打开文件搜索对话框，选择“File Search”标签，在Containing text中输入你需要搜索的字符串，在Scope中，选择你要搜索的范围，点击Search<br><img src="/uploads/shortcut2.jpg" alt=""></li>
+<li>双击进入查看<br><img src="/uploads/shortcut3.jpg" alt=""><h3 id="打开资源"><a href="#打开资源" class="headerlink" title="打开资源"></a>打开资源</h3><strong><em>Ctrl+Shift+R</em></strong><h3 id="打开类型"><a href="#打开类型" class="headerlink" title="打开类型"></a>打开类型</h3><strong><em>Ctrl+Shift+T</em></strong><h3 id="补全代码"><a href="#补全代码" class="headerlink" title="补全代码"></a>补全代码</h3><strong><em>Alt+/</em></strong><br>该快捷键常用于使用方法时，只需要部分字母即可自动联想。比如想要得到str.length()时只要输入str.l即可找到<h3 id="删除行"><a href="#删除行" class="headerlink" title="删除行"></a>删除行</h3><strong><em>Ctrl+D</em></strong><h3 id="上下移动选中的行"><a href="#上下移动选中的行" class="headerlink" title="上下移动选中的行"></a>上下移动选中的行</h3><strong><em>Alt+Up/Down</em></strong><h3 id="后退"><a href="#后退" class="headerlink" title="后退"></a>后退</h3><strong><em>Ctrl+Z</em></strong><h3 id="前进"><a href="#前进" class="headerlink" title="前进"></a>前进</h3><strong><em>Ctrl+Y</em></strong><h3 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h3><strong><em>Ctrl+/</em></strong><br>选中内容注释： <strong><em>Ctrl+Shift+/</em></strong><h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">F5：Step Into（<span class="keyword">debug</span>）</div><div class="line">F6：Step over（<span class="keyword">debug</span>）</div><div class="line">F7：Step <span class="keyword">return</span>（<span class="keyword">debug</span>）</div><div class="line">F8：Resume（<span class="keyword">debug</span>）</div><div class="line">F11：<span class="keyword">debug</span>上一个应用（<span class="keyword">debug</span>）</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="快速修正"><a href="#快速修正" class="headerlink" title="快速修正"></a>快速修正</h3><p><strong><em>Ctrl+1</em></strong><br>用于</p>
+<ul>
+<li>某个类有了方法签名，但没有该方法时的快速创建</li>
+<li>有异常需要抛出或者trycatch时</li>
+<li>其他等等</li>
+</ul>
+<h3 id="进入某个类或方法"><a href="#进入某个类或方法" class="headerlink" title="进入某个类或方法"></a>进入某个类或方法</h3><p><strong><em>Ctrl+鼠标左键</em></strong></p>
+<h3 id="缩进-制表符"><a href="#缩进-制表符" class="headerlink" title="缩进(制表符)"></a>缩进(制表符)</h3><p><strong><em>Tab</em></strong><br>用于缩进，可选中多行缩进</p>
+<h3 id="左移缩进"><a href="#左移缩进" class="headerlink" title="左移缩进"></a>左移缩进</h3><p><strong><em>Shift + Tab</em></strong><br>可选中多行向左缩进</p>
+<h3 id="剪切"><a href="#剪切" class="headerlink" title="剪切"></a>剪切</h3><p><strong><em>Ctrl+X</em></strong></p>
+<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><p><strong><em>Ctrl+C</em></strong></p>
+<h3 id="粘贴"><a href="#粘贴" class="headerlink" title="粘贴"></a>粘贴</h3><p><strong><em>Ctrl+V</em></strong></p>
+<h1 id="后端相关"><a href="#后端相关" class="headerlink" title="后端相关"></a>后端相关</h1><h2 id="可变长参数的使用和注意事项"><a href="#可变长参数的使用和注意事项" class="headerlink" title="可变长参数的使用和注意事项"></a>可变长参数的使用和注意事项</h2><h3 id="可变长参数表示"><a href="#可变长参数表示" class="headerlink" title="可变长参数表示"></a>可变长参数表示</h3><p>使用…表示可变长参数，例如:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">print</span>(String<span class="built_in">..</span>. args)&#123;</div><div class="line"></div><div class="line">   <span class="built_in">..</span>.</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在具有可变长参数的方法中可以把参数当成数组使用，例如可以循环输出所有的参数值。<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="keyword">String</span>... args)&#123;</div><div class="line"></div><div class="line">   <span class="built_in">for</span>(<span class="keyword">String</span> temp:args)</div><div class="line"></div><div class="line">      System.out.<span class="built_in">println</span>(temp);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="可变长参数的方法的调用"><a href="#可变长参数的方法的调用" class="headerlink" title="可变长参数的方法的调用"></a>可变长参数的方法的调用</h3><p>调用的时候可以给出任意多个参数也可不给参数，例如：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">print</span>();</div><div class="line"></div><div class="line"><span class="builtin-name">print</span>(<span class="string">"hello"</span>);</div><div class="line"></div><div class="line"><span class="builtin-name">print</span>(<span class="string">"hello"</span>,<span class="string">"lisi"</span>);</div><div class="line"></div><div class="line"><span class="builtin-name">print</span>(<span class="string">"hello"</span>,<span class="string">"张三"</span>, <span class="string">"alexia"</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="可变长参数的使用规则"><a href="#可变长参数的使用规则" class="headerlink" title="可变长参数的使用规则"></a>可变长参数的使用规则</h3><p>在调用方法的时候，<strong>如果能够和固定参数的方法匹配，也能够与可变长参数的方法匹配，则选择固定参数的方法。</strong>看下面代码的输出:<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com;</div><div class="line"></div><div class="line"><span class="comment">// 这里使用了静态导入</span></div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"></div><div class="line"><span class="keyword">public</span> class VarArgsTest &#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">print</span>(<span class="keyword">String</span>... args) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; args.length; i++) &#123;</div><div class="line">            out.<span class="built_in">println</span>(args[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">print</span>(<span class="keyword">String</span> test) &#123;</div><div class="line">        out.<span class="built_in">println</span>(<span class="string">"----------"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        VarArgsTest test = <span class="keyword">new</span> VarArgsTest();</div><div class="line">        test.<span class="built_in">print</span>(<span class="string">"hello"</span>);</div><div class="line">        test.<span class="built_in">print</span>(<span class="string">"hello"</span>, <span class="string">"alexia"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby">---------</span></div><div class="line">hello</div><div class="line">alexia</div></pre></td></tr></table></figure></p>
+<p>如果<strong>要调用的方法可以和两个可变参数匹配</strong>，则出现错误，例如下面的代码：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com;</div><div class="line"></div><div class="line"><span class="comment">// 这里使用了静态导入</span></div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"></div><div class="line"><span class="keyword">public</span> class VarArgsTest1 &#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">print</span>(<span class="keyword">String</span>... args) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; args.length; i++) &#123;</div><div class="line">            out.<span class="built_in">println</span>(args[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">print</span>(<span class="keyword">String</span> test,<span class="keyword">String</span>...args )&#123;</div><div class="line">          out.<span class="built_in">println</span>(<span class="string">"----------"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        VarArgsTest1 test = <span class="keyword">new</span> VarArgsTest1();</div><div class="line">        test.<span class="built_in">print</span>(<span class="string">"hello"</span>);</div><div class="line">        test.<span class="built_in">print</span>(<span class="string">"hello"</span>, <span class="string">"alexia"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于上面的代码，main方法中的两个调用都不能编译通过，因为编译器不知道该选哪个方法调用，如下所示：<br><img src="/uploads/variable1.png" alt=""><br><strong>一个方法只能有一个可变长参数，并且这个可变长参数必须是该方法的最后一个参数</strong><br>以下两种方法定义都是错误的。<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="literal">void</span> test(<span class="built_in">String</span><span class="params">...</span> strings,ArrayList <span class="built_in">list</span>)&#123;</div><div class="line"> </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="literal">void</span> test(<span class="built_in">String</span><span class="params">...</span> strings,ArrayList<span class="params">...</span> <span class="built_in">list</span>)&#123;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="可变长参数的使用规范"><a href="#可变长参数的使用规范" class="headerlink" title="可变长参数的使用规范"></a>可变长参数的使用规范</h3><ul>
+<li><p>避免带有可变长参数的方法重载：如上述中，编译器虽然知道怎么调用，但人容易陷入调用的陷阱及误区</p>
+</li>
+<li><p>别让null值和空值威胁到变长方法，为了说明null值的调用，重新给出一个例子：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com;<span class="keyword">public</span> class VarArgsTest1 &#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">print</span>(<span class="keyword">String</span> test, Integer... is) &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">print</span>(<span class="keyword">String</span> test,<span class="keyword">String</span>...args )&#123;</div><div class="line">          </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        VarArgsTest1 test = <span class="keyword">new</span> VarArgsTest1();</div><div class="line">        test.<span class="built_in">print</span>(<span class="string">"hello"</span>);</div><div class="line">        test.<span class="built_in">print</span>(<span class="string">"hello"</span>, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这时会发现两个调用编译都不通过：<br><img src="/uploads/variable2.png" alt=""><br>因为两个方法都匹配，编译器不知道选哪个，于是报错了，这里同时还有个非常不好的编码习惯，即调用者隐藏了实参类型，这是非常危险的，不仅仅调用者需要“猜测”该调用哪个方法，而且被调用者也可能产生内部逻辑混乱的情况。对于本例来说应该做如下修改：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">      VarArgsTest1 test = <span class="keyword">new</span> VarArgsTest1();</div><div class="line">      <span class="keyword">String</span>[] strs = <span class="keyword">null</span>;</div><div class="line">      test.<span class="built_in">print</span>(<span class="string">"hello"</span>, strs);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>覆写变长方法也要循规蹈矩<br>下面这个例子，编译不通过<figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">package com;</div><div class="line"></div><div class="line">public <span class="class"><span class="keyword">class</span> <span class="title">VarArgsTest2</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment"><span class="markdown">/**</span></span></div><div class="line"><span class="code">     * @param args</span></div><div class="line"><span class="code">     */</span></div><div class="line">    public <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="built_in">String</span>[] args) &#123;</div><div class="line">        <span class="comment">// TODO Auto-generated method stub</span></div><div class="line">        <span class="comment">// 向上转型</span></div><div class="line">        Base base = <span class="keyword">new</span> Sub();</div><div class="line">        base.<span class="built_in">print</span>(<span class="string">"hello"</span>);</div><div class="line">        </div><div class="line">        <span class="comment">// 不转型</span></div><div class="line">        Sub sub = <span class="keyword">new</span> Sub();</div><div class="line">        sub.<span class="built_in">print</span>(<span class="string">"hello"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 基类</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</div><div class="line">    <span class="keyword">void</span> <span class="built_in">print</span>(<span class="built_in">String</span>... args) &#123;</div><div class="line">        System.out.println(<span class="string">"Base......test"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 子类，覆写父类方法</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">void</span> <span class="built_in">print</span>(<span class="built_in">String</span>[] args) &#123;</div><div class="line">        System.out.println(<span class="string">"Sub......test"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/uploads/variable3.png" alt=""><br>第一个能编译通过，这是为什么呢？事实上，base对象把子类对象sub做了向上转型，形参列表是由父类决定的，当然能通过。而看看子类直接调用的情况，这时编译器看到子类覆写了父类的print方法，因此肯定使用子类重新定义的print方法，尽管参数列表不匹配也不会跑到父类再去匹配下，因为找到了就不再找了，因此有了类型不匹配的错误。<br>这是个特例，覆写的方法参数列表竟然可以与父类不相同，这违背了覆写的定义，并且会引发莫名其妙的错误。<br>这里，总结下覆写必须满足的条件：</p>
+<ul>
+<li>重写方法不能缩小访问权限；</li>
+<li>参数列表必须与被重写方法相同（包括显示形式）；</li>
+<li>返回类型必须与被重写方法的相同或是其子类；</li>
+<li>重写方法不能抛出新的异常，或者超过了父类范围的异常，但是可以抛出更少、更有限的异常，或者不抛出异常。<h3 id="可变长参数相对于数组的优势"><a href="#可变长参数相对于数组的优势" class="headerlink" title="可变长参数相对于数组的优势"></a>可变长参数相对于数组的优势</h3>貌似只有：可以避免定义数组的麻烦<h2 id="Map遍历的方法"><a href="#Map遍历的方法" class="headerlink" title="Map遍历的方法"></a>Map遍历的方法</h2><h3 id="第一种-普遍使用-二次取值"><a href="#第一种-普遍使用-二次取值" class="headerlink" title="第一种,普遍使用,二次取值"></a>第一种,普遍使用,二次取值</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过Map.keySet遍历key和value</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">String</span> <span class="built_in">key</span> : <span class="built_in">map</span>.keySet()) &#123;</div><div class="line">   System.out.<span class="built_in">println</span>(<span class="string">"key= "</span>+ <span class="built_in">key</span> + <span class="string">" and value= "</span> + <span class="built_in">map</span>.<span class="built_in">get</span>(<span class="built_in">key</span>));</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//通过<span class="meta">Map</span>.entrySet使用<span class="keyword">iterator遍历key和value</span></div><div class="line">  <span class="keyword">Iterator&lt;Map.Entry&lt;String, </span><span class="keyword">String&gt;&gt; </span><span class="keyword">it </span>= <span class="meta">map</span>.entrySet().<span class="keyword">iterator();</span></div><div class="line">  <span class="meta">while</span> (<span class="keyword">it.hasNext()) </span>&#123;</div><div class="line">   <span class="meta">Map</span>.Entry&lt;<span class="keyword">String, </span><span class="keyword">String&gt; </span><span class="meta">entry</span> = <span class="keyword">it.next();</span></div><div class="line">   System.out.println(<span class="string">"key= "</span> + <span class="meta">entry</span>.getKey() + <span class="string">" and value= "</span> + <span class="meta">entry</span>.getValue())<span class="comment">;</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h3 id="第三种-推荐，尤其是容量大时"><a href="#第三种-推荐，尤其是容量大时" class="headerlink" title="第三种,推荐，尤其是容量大时"></a>第三种,推荐，尤其是容量大时</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//通过<span class="meta">Map</span>.entrySet遍历key和value</div><div class="line">  for (<span class="meta">Map</span>.Entry&lt;<span class="keyword">String, </span><span class="keyword">String&gt; </span><span class="meta">entry</span> : <span class="meta">map</span>.entrySet()) &#123;</div><div class="line">   System.out.println(<span class="string">"key= "</span> + <span class="meta">entry</span>.getKey() + <span class="string">" and value= "</span> + <span class="meta">entry</span>.getValue())<span class="comment">;</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h3 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过Map.values()遍历所有的value，但不能遍历key</span></div><div class="line">  <span class="built_in">for</span> (<span class="keyword">String</span> v : <span class="built_in">map</span>.values()) &#123;</div><div class="line">   System.out.<span class="built_in">println</span>(<span class="string">"value= "</span> + v);</div><div class="line">  &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h2 id="Java虚拟机内存设置"><a href="#Java虚拟机内存设置" class="headerlink" title="Java虚拟机内存设置"></a>Java虚拟机内存设置</h2><p>Java虚拟机的堆大小如何设置：命令行<br>　java –Xms128m //JVM占用最小内存<br>           –Xmx512m //JVM占用最大内存<br>           –XX:PermSize=64m //最小堆大小<br>           –XX:MaxPermSize=128m //最大堆大小<br>递归调用可以导致栈(Stack)溢出<br>不断创建对象可以导致堆(Heap)溢出(对象存在堆中)</p>
+<h1 id="前端相关"><a href="#前端相关" class="headerlink" title="前端相关"></a>前端相关</h1><h2 id="src和href区别"><a href="#src和href区别" class="headerlink" title="src和href区别"></a>src和href区别</h2><p>src是引入，是页面必不可少的一部分，用于替换当前元素，如img、script、iframe等元素上使用；href是引用，是与该页面有关联，用于在当前文档和引用资源之间确立联系，如link和a等标签上使用。<br>src是source的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置；在请求src资源时会将其指向的资源下载并应用到文档内，例如js脚本，img图片和iframe等元素。当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内。这也是为什么将js脚本放在底部而不是头部。<br>href是Hypertext Reference的缩写，指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/29/Python教程/" rel="next" title="Python教程">
+                <i class="fa fa-chevron-left"></i> Python教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/06/FileZilla/" rel="prev" title="FileZilla使用">
+                FileZilla使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快捷键"><span class="nav-number">1.</span> <span class="nav-text">快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#eclipse快捷键的使用"><span class="nav-number">1.1.</span> <span class="nav-text">eclipse快捷键的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列编辑功能"><span class="nav-number">1.1.1.</span> <span class="nav-text">列编辑功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入包-import"><span class="nav-number">1.1.2.</span> <span class="nav-text">引入包(import)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化代码"><span class="nav-number">1.1.3.</span> <span class="nav-text">格式化代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存"><span class="nav-number">1.1.4.</span> <span class="nav-text">保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存所有"><span class="nav-number">1.1.5.</span> <span class="nav-text">保存所有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索对话框"><span class="nav-number">1.1.6.</span> <span class="nav-text">搜索对话框</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse全局搜索使用方法"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">Eclipse全局搜索使用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开资源"><span class="nav-number">1.1.7.</span> <span class="nav-text">打开资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开类型"><span class="nav-number">1.1.8.</span> <span class="nav-text">打开类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补全代码"><span class="nav-number">1.1.9.</span> <span class="nav-text">补全代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除行"><span class="nav-number">1.1.10.</span> <span class="nav-text">删除行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下移动选中的行"><span class="nav-number">1.1.11.</span> <span class="nav-text">上下移动选中的行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后退"><span class="nav-number">1.1.12.</span> <span class="nav-text">后退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前进"><span class="nav-number">1.1.13.</span> <span class="nav-text">前进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加注释"><span class="nav-number">1.1.14.</span> <span class="nav-text">添加注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Debug"><span class="nav-number">1.1.15.</span> <span class="nav-text">Debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速修正"><span class="nav-number">1.1.16.</span> <span class="nav-text">快速修正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入某个类或方法"><span class="nav-number">1.1.17.</span> <span class="nav-text">进入某个类或方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩进-制表符"><span class="nav-number">1.1.18.</span> <span class="nav-text">缩进(制表符)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左移缩进"><span class="nav-number">1.1.19.</span> <span class="nav-text">左移缩进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#剪切"><span class="nav-number">1.1.20.</span> <span class="nav-text">剪切</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制"><span class="nav-number">1.1.21.</span> <span class="nav-text">复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#粘贴"><span class="nav-number">1.1.22.</span> <span class="nav-text">粘贴</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后端相关"><span class="nav-number">2.</span> <span class="nav-text">后端相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可变长参数的使用和注意事项"><span class="nav-number">2.1.</span> <span class="nav-text">可变长参数的使用和注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可变长参数表示"><span class="nav-number">2.1.1.</span> <span class="nav-text">可变长参数表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变长参数的方法的调用"><span class="nav-number">2.1.2.</span> <span class="nav-text">可变长参数的方法的调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变长参数的使用规则"><span class="nav-number">2.1.3.</span> <span class="nav-text">可变长参数的使用规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变长参数的使用规范"><span class="nav-number">2.1.4.</span> <span class="nav-text">可变长参数的使用规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变长参数相对于数组的优势"><span class="nav-number">2.1.5.</span> <span class="nav-text">可变长参数相对于数组的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map遍历的方法"><span class="nav-number">2.2.</span> <span class="nav-text">Map遍历的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种-普遍使用-二次取值"><span class="nav-number">2.2.1.</span> <span class="nav-text">第一种,普遍使用,二次取值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种"><span class="nav-number">2.2.2.</span> <span class="nav-text">第二种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三种-推荐，尤其是容量大时"><span class="nav-number">2.2.3.</span> <span class="nav-text">第三种,推荐，尤其是容量大时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四种"><span class="nav-number">2.2.4.</span> <span class="nav-text">第四种</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java虚拟机内存设置"><span class="nav-number">2.3.</span> <span class="nav-text">Java虚拟机内存设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端相关"><span class="nav-number">3.</span> <span class="nav-text">前端相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#src和href区别"><span class="nav-number">3.1.</span> <span class="nav-text">src和href区别</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

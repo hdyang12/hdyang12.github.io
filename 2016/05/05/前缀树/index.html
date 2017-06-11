@@ -1,0 +1,1049 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trie（数字树、字典树、前缀树）">
+<meta property="og:url" content="http://yoursite.com/2016/05/05/前缀树/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。">
+<meta property="og:image" content="http://yoursite.com/uploads/trie1.jpg">
+<meta property="og:updated_time" content="2016-05-05T13:31:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trie（数字树、字典树、前缀树）">
+<meta name="twitter:description" content="术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。">
+<meta name="twitter:image" content="http://yoursite.com/uploads/trie1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/05/前缀树/"/>
+
+
+
+
+
+  <title>Trie（数字树、字典树、前缀树） | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/05/前缀树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Trie（数字树、字典树、前缀树）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-05T13:50:25+08:00">
+                2016-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/05/05/前缀树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/05/05/前缀树/" class="leancloud_visitors" data-flag-title="Trie（数字树、字典树、前缀树）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,236 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  术语trie取自retrieval，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Trie简介"><a href="#Trie简介" class="headerlink" title="Trie简介"></a>Trie简介</h1><p>术语<code>trie</code>取自<code>retrieval</code>，也被称为数字树、字典树或前缀树，是一种有序树数据结构，哈希树的变种。<br>根据词源学，<code>trie</code> 的发明者<code>Edward Fredkin</code>把它读作<code>/ˈtriː/ &quot;tree&quot;</code>。但是，其他作者把它读作<code>/ˈtraɪ/ &quot;try&quot;</code>。<br>与二叉查找树不同，树中节点不存储与节点关联的键，而是通过树中的位置定义键。一个节点的所有子孙节点拥有与该节点相同的字符串前缀，根节点与空字符串相关联。并不是每个节点都与值关联，仅叶节点和部分内部节点与值关联。<br><img src="/uploads/trie1.jpg" alt=""><br>含有键为”A”、”to”、”tea”、”ted”、”ten”、”i”、”in”和”inn”的trie示例。</p>
+<p><code>trie</code>中的键通常是字符串，但也可以是其它的结构。<code>trie</code>的算法可以很容易地修改为处理其它结构的有序序列，比如一串数字或者形状的排列。比如，<code>bitwise trie</code>中的键是一串位元，可以用于表示整数或者内存地址。<br>字符串集合X中不存在一个串是另外一个串的前缀 。如何满足这个要求呢？我们可以在X中的每个串后面加入一个特殊字符$(这个字符将不会出现在字母表中)。这样，集合X{bear$、bell$、…. bi$、bid$}一定会满足这个要求。</p>
+<h1 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h1><ul>
+<li>根节点不包含字符，除根节点外每一个节点都只包含一个字符；</li>
+<li>从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串；</li>
+<li>每个节点的所有子节点包含的字符都不相同。</li>
+</ul>
+<p>总结：一个存储长度为n，来自大小为d的字母表中s个串的集合X的标准trie具有性质如下：</p>
+<ol>
+<li>树中每个内部结点至多有d个子结点。</li>
+<li>树有s个外部结点。</li>
+<li>树的高度等于X中最长串的长度。</li>
+<li>树中的结点数为O(n)。</li>
+</ol>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="替代其他数据结构"><a href="#替代其他数据结构" class="headerlink" title="替代其他数据结构"></a>替代其他数据结构</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>trie数据查找与不完美哈希表（链表实现，完美哈希表为数组实现）在最差情况下更快：对于<code>trie</code>，最差情况为O(m)，m为查找字符串的长度； 对于不完美哈希表，会有键冲突（不同键哈希相同），最差情况为O(N)，N为全部字符产集合个数。典型情况下是O(m)用于哈希计算、O(1)用于数据查找。</li>
+<li>trie中不同键没有冲突</li>
+<li>trie的桶与哈希表用于存储键冲突的桶类似，仅在单个键与多个值关联时需要</li>
+<li>当更多的键加入trie，无需提供哈希方法或改变哈希方法</li>
+<li>tire通过键为条目提供了字母顺序</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>trie数据查找在某些情况下（尤其当数据直接从磁盘或随机访问时间远远高于主内存的辅助存储设备时）比哈希表慢</li>
+<li>当键为某些类型时（例如浮点数）之类的键，前缀链很长且前缀不是特别有意义。然而bitwise trie能够处理标注IEEE单精度和双精度浮点数。</li>
+<li>一些trie会比哈希表消耗更多空间：对于trie，每个字符串的每个字符都可能需要分配内存；对于大多数哈希表，为整个条目分配一块内存。</li>
+</ul>
+<h2 id="字典表示"><a href="#字典表示" class="headerlink" title="字典表示"></a>字典表示</h2><p>Trie树是一种<strong>哈希树的变种</strong>，典型应用是用于统计，排序和保存大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：利用字符串的公共前缀来节约存储空间，最大限度地减少无谓的字符串比较，查询效率比哈希表高。<br>典型应用是预测文本排序（常被搜索引擎系统用于文本词频统计）、字典自动完成、字符串近似匹配（拼写检查、断字）。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>trie基本操作有：查找、插入和删除。</p>
+<p>trie数据查找的方法为</p>
+<ol>
+<li>从根结点开始一次搜索；</li>
+<li>取得要查找关键词的第一个字母，并根据该字母选择对应的子树并转到该子树继续进行检索；</li>
+<li>在相应的子树上，取得要查找关键词的第二个字母,并进一步选择对应的子树进行检索。</li>
+<li>迭代过程……</li>
+<li>在某个结点处，关键词的所有字母已被取出，则读取附在该结点上的信息，即完成查找。</li>
+</ol>
+<p>Test类<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> Trie;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Before;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> class TrieTest &#123;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> Trie trie;</div><div class="line">	</div><div class="line">	@Before</div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setUp() &#123;</div><div class="line">		trie = <span class="keyword">new</span> Trie(); </div><div class="line">		trie.addWord(<span class="string">"to"</span>);</div><div class="line">		trie.addWord(<span class="string">"tea"</span>);</div><div class="line">		trie.addWord(<span class="string">"ted"</span>);</div><div class="line">		trie.addWord(<span class="string">"ten"</span>);</div><div class="line">		trie.addWord(<span class="string">"inn"</span>);</div><div class="line">		trie.addWord(<span class="string">"a"</span>);</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">	<span class="comment">//增加字符串</span></div><div class="line">	@Test</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">add</span>()&#123;</div><div class="line">		<span class="keyword">try</span>&#123;</div><div class="line">		<span class="comment">//因为trie中的root属性是私有的,所以要通过暴力反射来得到它</span></div><div class="line">		Field fieldY = trie.getClass().getDeclaredField(<span class="string">"root"</span>);</div><div class="line">		fieldY.setAccessible(<span class="keyword">true</span>);<span class="comment">//暴力反射</span></div><div class="line">		Node node = (Node)fieldY.<span class="built_in">get</span>(trie);</div><div class="line">		<span class="comment">//打印出这个前缀树,每个字符后面对应一个数字,代表节点层次，好画节点图</span></div><div class="line">		printTrie(node,<span class="number">1</span>);</div><div class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		 </div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">//判断该前缀树中是否有该字符串或前缀</span></div><div class="line">	@Test</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> hasStr()&#123;</div><div class="line">		<span class="keyword">String</span> <span class="built_in">str</span> = <span class="string">"toaa"</span>;</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">str</span> != <span class="keyword">null</span>)&#123;</div><div class="line">			<span class="keyword">if</span>(trie.containsWord(<span class="built_in">str</span>))&#123;</div><div class="line">				System.out.<span class="built_in">println</span>(<span class="built_in">str</span> + <span class="string">" is a word"</span>);</div><div class="line">			&#125;<span class="keyword">else</span>&#123;</div><div class="line">				<span class="keyword">if</span>(trie.containsPrefix(<span class="built_in">str</span>))&#123;</div><div class="line">					System.out.<span class="built_in">println</span>(<span class="built_in">str</span> + <span class="string">" is a prefix"</span>);</div><div class="line">				&#125;<span class="keyword">else</span>&#123;</div><div class="line">					System.out.<span class="built_in">println</span>(<span class="built_in">str</span> + <span class="string">" not found"</span>);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">//打印出这个前缀树,每个字符后面对应一个数字,代表节点层次，好画节点图</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> printTrie(Node node,<span class="built_in">int</span> i)&#123;</div><div class="line">		<span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span>;</div><div class="line">		<span class="keyword">try</span>&#123;</div><div class="line">		<span class="comment">//因为node中的children属性是私有的,所以要通过暴力反射来得到它</span></div><div class="line">		Field fieldY = node.getClass().getDeclaredField(<span class="string">"children"</span>);</div><div class="line">		fieldY.setAccessible(<span class="keyword">true</span>);<span class="comment">//暴力反射</span></div><div class="line">		@SuppressWarnings(<span class="string">"unchecked"</span>)</div><div class="line">		Map&lt;Character,Node&gt; children = (Map&lt;Character,Node&gt;)fieldY.<span class="built_in">get</span>(node);</div><div class="line">		<span class="keyword">for</span>(<span class="built_in">char</span> c :children.keySet())&#123;</div><div class="line">			System.out.<span class="built_in">print</span>(<span class="string">""</span>+c + i+<span class="string">"\t"</span>);</div><div class="line">			printTrie(node.getChild(c),i+<span class="number">1</span>);</div><div class="line">		&#125;</div><div class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Trie类及对应Node类<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> Trie;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Trie</span> </span>&#123; </div><div class="line">	  </div><div class="line">	   <span class="keyword">private</span> Node root = <span class="keyword">new</span> Node(<span class="string">""</span>); </div><div class="line">	  </div><div class="line">	   <span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span> </span>&#123;&#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//将数据列表加入到前缀树中</span></div><div class="line">	   <span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">(List&lt;String&gt; argInitialWords)</span> </span>&#123; </div><div class="line">	      <span class="keyword">for</span> (String word:argInitialWords) &#123; </div><div class="line">	    	  <span class="comment">//将一个字符串加入到前缀树中</span></div><div class="line">	         addWord(word); </div><div class="line">	      &#125; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//将一个字符串加入到前缀树中</span></div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">addWord</span><span class="params">(String argWord)</span> </span>&#123; </div><div class="line">	      <span class="keyword">char</span> argChars[] = argWord.toCharArray(); </div><div class="line">	      Node currentNode = root; </div><div class="line">	  </div><div class="line">	      <span class="comment">//判断该字符的每一个字符是否在前缀树中，如果在的话，Node=子Node,循环判断</span></div><div class="line">	      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; argChars.length; i++) &#123; </div><div class="line">	         <span class="keyword">if</span> (!currentNode.containsChildValue(argChars[i])) &#123; </div><div class="line">	            currentNode.addChild(argChars[i], <span class="keyword">new</span> Node(currentNode.getValue() + argChars[i])); </div><div class="line">	         &#125; </div><div class="line">	  </div><div class="line">	         currentNode = currentNode.getChild(argChars[i]); </div><div class="line">	      &#125; </div><div class="line">	  </div><div class="line">	      currentNode.setIsWord(<span class="keyword">true</span>); </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//是否包含了前缀(不用考虑node.isWord())</span></div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">containsPrefix</span><span class="params">(String argPrefix)</span> </span>&#123; </div><div class="line">	      <span class="function"><span class="keyword">return</span> <span class="title">contains</span><span class="params">(argPrefix, <span class="keyword">false</span>)</span></span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//是否包含了字符串(包含，并且node.isWord() == true)</span></div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">containsWord</span><span class="params">(String argWord)</span> </span>&#123; </div><div class="line">	      <span class="function"><span class="keyword">return</span> <span class="title">contains</span><span class="params">(argWord, <span class="keyword">true</span>)</span></span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//得到该字符串对应的Node(node.isWord() == true)</span></div><div class="line">	   <span class="keyword">public</span> <span class="function">Node <span class="title">getWord</span><span class="params">(String argString)</span> </span>&#123; </div><div class="line">	      Node node = getNode(argString); </div><div class="line">	      <span class="keyword">return</span> node != <span class="keyword">null</span> &amp;&amp; node.isWord() ? node : <span class="keyword">null</span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//得到该前缀的Node,(不用考虑node.isWord())</span></div><div class="line">	   <span class="keyword">public</span> <span class="function">Node <span class="title">getPrefix</span><span class="params">(String argString)</span> </span>&#123; </div><div class="line">	      <span class="function"><span class="keyword">return</span> <span class="title">getNode</span><span class="params">(argString)</span></span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	  </div><div class="line">	   <span class="keyword">private</span> <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(String argString, <span class="keyword">boolean</span> argIsWord)</span> </span>&#123; </div><div class="line">	      Node node = getNode(argString); </div><div class="line">	      <span class="keyword">return</span> (node != <span class="keyword">null</span> &amp;&amp; node.isWord() &amp;&amp; argIsWord) || </div><div class="line">	                  (!argIsWord &amp;&amp; node != <span class="keyword">null</span>); </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//得到该前缀的Node,(不用考虑node.isWord())</span></div><div class="line">	   <span class="keyword">private</span> <span class="function">Node <span class="title">getNode</span><span class="params">(String argString)</span> </span>&#123; </div><div class="line">	      Node currentNode = root; </div><div class="line">	      <span class="keyword">char</span> argChars[] = argString.toCharArray(); </div><div class="line">	      <span class="comment">//一个字符一个字符往下找,如果最后找到的Node为null,则说明该字符串没有;如果不为null就返回这个node,在这个node的value属性对应了该字符串</span></div><div class="line">	      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; argChars.length &amp;&amp; currentNode != <span class="keyword">null</span>; i++) &#123; </div><div class="line">	         currentNode = currentNode.getChild(argChars[i]); </div><div class="line">	         <span class="keyword">if</span> (currentNode == <span class="keyword">null</span>) &#123; </div><div class="line">	            <span class="keyword">return</span> <span class="keyword">null</span>; </div><div class="line">	         &#125; </div><div class="line">	      &#125; </div><div class="line">	  </div><div class="line">	      <span class="keyword">return</span> currentNode; </div><div class="line">	   &#125; </div><div class="line">	&#125; </div><div class="line">	  </div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 该类一共有三个属性</div><div class="line">	 * 1.value指的是到该节点的前缀字符串</div><div class="line">	 * 2.children指的是该节点下的所有节点;key用以存放下一个字符,value用以存放对应字符的Node</div><div class="line">	 * 3.isValidWord判断该Node是否对应一个字符串  </div><div class="line">	 * <span class="doctag">@author</span> YH</div><div class="line">	 *</div><div class="line">	 */</div><div class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123; </div><div class="line">	  </div><div class="line">	   <span class="keyword">private</span> <span class="keyword">final</span> String value; </div><div class="line">	   <span class="keyword">private</span> Map&lt;Character,Node&gt; children = <span class="keyword">new</span> HashMap&lt;Character,Node&gt;(); </div><div class="line">	   <span class="keyword">private</span> <span class="keyword">boolean</span> isValidWord; </div><div class="line">	  </div><div class="line">	   <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(String argValue)</span> </span>&#123; </div><div class="line">	      value = argValue; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">addChild</span><span class="params">(<span class="keyword">char</span> c, Node argChild)</span> </span>&#123; </div><div class="line">	      children.put(c, argChild); </div><div class="line">	      <span class="keyword">return</span> <span class="keyword">true</span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">containsChildValue</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123; </div><div class="line">	      <span class="function"><span class="keyword">return</span> children.<span class="title">containsKey</span><span class="params">(c)</span></span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="keyword">public</span> <span class="function">String <span class="title">getValue</span><span class="params">()</span> </span>&#123; </div><div class="line">	      <span class="function"><span class="keyword">return</span> value.<span class="title">toString</span><span class="params">()</span></span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="comment">//children是一个Map集合,key用以存放字符,value用以存放对应字符的Node</span></div><div class="line">	   <span class="keyword">public</span> <span class="function">Node <span class="title">getChild</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123; </div><div class="line">	      <span class="function"><span class="keyword">return</span> children.<span class="title">get</span><span class="params">(c)</span></span>; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">isWord</span><span class="params">()</span> </span>&#123; </div><div class="line">	      <span class="keyword">return</span> isValidWord; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">setIsWord</span><span class="params">(<span class="keyword">boolean</span> argIsWord)</span> </span>&#123; </div><div class="line">	      isValidWord = argIsWord; </div><div class="line">	  </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	   <span class="keyword">public</span> <span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123; </div><div class="line">	      <span class="keyword">return</span> value; </div><div class="line">	   &#125; </div><div class="line">	  </div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="提高"><a href="#提高" class="headerlink" title="提高"></a>提高</h1><p>上述方式用了Node的方式来进行前缀树的操作，这样做需要大量的对象，内存的耗费比较多<br>但是如果针对的是特定的内容,比如字符串,或者仅仅包含数字和字母的字符串,可以用二维数组的形式来实现前缀树</p>
+<p>用二维数组的方式代替节点Node<br>二维数组的值和第一维的位置确定了一个节点<br>二维数组的第二维位置为 该节点包含的字符(可以约定对应数字代替的字符)<br>例如:<br>ch[0][1] = 1;<br>ch[1][3] = 2;<br>ch[1][3]就相当于ch[0][1]的一个子节点,它的第二维位置为该节点包含的字符</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/04/StringToDouble/" rel="next" title="StringToDouble源码解析">
+                <i class="fa fa-chevron-left"></i> StringToDouble源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/07/关于资料从github下载/" rel="prev" title="如何在github上下载单个文件夹">
+                如何在github上下载单个文件夹 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Trie简介"><span class="nav-number">1.</span> <span class="nav-text">Trie简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性质"><span class="nav-number">2.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用"><span class="nav-number">3.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#替代其他数据结构"><span class="nav-number">3.1.</span> <span class="nav-text">替代其他数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">3.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">3.1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典表示"><span class="nav-number">3.2.</span> <span class="nav-text">字典表示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提高"><span class="nav-number">5.</span> <span class="nav-text">提高</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

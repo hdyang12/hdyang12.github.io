@@ -1,0 +1,1149 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程,数据库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="常见的SQL语句写法与实现(mysql亲测)">
+<meta name="keywords" content="编程,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql语句大全">
+<meta property="og:url" content="http://yoursite.com/2016/02/19/sql语句大全/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="常见的SQL语句写法与实现(mysql亲测)">
+<meta property="og:image" content="http://yoursite.com/uploads/sqlexcept.jpg">
+<meta property="og:updated_time" content="2016-08-21T17:28:59.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql语句大全">
+<meta name="twitter:description" content="常见的SQL语句写法与实现(mysql亲测)">
+<meta name="twitter:image" content="http://yoursite.com/uploads/sqlexcept.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/19/sql语句大全/"/>
+
+
+
+
+
+  <title>sql语句大全 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/19/sql语句大全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql语句大全</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-19T23:42:20+08:00">
+                2016-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/02/19/sql语句大全/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/02/19/sql语句大全/" class="leancloud_visitors" data-flag-title="sql语句大全">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  8,499 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  35 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  常见的SQL语句写法与实现(mysql亲测)
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据库-表结构操作"><a href="#数据库-表结构操作" class="headerlink" title="数据库/表结构操作"></a>数据库/表结构操作</h1><h2 id="创建-删除数据库"><a href="#创建-删除数据库" class="headerlink" title="创建/删除数据库"></a>创建/删除数据库</h2><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> dbname;//创建数据库</div><div class="line"><span class="keyword">drop</span> <span class="keyword">database</span> dbname;//删除数据库</div><div class="line"><span class="keyword">drop</span> <span class="keyword">database</span> <span class="keyword">if</span> <span class="keyword">exists</span> dbname;//删除数据库如果存在</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span>;//创建数据库</div><div class="line"><span class="keyword">drop</span> <span class="keyword">database</span> <span class="keyword">test</span>;//删除数据库</div><div class="line"><span class="keyword">drop</span> <span class="keyword">database</span> <span class="keyword">if</span> <span class="keyword">exists</span> <span class="keyword">test</span>;//如果存在这个数据库,就删除它</div></pre></td></tr></table></figure></p>
+<h2 id="创建-删除表"><a href="#创建-删除表" class="headerlink" title="创建/删除表"></a>创建/删除表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//创建表</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tabname(column_name1 type1 [<span class="keyword">not</span> <span class="literal">null</span>] [primary <span class="keyword">key</span>],column_name2 type2 [<span class="keyword">not</span> <span class="literal">null</span>],..);</div><div class="line"><span class="keyword">drop</span> <span class="keyword">table</span> tabname;//删除表</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//创建表</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(<span class="keyword">id</span> <span class="built_in">float</span>(<span class="number">7</span>,<span class="number">3</span>) <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),salary <span class="built_in">float</span>(<span class="number">8</span>,<span class="number">2</span>))<span class="keyword">charset</span> utf8;</div><div class="line"><span class="keyword">drop</span> <span class="keyword">table</span> emp;//删除表</div></pre></td></tr></table></figure></p>
+<p><strong><em>根据已有的表创建新表:</em></strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_new <span class="keyword">like</span> tab_old; //只复制表结构到新表</div><div class="line">//复制部分表结构及数据到新表(完整的用<span class="keyword">select</span> *)</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_new <span class="keyword">select</span> column_name1,column_name2 <span class="keyword">from</span> tab_old;</div><div class="line">//复制部分表结构到新表</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_new <span class="keyword">select</span> column_name1,column_name2 <span class="keyword">from</span> tab_old <span class="keyword">where</span> <span class="number">1</span>=<span class="number">2</span>;</div></pre></td></tr></table></figure></p>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp1 <span class="keyword">like</span> emp;//只复制表结构到新表</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp2 <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">from</span> emp;//复制部分表结构及数据到新表(完整的用<span class="keyword">select</span> *)</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp2 <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="number">1</span>=<span class="number">2</span>;//复制部分表结构到新表</div></pre></td></tr></table></figure></p>
+<h2 id="列出表的创建命令"><a href="#列出表的创建命令" class="headerlink" title="列出表的创建命令"></a>列出表的创建命令</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> tabname;</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> emp;</div></pre></td></tr></table></figure></p>
+<h2 id="查表结构"><a href="#查表结构" class="headerlink" title="查表结构"></a>查表结构</h2><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">desc tabname<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">desc emp<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h2 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">add</span> column_name <span class="keyword">type</span> [<span class="keyword">not</span> <span class="literal">null</span>];//新增字段</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">modify</span> column_name <span class="keyword">type</span>;//修改字段属性</div><div class="line">//修改字段名;此时一定要重新指定该字段类型</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">change</span> column_nameold column_namenew <span class="keyword">type</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">drop</span> <span class="keyword">column</span> column_name;//删除字段</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">add</span> sex <span class="built_in">char</span>(<span class="number">1</span>) <span class="keyword">not</span> <span class="literal">null</span>;//新增字段</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">modify</span> sex <span class="built_in">char</span>(<span class="number">10</span>);//修改字段属性</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">change</span> sex sex2 <span class="built_in">char</span>(<span class="number">2</span>);//修改字段名;此时一定要重新指定该字段类型</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">drop</span> <span class="keyword">column</span> sex2;//删除字段</div></pre></td></tr></table></figure></p>
+<h2 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">rename</span> <span class="keyword">table</span> tabname <span class="keyword">to</span> tabname-<span class="keyword">new</span>,tabname2 <span class="keyword">to</span> tabname2-<span class="keyword">new</span>,...;//重命名表(可多个)</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">rename</span> <span class="keyword">table</span> emp <span class="keyword">to</span> emp1;</div></pre></td></tr></table></figure></p>
+<h2 id="添加-删除主键"><a href="#添加-删除主键" class="headerlink" title="添加/删除主键"></a>添加/删除主键</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">add</span> primary <span class="keyword">key</span>(column_name);//添加主键</div><div class="line">//修改主键为自增长主键</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">modify</span> column_name <span class="keyword">type</span> auto_increment primary <span class="keyword">key</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tabname <span class="keyword">drop</span> primary <span class="keyword">key</span>;//删除主键</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">add</span> primary <span class="keyword">key</span>(<span class="keyword">id</span>);//添加主键</div><div class="line">//修改主键为自增长主键</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">modify</span> <span class="keyword">id</span> <span class="built_in">int</span> auto_increment primary <span class="keyword">key</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">drop</span> primary <span class="keyword">key</span>;//删除主键</div><div class="line">//删除自增长主键:分2步</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">modify</span> <span class="keyword">id</span> <span class="built_in">int</span>;//1.改数据类型</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">drop</span> primary <span class="keyword">key</span>;//2.删除主键</div></pre></td></tr></table></figure></p>
+<h2 id="创建-删除索引"><a href="#创建-删除索引" class="headerlink" title="创建/删除索引"></a>创建/删除索引</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> [<span class="keyword">unique</span>] <span class="keyword">index</span> idxname <span class="keyword">on</span> tabname(column_name...);//对表增加索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">add</span> <span class="keyword">index</span> index_name(column_list);//创建普通索引</div><div class="line">//创建unique索引;索引名字不加默认字段名</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">add</span> <span class="keyword">unique</span> [index_name](column_list);</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">add</span> primary <span class="keyword">key</span>(column_list);//创建primary key索引</div><div class="line"><span class="keyword">drop</span> <span class="keyword">index</span> index_name <span class="keyword">on</span> talbe_name;//删除索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">drop</span> <span class="keyword">index</span> index_name;//删除索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_name <span class="keyword">drop</span> primary <span class="keyword">key</span>;删除主键(索引)</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">unique</span> <span class="keyword">index</span> ididx <span class="keyword">on</span> emp1(<span class="keyword">id</span>);//对表增加索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">add</span> <span class="keyword">index</span> sidx (salary);//创建普通索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">add</span> <span class="keyword">unique</span> [sidx](<span class="keyword">id</span>);//创建unique索引;索引名字不加默认字段名</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">add</span> primary <span class="keyword">key</span>(<span class="keyword">id</span>);//创建primary key索引</div><div class="line"><span class="keyword">drop</span> <span class="keyword">index</span> idxname <span class="keyword">on</span> emp1;//删除索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">drop</span> <span class="keyword">index</span> idxname;//删除索引</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp1 <span class="keyword">drop</span> primary <span class="keyword">key</span>;删除主键(索引)</div></pre></td></tr></table></figure></p>
+<p>注：索引是不可更改的，想更改必须删除重新建。<br>    不能用create index语句创建primary key索引。</p>
+<h2 id="创建-删除视图"><a href="#创建-删除视图" class="headerlink" title="创建/删除视图"></a>创建/删除视图</h2><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">view</span> viewname <span class="keyword">as</span> <span class="keyword">select</span> column_name1,column_name2... <span class="keyword">from</span> tabname;//创建视图</div><div class="line"><span class="keyword">drop</span> <span class="keyword">view</span> viewname;//删除视图</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">view</span> empview <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> emp1;//创建视图</div><div class="line"><span class="keyword">drop</span> <span class="keyword">view</span> empview;//删除视图</div></pre></td></tr></table></figure></p>
+<p><strong><em>数据库中表与视图的联系与区别:</em></strong><br>联系：视图（view）是在基本表之上建立的表，它的结构（即所定义的列）和内容（即所有数据行）都来自基本表，它依据基本表存在而存在。一个视图可以对应一个基本表，也可以对应多个基本表。视图是基本表的抽象和在逻辑意义上建立的新关系<br>区别：1、视图是已经编译好的sql语句。而表不是<br>2、视图没有实际的物理记录。而表有。<br>3、表是内容，视图是窗口<br>4、表只用物理空间而视图不占用物理空间，视图只是逻辑概念的存在，表可以及时四对它进行修改，但视图只能有创建的语句来修改<br>5、表是内模式，视图是外模式<br>6、视图是查看数据表的一种方法，可以查询数据表中某些字段构成的数据，只是一些SQL语句的集合。从安全的角度说，视图可以不给用户接触数据表，从而不知道表结构。<br>7、表属于全局模式中的表，是实表；视图属于局部模式的表，是虚表。<br>8、视图的建立和删除只影响视图本身，不影响对应的基本表。</p>
+<h1 id="sql语句操作"><a href="#sql语句操作" class="headerlink" title="sql语句操作"></a>sql语句操作</h1><h2 id="简单的基本sql语句-包括增删改查"><a href="#简单的基本sql语句-包括增删改查" class="headerlink" title="简单的基本sql语句(包括增删改查)"></a>简单的基本sql语句(包括增删改查)</h2><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tabname <span class="keyword">where</span> ...;//查询数据</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tabname(column_name1,column_name2) <span class="keyword">values</span>(value1,value2);//插入数据</div><div class="line"><span class="keyword">delete</span> <span class="keyword">from</span> tabname <span class="keyword">where</span> ...;//删除数据</div><div class="line"><span class="keyword">update</span> tabname <span class="keyword">set</span> column_name1=value1,column_name2=value2... <span class="keyword">where</span> ...;//更新数据</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tabname <span class="keyword">where</span> column_name1 <span class="keyword">like</span> ’%value1%’;//模糊查询数据 </div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tabname <span class="keyword">order</span> <span class="keyword">by</span> column_name1,column_name12 [<span class="keyword">desc</span>/<span class="keyword">asc</span>];//排序(降序desc/升序asc)</div><div class="line"><span class="keyword">select</span> <span class="built_in">count</span> <span class="keyword">as</span> totalcount <span class="keyword">from</span> table1;//总数;as totalcount是给它一个字段名</div><div class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(column_name) <span class="keyword">as</span> sumvalue <span class="keyword">from</span> tabname;//求和</div><div class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(column_name) <span class="keyword">as</span> avgvalue <span class="keyword">from</span> tabname;//平均值</div><div class="line"><span class="keyword">select</span> <span class="built_in">max</span>(column_name) <span class="keyword">as</span> maxv <span class="keyword">from</span> tabname;//最大值</div><div class="line"><span class="keyword">select</span> <span class="built_in">min</span>(column_name) <span class="keyword">as</span> minv <span class="keyword">from</span> tabname;//最小值</div></pre></td></tr></table></figure>
+<p>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span>;//查询数据</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp1(<span class="keyword">id</span>,<span class="keyword">name</span>,salary) <span class="keyword">values</span>(<span class="number">4</span>,<span class="string">'王五'</span>,<span class="number">8000</span>);//插入数据</div><div class="line"><span class="keyword">delete</span> <span class="keyword">from</span> emp1 <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">4</span>;//删除数据</div><div class="line"><span class="keyword">update</span> emp1 <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'阿黄'</span>,salary=<span class="number">5000</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">3</span>;//更新数据</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp1 <span class="keyword">where</span> salary <span class="keyword">like</span> <span class="string">'%0%'</span>;//模糊查询数据</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp1 <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'_A%'</span>;//%表示0到多个字符;	_:标识单个字符</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tabname <span class="keyword">order</span> <span class="keyword">by</span> column_name1,column_name12 [<span class="keyword">desc</span>/<span class="keyword">asc</span>];//排序</div><div class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">as</span> totalcount <span class="keyword">from</span> emp1;//行数目总数;as totalcount是给它一个字段名</div><div class="line"><span class="keyword">select</span> <span class="keyword">count</span>(remarks) <span class="keyword">as</span> totalcount <span class="keyword">from</span> emp1;//count(column_name)是对列中不为空的行进行计数</div><div class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(salary) <span class="keyword">as</span> sumvalue <span class="keyword">from</span> emp1;//列中数据求和(非数字为0)</div><div class="line"><span class="keyword">select</span> <span class="keyword">avg</span>(salary) <span class="keyword">as</span> avgvalue <span class="keyword">from</span> emp1;//平均值</div><div class="line"><span class="keyword">select</span> <span class="keyword">max</span>(salary) <span class="keyword">as</span> maxv <span class="keyword">from</span> emp1;//最大值</div><div class="line"><span class="keyword">select</span> <span class="keyword">min</span>(salary) <span class="keyword">as</span> minv <span class="keyword">from</span> emp1;//最小值</div></pre></td></tr></table></figure></p>
+<h2 id="mysql查询的五种子句"><a href="#mysql查询的五种子句" class="headerlink" title="mysql查询的五种子句"></a>mysql查询的五种子句</h2><p><strong><em>where(条件查询)、having（筛选）、group by（分组）、order by（排序）、limit（限制结果数）</em></strong></p>
+<h3 id="where-条件查询"><a href="#where-条件查询" class="headerlink" title="where(条件查询)"></a>where(条件查询)</h3><h4 id="where常用运算符"><a href="#where常用运算符" class="headerlink" title="where常用运算符"></a>where常用运算符</h4><p><strong><em>比较运算符</em></strong></p>
+<blockquote>
+<p>, &lt; , = , !=(&lt; &gt;), &gt;= , &lt;= , in(v1,v2..vn) , between v1 and v2    在v1至v2之间(包含v1,v2)<br><strong><em>逻辑运算符</em></strong><br>not(!) 逻辑非 , or(||) 逻辑或 , and(&amp;&amp;) 逻辑与<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 取<span class="number">500</span>-<span class="number">1000</span>或者<span class="number">3000</span>-<span class="number">5000</span>的值</div><div class="line">where <span class="built_in">price</span>&gt;=<span class="number">3000</span> <span class="built_in">and</span> <span class="built_in">price</span> &lt;= <span class="number">5000</span> <span class="built_in">or</span> <span class="built_in">price</span> &gt;=<span class="number">500</span> <span class="built_in">and</span> <span class="built_in">price</span> &lt;=<span class="number">1000</span>;</div><div class="line">//不在<span class="number">3000</span>与<span class="number">5000</span>之间的值</div><div class="line">where <span class="built_in">price</span> <span class="built_in">not</span> between <span class="number">3000</span> <span class="built_in">and</span> <span class="number">5000</span>;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h4><p>like 像<br>通配符: %  任意字符<br>        _  单个字符<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">where</span> goods_name <span class="keyword">like</span> <span class="comment">'诺基亚%';</span></div><div class="line"><span class="keyword">where</span> goods_name <span class="keyword">like</span> <span class="comment">'诺基亚N__';</span></div></pre></td></tr></table></figure></p>
+<h3 id="group-by-分组"><a href="#group-by-分组" class="headerlink" title="group by 分组"></a>group by 分组</h3><p><strong><em>一般情况下group需与统计函数(聚合函数)一起使用才有意义</em></strong></p>
+<h4 id="mysql中的五种统计函数"><a href="#mysql中的五种统计函数" class="headerlink" title="mysql中的五种统计函数:"></a>mysql中的五种统计函数:</h4><p>max(求最大值),min(求最小值),sum(求总数和),avg(求平均值),count(求总行数);<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//查询每个栏目下面积压的货款</span></div><div class="line"><span class="keyword">select</span> cat_id,sum(goods_price * goods_number)  <span class="keyword">as</span> hk <span class="keyword">from</span> goods <span class="keyword">group</span> <span class="keyword">by</span> cat_id</div></pre></td></tr></table></figure></p>
+<h3 id="having-与where-的异同点"><a href="#having-与where-的异同点" class="headerlink" title="having 与where 的异同点"></a>having 与where 的异同点</h3><p>having与where类似，可以筛选数据，where后的表达式怎么写，having后就怎么写<br>where针对表中的列发挥作用，<strong><em>查询</em></strong>数据<br>having对查询结果中的列发挥作用，<strong><em>筛选</em></strong>数据<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//查询本店商品价格比市场价低多少钱，输出低200元以上的商品</span></div><div class="line"><span class="keyword">select</span> goods_id,good_name,market_price - shop_price <span class="keyword">as</span> s <span class="keyword">from</span> goods having s&gt;<span class="number">200</span> ;</div><div class="line"><span class="comment">//这里不能用where因为s是查询结果，而where只能对表中的字段名筛选</span></div><div class="line"><span class="comment">//如果用where的话则是：</span></div><div class="line"><span class="keyword">select</span> goods_id,goods_name <span class="keyword">from</span> goods <span class="keyword">where</span> market_price - shop_price &gt; <span class="number">200</span>;</div></pre></td></tr></table></figure></p>
+<h4 id="同时使用where与having"><a href="#同时使用where与having" class="headerlink" title="同时使用where与having"></a>同时使用where与having</h4><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> cat_id,goods_name,market_price - shop_price <span class="keyword">as</span> s <span class="keyword">from</span> goods <span class="keyword">where</span> cat_id = <span class="number">3</span> <span class="keyword">having</span> s &gt; <span class="number">200</span>;</div><div class="line">//查询积压货款超过2万元的栏目，以及该栏目积压的货款</div><div class="line"><span class="keyword">select</span> cat_id,<span class="built_in">sum</span>(shop_price * goods_number) <span class="keyword">as</span> t <span class="keyword">from</span> goods <span class="keyword">group</span> <span class="keyword">by</span> cat_id <span class="keyword">having</span> s &gt; <span class="number">20000</span>;</div><div class="line">//查询两门及两门以上科目不及格的学生的平均分</div><div class="line">//思路：</div><div class="line">//先计算所有学生的平均分</div><div class="line"><span class="keyword">select</span> name,<span class="built_in">avg</span>(score) <span class="keyword">as</span> pj <span class="keyword">from</span> stu <span class="keyword">group</span> <span class="keyword">by</span> name;</div><div class="line">//查出所有学生的挂科情况</div><div class="line"><span class="keyword">select</span> name,score&lt;<span class="number">60</span> <span class="keyword">from</span> stu;</div><div class="line">//这里score&lt;60是判断语句，所以结果为真或假，mysql中真为1假为0</div><div class="line">//查出两门及两门以上不及格的学生</div><div class="line"><span class="keyword">select</span> name,<span class="built_in">sum</span>(score&lt;<span class="number">60</span>) <span class="keyword">as</span> gk <span class="keyword">from</span> stu <span class="keyword">group</span> <span class="keyword">by</span> name <span class="keyword">having</span> gk &gt; <span class="number">1</span>;</div><div class="line">//综合结果</div><div class="line"><span class="keyword">select</span> name,<span class="built_in">sum</span>(score&lt;<span class="number">60</span>) <span class="keyword">as</span> gk,<span class="built_in">avg</span>(score) <span class="keyword">as</span> pj <span class="keyword">from</span> stu <span class="keyword">group</span> <span class="keyword">by</span> name <span class="keyword">having</span> gk &gt;<span class="number">1</span>;</div></pre></td></tr></table></figure>
+<h3 id="order-by"><a href="#order-by" class="headerlink" title="order by"></a>order by</h3><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">order</span> <span class="keyword">by</span> price;  <span class="comment">//默认升序排列</span></div><div class="line"><span class="keyword">order</span> <span class="keyword">by</span> price <span class="keyword">desc</span>; <span class="comment">//降序排列</span></div><div class="line"><span class="keyword">order</span> <span class="keyword">by</span> price <span class="keyword">asc</span>; <span class="comment">//升序排列，与默认一样</span></div><div class="line"><span class="keyword">order</span> <span class="keyword">by</span> rand(); <span class="comment">//随机排列，效率不高</span></div><div class="line"><span class="comment">//按栏目号升序排列，每个栏目下的商品价格降序排列</span></div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> goods <span class="keyword">where</span> cat_id !=<span class="number">2</span> <span class="keyword">order</span> <span class="keyword">by</span> cat_id,price <span class="keyword">desc</span>;</div></pre></td></tr></table></figure>
+<h3 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h3><p>limit [offset,] N<br>offset 偏移量，可选，不写则相当于limit 0,N<br>N     取出条目<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//取价格第4-6高的商品</div><div class="line"><span class="keyword">select</span> good_id,goods_name,goods_price <span class="keyword">from</span> goods <span class="keyword">order</span> <span class="keyword">by</span> good_price <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">3</span>,<span class="number">3</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="例-查询每个栏目下最贵的商品"><a href="#例-查询每个栏目下最贵的商品" class="headerlink" title="例:查询每个栏目下最贵的商品"></a>例:查询每个栏目下最贵的商品</h3><p><strong><em>order by、group by、子查询同时使用</em></strong><br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//思路：</span></div><div class="line"><span class="comment">//先对每个栏目下的商品价格排序</span></div><div class="line"><span class="keyword">select</span> cat_id,goods_id,goods_name,shop_price <span class="keyword">from</span> goods <span class="keyword">order</span> <span class="keyword">by</span> cat_id,shop_price <span class="keyword">desc</span>;</div><div class="line"><span class="comment">//上面的查询结果中每个栏目的第一行的商品就是最贵的商品</span></div><div class="line"><span class="comment">//把上面的查询结果理解为一个临时表[存在于内存中]【子查询】</span></div><div class="line"><span class="comment">//再从临时表中选出每个栏目最贵的商品</span></div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> goods_id,goods_name,cat_id,shop_price <span class="keyword">from</span> goods <span class="keyword">order</span> <span class="keyword">by</span> cat_id,shop_price <span class="keyword">desc</span>) <span class="keyword">as</span> t <span class="keyword">group</span> <span class="keyword">by</span> cat_id;</div><div class="line"><span class="comment">//这里使用group by cat_id是因为临时表中每个栏目的第一个商品就是最贵的商品，而group by前面没有使用聚合函数，所以默认就取每个分组的第一行数据，这里以cat_id分组</span></div></pre></td></tr></table></figure></p>
+<h3 id="良好的理解模型"><a href="#良好的理解模型" class="headerlink" title="良好的理解模型"></a>良好的理解模型</h3><ul>
+<li>where后面的表达式，把表达式放在每一行中，看是否成立</li>
+<li>字段(列)，理解为变量，可以进行运算（算术运算和逻辑运算）  </li>
+<li>取出结果可以理解成一张临时表</li>
+</ul>
+<h2 id="mysql子查询"><a href="#mysql子查询" class="headerlink" title="mysql子查询"></a>mysql子查询</h2><h3 id="where型子查询"><a href="#where型子查询" class="headerlink" title="where型子查询"></a>where型子查询</h3><p><strong><em>把内层查询结果当作外层查询的比较条件</em></strong><br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//不用order by 来查询最新的商品</div><div class="line"><span class="keyword">select</span> goods_id,goods_name <span class="keyword">from</span> goods <span class="keyword">where</span> goods_id = (<span class="keyword">select</span> <span class="built_in">max</span>(goods_id) <span class="keyword">from</span> goods);</div><div class="line">//取出每个栏目下最新的产品(goods_id唯一)</div><div class="line"><span class="keyword">select</span> cat_id,goods_id,goods_name <span class="keyword">from</span> goods <span class="keyword">where</span> goods_id <span class="keyword">in</span>(<span class="keyword">select</span> <span class="built_in">max</span>(goods_id) <span class="keyword">from</span> goods <span class="keyword">group</span> <span class="keyword">by</span> cat_id);</div></pre></td></tr></table></figure></p>
+<h3 id="from型子查询"><a href="#from型子查询" class="headerlink" title="from型子查询"></a>from型子查询</h3><p><strong><em>把内层的查询结果供外层再次查询</em></strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//用子查询查出挂科两门及以上的同学的平均成绩</div><div class="line">//思路：</div><div class="line">//先查出哪些同学挂科两门以上</div><div class="line"><span class="keyword">select</span> <span class="keyword">name</span>,<span class="keyword">count</span>(*) <span class="keyword">as</span> gk <span class="keyword">from</span> stu <span class="keyword">where</span> score &lt; <span class="number">60</span> <span class="keyword">having</span> gk &gt;=<span class="number">2</span>;</div><div class="line">//以上查询结果，我们只要名字就可以了，所以再取一次名字</div><div class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">name</span>,<span class="keyword">count</span>(*) <span class="keyword">as</span> gk <span class="keyword">from</span> stu <span class="keyword">having</span> gk &gt;=<span class="number">2</span>) <span class="keyword">as</span> t;</div><div class="line">//找出这些同学了，那么再计算他们的平均分</div><div class="line"><span class="keyword">select</span> <span class="keyword">name</span>,<span class="keyword">avg</span>(score) <span class="keyword">from</span> stu <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">name</span>,<span class="keyword">count</span>(*) <span class="keyword">as</span> gk <span class="keyword">from</span> stu <span class="keyword">having</span> gk &gt;=<span class="number">2</span>) <span class="keyword">as</span> t) <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">name</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="exists型子查询"><a href="#exists型子查询" class="headerlink" title="exists型子查询"></a>exists型子查询</h3><p><strong><em>把外层查询结果拿到内层，看内层的查询是否成立</em></strong><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果department表中存在d_id取值为1003的记录，则查询employee表的记录。</span></div><div class="line"><span class="comment">//SELECT语句的代码如下</span></div><div class="line"><span class="keyword">select</span> * <span class="function"><span class="keyword">from</span> employee <span class="keyword">where</span> <span class="title">exists</span> (<span class="params"><span class="keyword">select</span> d_name <span class="keyword">from</span> department <span class="keyword">where</span> d_id=<span class="number">1003</span></span>)</span>;</div></pre></td></tr></table></figure></p>
+<p>上述中代码执行的结果显示，查询出了employee表中的所有记录。</p>
+<p>因为department表中存在d_id值为1003的记录，内层查询语句返回一个true，外层查询语句接收true后，开始查询employee表中的记录。因为没有设置查询employee表的查询条件，所以查询出了employee表的所有记录。<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//如果department表中存在d_id取值为1003的记录，则查询employee表中age大于24岁的记录。</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> age&gt;<span class="number">24</span> <span class="keyword">and</span> <span class="keyword">exists</span> (<span class="keyword">select</span> d_name <span class="keyword">from</span> department <span class="keyword">where</span> d_id=<span class="number">1003</span>);</div></pre></td></tr></table></figure></p>
+<p>当内层查询语句从department表中查询到记录，返回一个true，外层查询语句开始进行查询，根据查询条件，从employee表中查询出age大于24岁的两条记录。<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//如果department表中不存在d_id字段取值为1003的记录，则查询employee表的记录。</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span> (<span class="keyword">select</span> d_name <span class="keyword">from</span> department <span class="keyword">where</span> d_id=<span class="number">1003</span>);</div></pre></td></tr></table></figure></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//查询哪些栏目下有商品，栏目表category,商品表goods</div><div class="line"><span class="keyword">select</span> cat_id,cat_name <span class="keyword">from</span> <span class="keyword">category</span> <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> * <span class="keyword">from</span> goods <span class="keyword">where</span> goods.cat_id = category.cat_id);</div></pre></td></tr></table></figure>
+<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>Oracle分页查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> t.*, <span class="keyword">rownum</span> rn <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span>) t <span class="keyword">where</span> <span class="keyword">rownum</span>&lt;=pageSize*pageNow) <span class="keyword">where</span> rn&gt;=(pageSize*(pageNow<span class="number">-1</span>)+<span class="number">1</span>));</div></pre></td></tr></table></figure></p>
+<p>Mysql分页查询：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * <span class="keyword">from</span><span class="built_in"> users </span>order by id limit pageSize*(pageNow-1), pageSize;</div></pre></td></tr></table></figure></p>
+<h2 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h2><p>关联查询必须要写链接条件,N张表进行链接查询,至少要有N-1个链接条件(消除笛卡尔积)<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select a.<span class="built_in">name</span>,b.<span class="built_in">name</span> <span class="keyword">from</span> emp1 a,emp2 b <span class="keyword">where</span> a.<span class="built_in">id</span> = b.<span class="built_in">id</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="distinct关键字"><a href="#distinct关键字" class="headerlink" title="distinct关键字"></a>distinct关键字</h2><p>例如(mysql):<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//从emp中查询得到name不重复的所有数据的name字段，使用distinct去掉多余的重复记录。 </div><div class="line">select distinct name from emp;</div><div class="line">//从emp中查询得到name不重复的所有数据</div><div class="line">//可以使用<span class="keyword">group</span> <span class="title">by</span>，这里<span class="keyword">group</span> <span class="title">by</span>前面没有用聚合函数(count(*)之类)的话，</div><div class="line">//默认取每个分组的第一条数据;<span class="keyword">order</span> <span class="title">by</span> 需要放在最后面</div><div class="line">select * from emp <span class="keyword">group</span> <span class="title">by</span> name <span class="keyword">order</span> <span class="title">by</span> name desc;</div></pre></td></tr></table></figure></p>
+<h2 id="时间和日期"><a href="#时间和日期" class="headerlink" title="时间和日期"></a>时间和日期</h2><h3 id="mysql中Timestamp，time，datetime-区别"><a href="#mysql中Timestamp，time，datetime-区别" class="headerlink" title="mysql中Timestamp，time，datetime 区别?"></a>mysql中Timestamp，time，datetime 区别?</h3><p>TIMESTAMP(用来自动插入日期时间)<br>时间戳。范围是’1970-01-01 00:00:00’到2037年。<br>TIMESTAMP列用于INSERT或UPDATE操作时记录日期和时间。<br>如果你不分配一个值，表中的第一个TIMESTAMP列自动设置为最近操作的日期和时间。<br>也可以通过分配一个NULL值，将TIMESTAMP列设置为当前的日期和时间。<br>TIMESTAMP值返回后显示为’YYYY-MM-DD HH:MM:SS’格式的字符串，<br>显示宽度固定为19个字符。如果想要获得数字值，应在TIMESTAMP 列添加+0。<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">curdate</span>(<span class="params"></span>)</span>;<span class="comment">//2016-02-20</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">curdate</span>(<span class="params"></span>) + 0</span>;<span class="comment">//20160220</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">curtime</span>(<span class="params"></span>)</span>;<span class="comment">//12:20:24</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">curtime</span>(<span class="params"></span>) + 0</span>;<span class="comment">//121946</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">now</span>(<span class="params"></span>)</span>;<span class="comment">//2016-02-20 12:20:44.0</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">now</span>(<span class="params"></span>) + 0</span>;<span class="comment">//20160220122114</span></div></pre></td></tr></table></figure></p>
+<p>TIME<br>时间。范围是’-838:59:59’到’838:59:59’。<br>MySQL以’HH:MM:SS’格式显示TIME值，但允许使用字符串或数字为TIME列分配值。</p>
+<p>DATETIME<br>日期和时间的组合。<br>支持的范围是’1000-01-01 00:00:00’到’9999-12-31 23:59:59’。<br>MySQL以’YYYY-MM-DD HH:MM:SS’格式显示DATETIME值，但允许使用字符串或数字为DATETIME列分配值。</p>
+<p><strong><em>mysql 创建表时，设置时间字段自动插入当前时间</em></strong><br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create table content(id char(20) <span class="keyword">not</span> <span class="literal">null</span>,time1 timestamp <span class="keyword">not</span> <span class="literal">null</span><span class="built_in"> default </span>current_timestamp,primary key (id)) <span class="attribute">engine</span>=InnoDB<span class="built_in"> default </span><span class="attribute">charset</span>=utf8;</div></pre></td></tr></table></figure></p>
+<p>mysql中TIMESTAMP设置默认值的灵活运用:<br>CURRENT_TIMESTAMP ：当我<strong><em>更新</em></strong>这条记录的时候，这条记录的这个字段<strong><em>不会改变</em></strong>。<br>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ：当我<strong><em>更新</em></strong>这条记录的时候，这条记录的这个字段<strong><em>将会改变</em></strong>。即时间变为了更新时候的时间。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//这里如果<span class="keyword">update</span>数据时，相应的行的对应time1字段时间会更新</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> content1(<span class="keyword">id</span> <span class="built_in">char</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,time1 <span class="keyword">timestamp</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="keyword">current_timestamp</span> <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">current_timestamp</span>,primary <span class="keyword">key</span> (<span class="keyword">id</span>)) <span class="keyword">engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">default</span> <span class="keyword">charset</span>=utf8;</div></pre></td></tr></table></figure></p>
+<p>MySQL默认表的第一个timestamp字段为NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP属性，必须显式定义改变这种行为。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//第一个timestamp字段为not null default current_timestamp on <span class="keyword">update</span> <span class="keyword">current_timestamp</span>属性</div><div class="line">//自动更新时间;注意是第一个timestamp字段(如果有多个)</div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> content2(<span class="keyword">id</span> <span class="built_in">char</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,time1 <span class="keyword">timestamp</span> ,primary <span class="keyword">key</span> (<span class="keyword">id</span>)) <span class="keyword">engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">default</span> <span class="keyword">charset</span>=utf8;</div></pre></td></tr></table></figure></p>
+<h3 id="mysql插入时间-日期-时间"><a href="#mysql插入时间-日期-时间" class="headerlink" title="mysql插入时间/日期+时间"></a>mysql插入时间/日期+时间</h3><p><strong><em>仅仅插入时间</em></strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(<span class="keyword">id</span> <span class="built_in">char</span>(<span class="number">20</span>),createtime <span class="keyword">time</span>)<span class="keyword">charset</span>=utf8;//创建表</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'12:12:12'</span>);//插入时间</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">2</span>,<span class="keyword">curtime</span>());//插入当前时间(23:33:48)</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">2</span>,<span class="keyword">now</span>());//插入当前时间(now()也可以23:33:48)</div></pre></td></tr></table></figure></p>
+<p><strong><em>插入日期和时间</em></strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(<span class="keyword">id</span> <span class="built_in">char</span>(<span class="number">20</span>),createtime datetime)<span class="keyword">charset</span>=utf8;//创建表</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'1999-9-9 12:12:12'</span>);//插入时间</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">2</span>,<span class="keyword">curtime</span>());//插入当前时间(2016-02-19 23:38:41)</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp <span class="keyword">values</span>(<span class="number">2</span>,<span class="keyword">now</span>());//插入当前时间(now()也可以2016-02-19 23:38:41)</div></pre></td></tr></table></figure></p>
+<p><strong><em>mysql中now,curdate,curtime,sysdate区别:</em></strong><br>我们一般在执行语句的时候,都是用now(),因为sysdate()获取当时实时的时间(查看的系统时间，时时的系统时间),这有可能导致主库和从库执行时返回值不一样，导致主从数据库不一致。<br>区别：除了本身定义所返回的区别以为，另外一个区别是：now(),curtime(),curdate()都是返回基于语句的开始执行时间，而sysdate()返回time的值。</p>
+<h3 id="查询30-N-天内的数据-TO-DAYS"><a href="#查询30-N-天内的数据-TO-DAYS" class="headerlink" title="查询30(N)天内的数据(TO_DAYS)"></a>查询30(N)天内的数据(TO_DAYS)</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//这里createtime是时间的字段名</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp4 <span class="keyword">where</span> <span class="keyword">to_days</span>(<span class="keyword">now</span>())-<span class="keyword">to_days</span>(createtime) &lt;= <span class="number">30</span>;</div></pre></td></tr></table></figure>
+<h3 id="返回-date-的星期-月-年索引"><a href="#返回-date-的星期-月-年索引" class="headerlink" title="返回 date 的星期/月/年索引"></a>返回 date 的星期/月/年索引</h3><p><strong><em>这里的date可以用时间、日期+时间、now()</em></strong><br><strong><em>DAYOFWEEK(date):</em></strong><br>返回 date 的星期索引(1 = Sunday, 2 = Monday, … 7 = Saturday)。索引值符合 ODBC 的标准。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">dayofweek</span>(<span class="string">'1998-02-03'</span>);//具体时间的星期索引</div><div class="line"><span class="keyword">select</span> <span class="keyword">dayofweek</span>(<span class="keyword">now</span>());//now的星期索引</div></pre></td></tr></table></figure></p>
+<p><strong><em>WEEKDAY(date):</em></strong><br>返回 date 的星期索引(0 = Monday, 1 = Tuesday, … 6 = Sunday)。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">weekday</span>(<span class="string">'1997-11-05'</span>);//日期</div><div class="line"><span class="keyword">select</span> <span class="keyword">weekday</span>(<span class="string">'1998-02-03 22:23:00'</span>);//日期+时间</div><div class="line"><span class="keyword">select</span> <span class="keyword">weekday</span>(<span class="keyword">now</span>());//now()</div></pre></td></tr></table></figure></p>
+<p><strong><em>DAYOFMONTH(date)</em></strong><br><strong><em>DAYOFYEAR(date)</em></strong><br><strong><em>MONTH(date)</em></strong><br><strong><em>YEAR(date)</em></strong><br><strong><em>HOUR(time)</em></strong><br><strong><em>MINUTE(time)</em></strong><br><strong><em>SECOND(time)</em></strong><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">dayofmonth</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回 date 是一月中的第几天，范围为 1 到 31</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">dayofyear</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回 date 是一年中的第几天，范围为 1 到 366</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">month</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回 date 中的月份，范围为 1 到 12</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">year</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回 date 的年份，范围为 1000 到 9999</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">hour</span>(<span class="params"><span class="string">'10:05:03'</span></span>)</span>;<span class="comment">//返回 time 的小时值</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">minute</span>(<span class="params"><span class="string">'10:05:03'</span></span>)</span>;<span class="comment">//返回 time 的分钟值</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">second</span>(<span class="params"><span class="string">'10:05:03'</span></span>)</span>;<span class="comment">//返回 time 的秒值</span></div></pre></td></tr></table></figure></p>
+<p><strong><em>DAYNAME(date)</em></strong><br><strong><em>MONTHNAME(date)</em></strong><br><strong><em>QUARTER(date)</em></strong><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">dayname</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回 date 的星期名</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">monthname</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回date的月份名</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">quarter</span>(<span class="params"><span class="string">'1998-02-03'</span></span>)</span>;<span class="comment">//返回 date 在一年中的季度，范围为 1 到 4</span></div></pre></td></tr></table></figure></p>
+<p><strong><em>WEEK(date)</em></strong><br><strong><em>WEEK(date,first)</em></strong><br>对于星期日是一周中的第一天的场合，如果函数只有一个参数调用，返回 date 为一年的第几周，返回值范围为 0 到 53 (是的，可能有第 53 周的开始)。两个参数形式的 WEEK() 允许你指定一周是否以星期日或星期一开始，以及返回值为 0-53 还是 1-52。这里的一个表显示第二个参数是如何工作的： 值 含义<br>0 一周以星期日开始，返回值范围为 0-53<br>1 一周以星期一开始，返回值范围为 0-53<br>2 一周以星期日开始，返回值范围为 1-53<br>3 一周以星期一开始，返回值范围为 1-53<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select week('<span class="number">1998</span><span class="number">-02</span><span class="number">-03</span>');<span class="comment">//返回今天是一年中的第几周,默认一周以星期日开始(0)</span></div><div class="line">select week('<span class="number">1998</span><span class="number">-02</span><span class="number">-03</span>',<span class="number">1</span>);<span class="comment">//返回今天是一年中的第几周,以周一开始</span></div></pre></td></tr></table></figure></p>
+<h3 id="mysql格式化日期函数"><a href="#mysql格式化日期函数" class="headerlink" title="mysql格式化日期函数"></a>mysql格式化日期函数</h3><p><strong><em>DATE_FORMAT(date,format)</em></strong><br>依照 format 字符串格式化 date 值。下面的修饰符可被用于 format 字符串中： 修饰符 含义<br>%M 月的名字 (January..December)<br>%W 星期的名字 (Sunday..Saturday)<br>%D 有英文后缀的某月的第几天 (0th, 1st, 2nd, 3rd, etc.)<br>%Y 年份，数字的，4 位<br>%y 年份，数字的，2 位<br>%X 周值的年份，星期日是一个星期的第一天，数字的，4 位，与 ‘%V’ 一同使用<br>%x 周值的年份，星期一是一个星期的第一天，数字的，4 位，与 ‘%v’ 一同使用<br>%a 缩写的星期名 (Sun..Sat)<br>%d 月份中的天数，数字的 (00..31)<br>%e 月份中的天数，数字的 (0..31)<br>%m 月，数字的 (00..12)<br>%c 月，数字的 (0..12)<br>%b 缩写的月份名 (Jan..Dec)<br>%j 一年中的天数 (001..366)<br>%H 小时 (00..23)<br>%k 小时 (0..23)<br>%h 小时 (01..12)<br>%I 小时 (01..12)<br>%l 小时 (1..12)<br>%i 分钟，数字的 (00..59)<br>%r 时间，12 小时 (hh:mm:ss [AP]M)<br>%T 时间，24 小时 (hh:mm:ss)<br>%S 秒 (00..59)<br>%s 秒 (00..59)<br>%p AM 或 PM<br>%w 一周中的天数 (0=Sunday..6=Saturday)<br>%U 星期 (00..53)，星期日是一个星期的第一天<br>%u 星期 (00..53)，星期一是一个星期的第一天<br>%V 星期 (01..53)，星期日是一个星期的第一天。与 ‘%X’ 一起使用<br>%v 星期 (01..53)，星期一是一个星期的第一天。与 ‘%x’ 一起使用<br>%% 一个字母 “%”<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//注意这里的%W %M %Y里面带不带空格决定取得的内容带不带空格</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">date_format</span>(<span class="params"><span class="string">'1997-10-04 22:23:00'</span>,<span class="string">'%W %M %Y'</span></span>)</span>;<span class="comment">//Saturday October 1997</span></div><div class="line"><span class="function"><span class="keyword">select</span> <span class="title">date_format</span>(<span class="params"><span class="string">'1997-10-04 22:23:00'</span>,<span class="string">'%H:%i:%s'</span></span>)</span>;<span class="comment">//22:23:00</span></div></pre></td></tr></table></figure></p>
+<p><strong><em>TIME_FORMAT(time,format)</em></strong><br>它的使用方法与上面的 DATE_FORMAT() 函数相似，但是 format 字符串只包含处理小时、分和秒的那些格式修饰符。使用其它的修饰符会产生一个 NULL 值或 0。</p>
+<h2 id="其他语法"><a href="#其他语法" class="headerlink" title="其他语法"></a>其他语法</h2><h2 id="高级查询运算词"><a href="#高级查询运算词" class="headerlink" title="高级查询运算词"></a>高级查询运算词</h2><h3 id="UNION运算符"><a href="#UNION运算符" class="headerlink" title="UNION运算符"></a>UNION运算符</h3><p>UNION运算符通过组合其他两(多)个结果表（例如 TABLE1 和 TABLE2）并消去表中任何重复行而派生出一个结果表。当 ALL 随 UNION 一起使用时（即 UNION ALL），不消除重复行(并集)。两种情况下，派生表的每一行不是来自 TABLE1 就是来自 TABLE2。<br>例如(mysql):<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> emp <span class="keyword">union</span> <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> emp1;</div><div class="line">//按照名字降序取出前3个，组合两个表的name字段，不消除重复行</div><div class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> emp <span class="keyword">union</span> all <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> emp1 <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">name</span> <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">3</span>;</div></pre></td></tr></table></figure></p>
+<p>前提：每个SELECT的内容（表项）必须是相同的结构。详细的说，链接的表的列数必须互相相同，同时相对的列属性也必须相同。而列名可以不同（结构相同）</p>
+<h3 id="EXCEPT运算符"><a href="#EXCEPT运算符" class="headerlink" title="EXCEPT运算符"></a>EXCEPT运算符</h3><p>EXCEPT运算符通过包括所有在 TABLE1 中但不在 TABLE2 中的行并消除所有重复行而派生出一个结果表。当 ALL 随 EXCEPT 一起使用时 (EXCEPT ALL)，不消除重复行。<br><img src="/uploads/sqlexcept.jpg" alt=""><br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> column_name <span class="keyword">from</span> tabname <span class="keyword">except</span> <span class="keyword">select</span> column_name <span class="keyword">from</span> tabname;</div></pre></td></tr></table></figure></p>
+<p>例如(mysql):<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//mysql不支持except(SQL Server支持)，但是可以用LEFT JOIN来代替</div><div class="line"><span class="keyword">select</span> emp1.name <span class="keyword">from</span> emp1 <span class="keyword">left</span> <span class="keyword">join</span> emp <span class="keyword">on</span> emp1.name = emp.name <span class="keyword">where</span> emp.name <span class="keyword">is</span> <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p>左连接:以左表为准，去右表找数据，如果没有匹配的数据，则以null补空位;<br>所以左表有，右表没有的数据，就是这里以null补空位的行中的左表数据。</p>
+<h3 id="INTERSECT运算符"><a href="#INTERSECT运算符" class="headerlink" title="INTERSECT运算符"></a>INTERSECT运算符</h3><p>INTERSECT运算符通过只包括 TABLE1 和 TABLE2 中都有的行并消除所有重复行而派生出一个结果表(交集)。当 ALL 随 INTERSECT 一起使用时 (INTERSECT ALL)，不消除重复行。<br>注：使用运算词的几个查询结果行必须是一致的。<br>例如(mysql):<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//mysql不支持intersect(SQL Server支持)，但是可以用LEFT JOIN来代替</div><div class="line"><span class="keyword">select</span> emp1.name <span class="keyword">from</span> emp1 <span class="keyword">left</span> <span class="keyword">join</span> emp <span class="keyword">on</span> emp1.name = emp.name <span class="keyword">where</span> emp.name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><h4 id="左连接-左外连接"><a href="#左连接-左外连接" class="headerlink" title="左连接(左外连接)"></a>左连接(左外连接)</h4><p> 以左表为准，去右表找数据，如果没有匹配的数据，则以null补空位，所以输出结果数&gt;=左表原数据数<br>例如(mysql):<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp1 <span class="keyword">left</span> <span class="keyword">join</span> emp <span class="keyword">on</span> emp1.name = emp.name;</div></pre></td></tr></table></figure></p>
+<p>左表的第一条数据到右表找，依据是on后面的条件。这里是emp1.name = emp.name;如果这条数据的name在右表找到，后面拼接右表数据;如果没找到，后面拼接右表字段数据都为null;如果on后面的条件是1=1,返回右表数据,并且所有数据条数为笛卡尔积。如果on后面的条件是1=2,返回右表字段数据为null,并且所有数据条数为左表数据数。</p>
+<h4 id="右连接-右外连接"><a href="#右连接-右外连接" class="headerlink" title="右连接(右外连接)"></a>右连接(右外连接)</h4><p>a left join b 等价于 b right join a<br>推荐使用左连接代替右连接</p>
+<h4 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h4><p>查询结果是左右连接的交集，即左右连接的结果去除null项后的并集（去除了重复项）<br>例如(mysql):<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp1 <span class="keyword">inner</span> <span class="keyword">join</span> emp <span class="keyword">on</span> emp1.name=emp.name;</div></pre></td></tr></table></figure></p>
+<h4 id="全外连接"><a href="#全外连接" class="headerlink" title="全外连接"></a>全外连接</h4><p>full join:不仅包括符号连接表的匹配行，还包括两个连接表中的所有记录。<br>mysql目前还不支持 外连接（即左右连接结果的并集,不去除null项）</p>
+<h2 id="其他查询条件的使用-mysql"><a href="#其他查询条件的使用-mysql" class="headerlink" title="其他查询条件的使用(mysql)"></a>其他查询条件的使用(mysql)</h2><h3 id="null的使用"><a href="#null的使用" class="headerlink" title="null的使用"></a>null的使用</h3><p>将一个null值改为0：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> <span class="keyword">name</span>=<span class="number">0</span> <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">is</span> <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p>将一个0值改为null：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> <span class="keyword">name</span>=<span class="literal">null</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="number">0</span>;</div></pre></td></tr></table></figure></p>
+<h1 id="问题与提升"><a href="#问题与提升" class="headerlink" title="问题与提升"></a>问题与提升</h1><h2 id="mysql问题"><a href="#mysql问题" class="headerlink" title="mysql问题"></a>mysql问题</h2><h3 id="mysql相比于其他数据库有哪些特点？"><a href="#mysql相比于其他数据库有哪些特点？" class="headerlink" title="mysql相比于其他数据库有哪些特点？"></a>mysql相比于其他数据库有哪些特点？</h3><p>mysql是一个小型关系型数据库管理系统，开发者为瑞典MySQL AB公司，现在已经被Sun公司（Sun公司被Oracle收购）收购，</p>
+<ul>
+<li>可以处理拥有上千万条记录的大型数据</li>
+<li>支持常见的SQL语句规范</li>
+<li>可移植行高，安装简单小巧</li>
+<li>良好的运行效率，有丰富信息的网络支持</li>
+<li>调试、管理，优化简单（相对其他大型数据库）<h3 id="解决mysql数据库中文乱码问题"><a href="#解决mysql数据库中文乱码问题" class="headerlink" title="解决mysql数据库中文乱码问题"></a>解决mysql数据库中文乱码问题</h3></li>
+<li>在数据库安的时候指定字符集<br>如果在安完了以后可以更改以下文件：<br>C:\Program Files\MySQL\MySQL Server 5.0\my.ini里的所有的 default-character-set=utf8<br>C:\Program Files\MySQL\MySQL Server 5.0\data\depot_development\db.opt<br>default-character-set=utf8<br>default-collation=utf8_general_ci</li>
+<li><p>建立数据库时候：指定字符集类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//gbk</div><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span> <span class="keyword">default</span> <span class="built_in">character</span> <span class="keyword">set</span> gbk <span class="keyword">collate</span> gbk_chinese_ci;</div><div class="line">//utf8</div><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span> <span class="keyword">default</span> <span class="built_in">character</span> <span class="keyword">set</span> utf8 <span class="keyword">collate</span> utf8_general_ci;</div></pre></td></tr></table></figure>
+</li>
+<li><p>建表的时候 也指定字符集</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create table emp(id char(20),createtime time<span class="built_in"> default </span>curtime())<span class="attribute">charset</span>=utf8;</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置URL的时候</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">jdbc:</span><span class="string">mysql:</span><span class="comment">//localhost:3306/database?useUnicode=true&amp;characterEncoding=UTF-8</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="数据库的优化"><a href="#数据库的优化" class="headerlink" title="数据库的优化"></a>数据库的优化</h2><p><strong><em>数据库的设计</em></strong><br><strong>尽量把数据库设计的更小的占磁盘空间</strong></p>
+<ul>
+<li>尽可能使用更小的整数类型.(mediumint就比int更合适)。</li>
+<li>尽可能的定义字段为not   null,除非这个字段需要null。</li>
+<li>如果没有用到变长字段的话比如varchar,那就采用固定大小的纪录格式比如char。</li>
+<li>表的主索引应该尽可能的短.这样的话每条纪录都有名字标志且更高效。</li>
+<li>只创建确实需要的索引。索引有利于检索记录，但是不利于快速保存记录。如果总是要在表的组合字段上做搜索，那么就在这些字段上创建索引。索引的第一部分必须是最常使用的字段。如果总是需要用到很多字段，首先就应该多复制这些字段，使索引更好的压缩。</li>
+<li>所有数据都得在保存到数据库前进行处理。</li>
+<li>所有字段都得有默认值。</li>
+<li>在某些情况下,把一个频繁扫描的表分成两个速度会快好多。在对动态格式表扫描以取得相关记录时，它可能使用更小的静态格式表的情况下更是如此。<br><strong><em>系统的用途</em></strong></li>
+<li>尽量使用长连接。</li>
+<li>explain   复杂的SQL语句。</li>
+<li>如果两个关联表要做比较话，做比较的字段必须类型和长度都一致。</li>
+<li>LIMIT语句尽量要跟order   by或者   distinct.这样可以避免做一次full   table   scan。</li>
+<li>如果想要清空表的所有纪录,建议用truncate   table   tablename而不是delete   from   tablename。</li>
+<li>能使用STORE   PROCEDURE   或者   USER   FUNCTION的时候。</li>
+<li>在一条insert语句中采用多重纪录插入格式.而且使用load   data   infile来导入大量数据，这比单纯的indert快好多。</li>
+<li>经常OPTIMIZE   TABLE   来整理碎片。</li>
+<li>还有就是date   类型的数据如果频繁要做比较的话尽量保存在unsigned   int   类型比较快。</li>
+</ul>
+<h2 id="如何写出高质量、高性能的sql查询"><a href="#如何写出高质量、高性能的sql查询" class="headerlink" title="如何写出高质量、高性能的sql查询"></a>如何写出高质量、高性能的sql查询</h2><p>下面就某些SQL语句的where子句编写中需要注意的问题作详细介绍。在这些where子句中，即使某些列存在索引，但是由于编写了劣质的SQL，系统在运行该SQL语句时也不能使用该索引，而同样使用全表扫描，这就造成了响应速度的极大降低。<br><strong><em>IS NULL 与 IS NOT NULL</em></strong><br>不能用null作索引，任何包含null值的列都将不会被包含在索引中。即使索引有多列这样的情况下，只要这些列中有一列含有null，该列就会从索引中排除。也就是说如果某列存在空值，即使对该列建索引也不会提高性能。<br>任何在where子句中使用is null或is not null的语句优化器是不允许使用索引的。<br><strong><em>联接列</em></strong><br>对于有联接的列，即使最后的联接值为一个静态值，优化器是不会使用索引的。我们一起 来看一个例子，假定有一个职工表（employee），对于一个职工的姓和名分成两列存放（FIRST_NAME和LAST_NAME），现在要查询一个 叫比尔.克林顿（Bill Cliton）的职工。<br>下面是一个采用联接查询的SQL语句，<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employss <span class="keyword">where</span> first_name||<span class="string">''</span>||last_name =<span class="string">'Beill Cliton'</span>;</div></pre></td></tr></table></figure></p>
+<p>上面这条语句完全可以查询出是否有Bill Cliton这个员工，但是这里需要注意，<strong>系统优化器对基于last_name创建的索引没有使用。</strong><br>当采用下面这种SQL语句的编写，Oracle系统就可以采用基于last_name创建的索引。<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> first_name =<span class="string">'Beill'</span> <span class="keyword">and</span> last_name =<span class="string">'Cliton'</span></div></pre></td></tr></table></figure></p>
+<p>遇到下面这种情况又如何处理呢？如果一个变量（name）中存放着Bill Cliton这个员工的姓名，对于这种情况我们又如何避免全程遍历，使用索引呢？可以使用一个函数，将变量name中的姓和名分开就可以了，但是有一点需 要注意，这个函数是不能作用在索引列上。下面是SQL查询脚本：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> first_name = <span class="keyword">SUBSTR</span>(<span class="string">'&amp;&amp;name'</span>,<span class="number">1</span>,<span class="keyword">INSTR</span>(<span class="string">'&amp;&amp;name'</span>,<span class="string">' '</span>)<span class="number">-1</span>) <span class="keyword">and</span> last_name = <span class="keyword">SUBSTR</span>(<span class="string">'&amp;&amp;name'</span>,<span class="keyword">INSTR</span>(<span class="string">'&amp;&amp;name’,'</span> <span class="string">')+1);</span></div></pre></td></tr></table></figure></p>
+<p><strong><em>带通配符（%）的like语句</em></strong><br>同样以上面的例子来看这种情况。目前的需求是这样的，要求在职工表中查询名字中包含cliton的人。可以采用如下的查询SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">'%cliton%'</span>;</div></pre></td></tr></table></figure></p>
+<p>这里由于通配符<strong>（%）在搜寻词首出现，所以Oracle系统不使用last_name的索引</strong>。在很多情况下可能无法避免这种情况，但是一定要心中有底，通配符如此使用会降低查询速度。然而当通配符出现在字符串其他位置时，优化器就能利用索引。 在下面的查询中索引得到了使用：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">'c%'</span>;</div></pre></td></tr></table></figure></p>
+<p><strong><em>Order by语句</em></strong><br>ORDER BY语句决定了Oracle如何将返回的查询结果排序。Order by语句对要排序的列没有什么特别的限制，也可以将函数加入列中（象联接或者附加等）。任何在Order by语句的非索引项或者有计算表达式都将降低查询速度。<br>仔细检查order by语句以找出非索引项或者表达式，它们会降低性能。解决这个问题的办法就是重写order by语句以使用索引，也可以为所使用的列建立另外一个索引，同时应绝对避免在order by子句中使用表达式。</p>
+<ol>
+<li>NOT<br>我们在查询时经常在where子句使用一些逻辑表达式，如大于、小于、等于以及不等于等等，也可以使用and（与）、or（或）以及not（非）。NOT可用来对任何逻辑运算符号取反。下面是一个NOT子句的例子：<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">… <span class="keyword">where</span> <span class="keyword">not</span> (status =’VALID’)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果要使用NOT，则应在取反的短语前面加上括号，并在短语前面加上NOT运算符。NOT运算符包含在另外一个逻辑运算符中，这就是不等于（&lt;&gt;）运算符。换句话说，即使不在查询where子句中显式地加入NOT词，NOT仍在运算符中，见下例：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">… <span class="keyword">where</span> status &lt;&gt;’INVALID’</div></pre></td></tr></table></figure></p>
+<p>再看下面这个例子：<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> salary&lt;&gt;<span class="number">3000</span>;</div></pre></td></tr></table></figure></p>
+<p>对这个查询，可以改写为不使用NOT：<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> employee <span class="keyword">where</span> salary&lt;<span class="number">3000</span> <span class="keyword">or</span> salary&gt;<span class="number">3000</span>;</div></pre></td></tr></table></figure></p>
+<p>虽然这两种查询的结果一样，但是<strong>第二种查询方案</strong>会比第一种查询方案<strong>更快些</strong>。<strong>第二种查询允许Oracle对salary列使用索引，而第一种查询则不能使用索引。</strong></p>
+<ol>
+<li>IN和EXISTS<br>有时候会将一列和一系列值相比较。最简单的办法就是在where子句中使用子查询。在where子句中可以使用两种格式的子查询。<br>第一种格式是使用IN操作符：<br>… where column in(select <em> from … where …);<br>第二种格式是使用EXIST操作符：<br>… where exists (select ‘X’ from …where …);<br>我相信绝大多数人会使用第一种格式，因为它比较容易编写，而实际上<strong>第二种格式要远比第一种格式的效率高</strong>。在Oracle中可以几乎将所有的IN操作符子查询改写为使用EXISTS的子查询。<br>第二种格式中，子查询以‘select ‘X’开始。运用EXISTS子句不管子查询从表中抽取什么数据它只查看where子句。这样优化器就不必遍历整个表而仅根据索引就可完成工作（这里假定在where语句中使用的列存在索引）。相对于IN子句来说，EXISTS使用相连子查询，构造起来要比IN子查询困难一些。<br>通过使用EXIST，Oracle系统会首先检查主查询，然后运行子查询直到它找到第一个匹配项，这就节省了时间。Oracle系统在执行IN子查询时，首先执行子查询，并将获得的结果列表存放在在一个加了索引的临时表中。在执行子查询之前，系统先将主查询挂起，待子查询执行完毕，存放在临时表中以后再执行主查询。这也就是使用EXISTS比使用IN通常查询速度快的原因。<br>同时应尽可能使用NOT EXISTS来代替NOT IN，尽管二者都使用了NOT（不能使用索引而降低速度），<em>*NOT EXISTS要比NOT IN查询效率更高</em></em>。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/16/MySql中的索引/" rel="next" title="MySql中的索引">
+                <i class="fa fa-chevron-left"></i> MySql中的索引
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/21/mybatis学习笔记/" rel="prev" title="mybatis学习笔记">
+                mybatis学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库-表结构操作"><span class="nav-number">1.</span> <span class="nav-text">数据库/表结构操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-删除数据库"><span class="nav-number">1.1.</span> <span class="nav-text">创建/删除数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-删除表"><span class="nav-number">1.2.</span> <span class="nav-text">创建/删除表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列出表的创建命令"><span class="nav-number">1.3.</span> <span class="nav-text">列出表的创建命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查表结构"><span class="nav-number">1.4.</span> <span class="nav-text">查表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改表"><span class="nav-number">1.5.</span> <span class="nav-text">修改表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重命名表"><span class="nav-number">1.6.</span> <span class="nav-text">重命名表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-删除主键"><span class="nav-number">1.7.</span> <span class="nav-text">添加/删除主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-删除索引"><span class="nav-number">1.8.</span> <span class="nav-text">创建/删除索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-删除视图"><span class="nav-number">1.9.</span> <span class="nav-text">创建/删除视图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql语句操作"><span class="nav-number">2.</span> <span class="nav-text">sql语句操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的基本sql语句-包括增删改查"><span class="nav-number">2.1.</span> <span class="nav-text">简单的基本sql语句(包括增删改查)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql查询的五种子句"><span class="nav-number">2.2.</span> <span class="nav-text">mysql查询的五种子句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#where-条件查询"><span class="nav-number">2.2.1.</span> <span class="nav-text">where(条件查询)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#where常用运算符"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">where常用运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模糊查询"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">模糊查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group-by-分组"><span class="nav-number">2.2.2.</span> <span class="nav-text">group by 分组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql中的五种统计函数"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">mysql中的五种统计函数:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#having-与where-的异同点"><span class="nav-number">2.2.3.</span> <span class="nav-text">having 与where 的异同点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同时使用where与having"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">同时使用where与having</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order-by"><span class="nav-number">2.2.4.</span> <span class="nav-text">order by</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit"><span class="nav-number">2.2.5.</span> <span class="nav-text">limit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例-查询每个栏目下最贵的商品"><span class="nav-number">2.2.6.</span> <span class="nav-text">例:查询每个栏目下最贵的商品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#良好的理解模型"><span class="nav-number">2.2.7.</span> <span class="nav-text">良好的理解模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql子查询"><span class="nav-number">2.3.</span> <span class="nav-text">mysql子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#where型子查询"><span class="nav-number">2.3.1.</span> <span class="nav-text">where型子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from型子查询"><span class="nav-number">2.3.2.</span> <span class="nav-text">from型子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exists型子查询"><span class="nav-number">2.3.3.</span> <span class="nav-text">exists型子查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分页查询"><span class="nav-number">2.4.</span> <span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联查询"><span class="nav-number">2.5.</span> <span class="nav-text">关联查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distinct关键字"><span class="nav-number">2.6.</span> <span class="nav-text">distinct关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间和日期"><span class="nav-number">2.7.</span> <span class="nav-text">时间和日期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql中Timestamp，time，datetime-区别"><span class="nav-number">2.7.1.</span> <span class="nav-text">mysql中Timestamp，time，datetime 区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql插入时间-日期-时间"><span class="nav-number">2.7.2.</span> <span class="nav-text">mysql插入时间/日期+时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询30-N-天内的数据-TO-DAYS"><span class="nav-number">2.7.3.</span> <span class="nav-text">查询30(N)天内的数据(TO_DAYS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回-date-的星期-月-年索引"><span class="nav-number">2.7.4.</span> <span class="nav-text">返回 date 的星期/月/年索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql格式化日期函数"><span class="nav-number">2.7.5.</span> <span class="nav-text">mysql格式化日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他语法"><span class="nav-number">2.8.</span> <span class="nav-text">其他语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级查询运算词"><span class="nav-number">2.9.</span> <span class="nav-text">高级查询运算词</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNION运算符"><span class="nav-number">2.9.1.</span> <span class="nav-text">UNION运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXCEPT运算符"><span class="nav-number">2.9.2.</span> <span class="nav-text">EXCEPT运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INTERSECT运算符"><span class="nav-number">2.9.3.</span> <span class="nav-text">INTERSECT运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外连接"><span class="nav-number">2.9.4.</span> <span class="nav-text">外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左连接-左外连接"><span class="nav-number">2.9.4.1.</span> <span class="nav-text">左连接(左外连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右连接-右外连接"><span class="nav-number">2.9.4.2.</span> <span class="nav-text">右连接(右外连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内连接"><span class="nav-number">2.9.4.3.</span> <span class="nav-text">内连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全外连接"><span class="nav-number">2.9.4.4.</span> <span class="nav-text">全外连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他查询条件的使用-mysql"><span class="nav-number">2.10.</span> <span class="nav-text">其他查询条件的使用(mysql)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null的使用"><span class="nav-number">2.10.1.</span> <span class="nav-text">null的使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题与提升"><span class="nav-number">3.</span> <span class="nav-text">问题与提升</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql问题"><span class="nav-number">3.1.</span> <span class="nav-text">mysql问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql相比于其他数据库有哪些特点？"><span class="nav-number">3.1.1.</span> <span class="nav-text">mysql相比于其他数据库有哪些特点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决mysql数据库中文乱码问题"><span class="nav-number">3.1.2.</span> <span class="nav-text">解决mysql数据库中文乱码问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的优化"><span class="nav-number">3.2.</span> <span class="nav-text">数据库的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写出高质量、高性能的sql查询"><span class="nav-number">3.3.</span> <span class="nav-text">如何写出高质量、高性能的sql查询</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

@@ -1,0 +1,1111 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程,Velocity," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Velocity快速入门教程">
+<meta name="keywords" content="编程,Velocity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Velocity">
+<meta property="og:url" content="http://yoursite.com/2016/02/22/Velocity/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="Velocity快速入门教程">
+<meta property="og:updated_time" content="2016-02-22T16:02:07.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Velocity">
+<meta name="twitter:description" content="Velocity快速入门教程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/22/Velocity/"/>
+
+
+
+
+
+  <title>Velocity | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/22/Velocity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Velocity</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-22T23:52:25+08:00">
+                2016-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/02/22/Velocity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/02/22/Velocity/" class="leancloud_visitors" data-flag-title="Velocity">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,996 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Velocity快速入门教程
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是Velocity"><a href="#什么是Velocity" class="headerlink" title="什么是Velocity?"></a>什么是Velocity?</h1><p>一种J2EE的前端模版技术。<br>和JSP，Freemarker差不多，都是用来展示网页内容的。<br>Velocity是一个基于java的模板引擎（template engine）。它允许任何人仅仅简单的使用模板语言（template language）来引用由java代码定义的对象。 当Velocity应用于web开发时，<strong><em>界面设计人员可以和java程序开发人员同步开发一个遵循MVC架构的web站点</em></strong>，也就是说，页面设计人员可以只 关注页面的显示效果，而由java程序开发人员关注业务逻辑编码。Velocity将<strong><em>java代码从web页面中分离出来</em></strong>，这样为web站点的长期维护提 供了便利，同时也为我们在JSP和PHP之外又提供了一种可选的方案。</p>
+<h1 id="Velocity脚本语法摘要"><a href="#Velocity脚本语法摘要" class="headerlink" title="Velocity脚本语法摘要"></a>Velocity脚本语法摘要</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="变量的定义："><a href="#变量的定义：" class="headerlink" title="变量的定义："></a>变量的定义：</h3><figure class="highlight leaf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">($<span class="variable">name</span> = <span class="string">"hello"</span>)</span></span> 说明：velocity中变量是弱类型的。</div></pre></td></tr></table></figure>
+<p>当使用<code>#set</code> 指令时，括在双引号中的字面字符串将解析和重新解释，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="built_in">set</span>(<span class="variable">$directoryRoot</span> = <span class="string">"www"</span> )</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="built_in">set</span>(<span class="variable">$templateName</span> = <span class="string">"index.vm"</span> )</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="built_in">set</span>(<span class="variable">$template</span> = <span class="string">"<span class="variable">$directoryRoot</span>/<span class="variable">$templateName</span>"</span> )</span></div><div class="line"><span class="meta"></span></div><div class="line">$<span class="bash">template</span></div></pre></td></tr></table></figure></p>
+<p>输出将会是：www/index.vm</p>
+<p>注：在velocity中使用<code>$2.5</code>这样的货币标识是没有问题得的，因为velocity中的变量总是以一个大写或者小写的字母开始的。</p>
+<h3 id="变量规范的写法"><a href="#变量规范的写法" class="headerlink" title="变量规范的写法"></a>变量规范的写法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">&#123;name&#125; ，也可以写成：<span class="variable">$name</span>。提倡用前面的写法。</span></div></pre></td></tr></table></figure>
+<p>例如：你希望通过一个变量<code>$vice</code>来动态的组织一个字符串。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Jack is <span class="selector-tag">a</span> <span class="variable">$vicemaniac</span></div></pre></td></tr></table></figure>
+<p>本来变量是<code>$vice</code>现在却变成了<code>$vicemaniac</code>，这样Veloctiy就不知道您到底要什么了。所以，</p>
+<p>应该使用规范的格式书写 ：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Jack</span> is a <span class="variable">$&#123;vice&#125;</span>maniac</div></pre></td></tr></table></figure></p>
+<p>现在Velocity知道变量是<code>$vice</code>而不是<code>$vicemaniac</code>。</p>
+<p>注意：当引用属性的时候不能加{}</p>
+<p>(3)变量的赋值:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">name=<span class="string">"hello"</span></span></div></pre></td></tr></table></figure></p>
+<p>赋值的左边必须是一个变量或者是属性引用。右边可以是下面六种类型之一：</p>
+<p> 变量引用,字面字符串,属性引用,方法引用,字面数字,数组列表。</p>
+<p>下面的例子演示了上述的每种类型：<br><figure class="highlight leaf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">( $<span class="variable">monkey</span> = $<span class="variable">bill</span> )</span></span> ## variable reference</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">( $<span class="variable">monkey</span>.<span class="variable">Friend</span> = <span class="string">"monica"</span> )</span></span> ## string</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">( $<span class="variable">monkey</span>.<span class="variable">Blame</span> = $<span class="variable">whitehouse</span>.<span class="variable">Leak</span> )</span></span> ## property reference</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">( $<span class="variable">monkey</span>.<span class="variable">Plan</span> = $<span class="variable">spindoctor</span>.<span class="variable">weave</span>($<span class="variable">web</span>)</span></span> ) ## method reference</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">( $<span class="variable">monkey</span>.<span class="variable">Number</span> = 123 )</span></span> ##number</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">#</span><span class="title">set</span><span class="params">( $<span class="variable">monkey</span>.<span class="variable">Say</span> = [<span class="string">"Not"</span>, $<span class="variable">my</span>, <span class="string">"fault"</span>] )</span></span> ## ArrayList</div></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li><p>如果上述例子中的右值是null, 则左值不会被赋值，也就是说会保留以前的值。</p>
+</li>
+<li><p>velocity模板中未被定义的变量将被认为是一个字符串。例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="built_in">set</span>(<span class="variable">$foo</span> = <span class="string">"gibbous"</span>)</span></div><div class="line"><span class="meta">$</span><span class="bash">moon = <span class="variable">$foo</span></span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>输出结果为：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">$moon</span> = gibbous</span></div></pre></td></tr></table></figure></p>
+<ul>
+<li>velocity模板中不会将reference解释为对象的实例变量。例如：$foo.Name将被解</li>
+</ul>
+<p>释为Foo对象的getName（）方法，而不是Foo对象的Name实例变量。例如：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$foo</span>.getBar() 等同于<span class="variable">$foo</span><span class="selector-class">.Bar</span> ；</div><div class="line"></div><div class="line"><span class="variable">$data</span>.getUser(<span class="string">"jon"</span>) 等同于<span class="variable">$data</span>.User(<span class="string">"jon"</span>) ；</div><div class="line"></div><div class="line">data.getRequest().getServerName() 等同于</div><div class="line"></div><div class="line"><span class="variable">$data</span><span class="selector-class">.Request</span><span class="selector-class">.ServerName</span>等同于$&#123;data<span class="selector-class">.Request</span><span class="selector-class">.ServerName</span>&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">foreach (<span class="variable">$element</span> <span class="keyword">in</span> <span class="variable">$list</span>)</span></div><div class="line"></div><div class="line">This is $element.</div><div class="line"></div><div class="line"><span class="meta">   $</span><span class="bash">velocityCount</span></div><div class="line"></div><div class="line"><span class="meta">   #</span><span class="bash">end</span></div></pre></td></tr></table></figure>
+<p>例子：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="built_in">set</span>( <span class="variable">$list</span> = [<span class="string">"pine"</span>, <span class="string">"oak"</span>, <span class="string">"maple"</span>])</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash">foreach (<span class="variable">$element</span> <span class="keyword">in</span> <span class="variable">$list</span>)</span></div><div class="line"><span class="meta"></span></div><div class="line">$<span class="bash">velocityCount</span></div><div class="line"></div><div class="line">This is $element.</div><div class="line"><span class="meta">#</span><span class="bash">end</span></div></pre></td></tr></table></figure></p>
+<p>输出的结果为：<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">1 </span>This is pine.</div><div class="line"></div><div class="line"><span class="symbol">2 </span>This is oak.</div><div class="line"></div><div class="line"><span class="symbol">3 </span>This is maple.</div></pre></td></tr></table></figure></p>
+<p>每次循环<code>$list</code>中的一个值都会赋给<code>$element</code>变量。</p>
+<p><code>$list</code>可以是一个Vector、Hashtable或者Array。分配给<code>$element</code>的值是一个java对象，并且可以通过变量被引用。<br>例如：如果<code>$element</code> 是一个java的Product类，并且这个产品的名字可以通过调用他的getName（）方法得到。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#<span class="keyword">foreach</span> ( <span class="variable">$key</span> <span class="keyword">in</span> <span class="variable">$list</span>.keySet())</div><div class="line"></div><div class="line">Key: <span class="variable">$key</span> -&gt; Value: <span class="variable">$list</span>.<span class="built_in">get</span>(<span class="variable">$key</span>) &lt;<span class="keyword">br</span>&gt;</div><div class="line">#end</div></pre></td></tr></table></figure>
+<p>提示：velocity中大小写敏感。</p>
+<p>Velocity还特别提供了得到循环次数的方法，<code>$velocityCount</code>变量的名字是Velocity默认的名字。</p>
+<p> 例子：</p>
+<p>First example:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">foreach ( <span class="variable">$foo</span> <span class="keyword">in</span> [1..5] )</span></div><div class="line"></div><div class="line">    $foo</div><div class="line"></div><div class="line">    #end</div></pre></td></tr></table></figure></p>
+<p>Second example:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">foreach ( <span class="variable">$bar</span> <span class="keyword">in</span> [2..-2] )</span></div><div class="line"></div><div class="line">    $bar</div><div class="line"></div><div class="line">    #end</div></pre></td></tr></table></figure></p>
+<p>Third example:<br><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">#set</span> ( <span class="string">$a</span>rr = [<span class="number">0.</span><span class="number">.1</span>] )</div><div class="line"></div><div class="line">    <span class="symbol">#foreach</span> ( <span class="string">$i</span> in <span class="string">$a</span>rr )</div><div class="line"></div><div class="line">    <span class="string">$i</span></div><div class="line"></div><div class="line">   <span class="symbol">#end</span></div></pre></td></tr></table></figure></p>
+<p>上面三个例子的输出结果为：</p>
+<p> First example：</p>
+<pre><code>1 2 3 4 5
+</code></pre><p>Second example：</p>
+<pre><code>2 1 0 -1 -2
+</code></pre><p>Third example：</p>
+<pre><code>0 1
+</code></pre><h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="keyword">if</span> (condition)</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash">elseif (condition)</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="keyword">else</span></span></div><div class="line"><span class="meta"></span></div><div class="line"> #<span class="bash">end</span></div></pre></td></tr></table></figure>
+<h2 id="语句的嵌套"><a href="#语句的嵌套" class="headerlink" title="语句的嵌套"></a>语句的嵌套</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">foreach (<span class="variable">$element</span> <span class="keyword">in</span> <span class="variable">$list</span>)</span></div><div class="line"><span class="meta"></span></div><div class="line"> #<span class="bash"><span class="comment"># inner foreach 内循环</span></span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash">foreach (<span class="variable">$element</span> <span class="keyword">in</span> <span class="variable">$list</span>)</span></div><div class="line"></div><div class="line">This is $element. $velocityCount &lt;br&gt;inner&lt;br&gt;</div><div class="line"><span class="meta">#</span><span class="bash">end</span></div><div class="line"><span class="meta"></span></div><div class="line"> #<span class="bash"><span class="comment"># inner foreach 内循环结束</span></span></div><div class="line"><span class="meta"></span></div><div class="line"> #<span class="bash"><span class="comment"># outer foreach</span></span></div><div class="line"></div><div class="line">This is $element.</div><div class="line"><span class="meta"></span></div><div class="line">$<span class="bash">velocityCount &lt;br&gt;outer&lt;br&gt;</span></div><div class="line"><span class="meta">#</span><span class="bash">end</span></div></pre></td></tr></table></figure>
+<p>语句中也可以嵌套其他的语句，如#if…#else…#end等。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><h3 id="单行注释："><a href="#单行注释：" class="headerlink" title="单行注释："></a>单行注释：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="comment"># This is a single line comment.</span></span></div></pre></td></tr></table></figure>
+<h3 id="多行注释："><a href="#多行注释：" class="headerlink" title="多行注释："></a>多行注释：</h3><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#*</span></div><div class="line"></div><div class="line"> Thus <span class="keyword">begins</span> <span class="keyword">a</span> multi-<span class="built_in">line</span> comment. Online visitors won’t</div><div class="line"></div><div class="line"> see this <span class="keyword">text</span> because <span class="keyword">the</span> Velocity Templating Engine will</div><div class="line"></div><div class="line"> ignore <span class="keyword">it</span>.</div><div class="line"></div><div class="line"> *<span class="comment">#</span></div></pre></td></tr></table></figure>
+<h3 id="文档格式："><a href="#文档格式：" class="headerlink" title="文档格式："></a>文档格式：</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#**</span></div><div class="line"></div><div class="line"> This <span class="keyword">is</span> a VTL comment block <span class="keyword">and</span></div><div class="line"></div><div class="line"> may be used to store such information</div><div class="line"></div><div class="line"> <span class="keyword">as</span> the <span class="built_in">document</span> author <span class="keyword">and</span> versioning</div><div class="line"></div><div class="line">information:</div><div class="line"></div><div class="line">@version <span class="number">1.1</span></div><div class="line"></div><div class="line">@author xiao</div><div class="line"></div><div class="line">*<span class="comment">#</span></div></pre></td></tr></table></figure>
+<h2 id="关系和逻辑操作符"><a href="#关系和逻辑操作符" class="headerlink" title="关系和逻辑操作符"></a>关系和逻辑操作符</h2><p>Velocity 也具有逻辑AND, OR 和 NOT 操作符。</p>
+<p>如<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="comment"># example for AND</span></span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="keyword">if</span>(<span class="variable">$foo</span> &amp;&amp; <span class="variable">$bar</span>)&lt;strong&gt;This and that&lt;/strong&gt;</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash">end</span></div></pre></td></tr></table></figure></p>
+<p>例子中<code>#if()</code> 指令仅在<code>$foo</code> 和<code>$bar</code> 斗为真的时候才为真。如果<code>$foo</code> 为假，则表达式也为假；</p>
+<p>并且 <code>$bar</code> 将不被求值。如果 <code>$foo</code> 为真，Velocity 模板引擎将继续检查<code>$bar</code>的值，如果 <code>$bar</code></p>
+<p> 为真，则整个表达式为真。并且输出This AND that 。如果 <code>$bar</code> 为假，将没有输出因为整</p>
+<p>个表达式为假。</p>
+<h2 id="Velocity-中的宏"><a href="#Velocity-中的宏" class="headerlink" title="Velocity 中的宏"></a>Velocity 中的宏</h2><p>Velocity中的宏我们可以理解为函数。</p>
+<h3 id="宏的定义"><a href="#宏的定义" class="headerlink" title="宏的定义"></a>宏的定义</h3><figure class="highlight leaf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">#</span><span class="title">macro</span><span class="params">(宏的名称 $参数1 $参数2 …)</span></span></div><div class="line"></div><div class="line">       语句体(即函数体)</div><div class="line"></div><div class="line">#end</div></pre></td></tr></table></figure>
+<h3 id="宏的调用"><a href="#宏的调用" class="headerlink" title="宏的调用"></a>宏的调用</h3><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#宏的名称(<span class="symbol">$</span>参数<span class="number">1</span> <span class="symbol">$</span>参数<span class="number">2</span> …)</div><div class="line"></div><div class="line">          说明：参数之间用空格隔开。</div></pre></td></tr></table></figure>
+<h2 id="stop"><a href="#stop" class="headerlink" title="#stop"></a>#stop</h2><p> 停止执行模板引擎并返回,把它应用于debug是很有帮助的。</p>
+<h2 id="include与-parse"><a href="#include与-parse" class="headerlink" title="#include与#parse"></a>#include与#parse</h2><p><code>#include</code>和<code>#parse</code>的作用都是引入本地文件, 为了安全的原因，被引入的本地文件只能在</p>
+<p>TEMPLATE_ROOT目录下。</p>
+<p>区别：</p>
+<ul>
+<li><p>与#include不同的是，#parse只能指定单个对象。而#include可以有多个</p>
+<p>如果您需要引入多个文件，可以用逗号分隔就行：</p>
+</li>
+</ul>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> (<span class="string">"one.gif"</span>, <span class="string">"two.txt"</span>, <span class="string">"three.htm"</span> )</span></div></pre></td></tr></table></figure>
+<p>在括号内可以是文件名，但是更多的时候是使用变量的：<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> ( “greetings.txt”, $seasonalstock )</span></div></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>#include</code>被引入文件的内容将不会通过模板引擎解析；</p>
+<p>而<code>#parse</code>引入的文件内容Velocity将解析其中的velocity语法并移交给模板，意思就是说</p>
+</li>
+</ul>
+<p>相当与把引入的文件copy到文件中。</p>
+<p><code>#parse</code>是可以递归调用的，例如：如果dofoo.vm包含如下行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Count down.&lt;br&gt;</div><div class="line"><span class="meta">#</span><span class="bash"><span class="built_in">set</span> (<span class="variable">$count</span> = 8)</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash">parse (<span class="string">"parsefoo.vm"</span>)</span></div><div class="line">&lt;br&gt;All done with dofoo.vm!</div></pre></td></tr></table></figure></p>
+<p>那么在parsefoo.vm模板中，你可以包含如下VTL：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">count</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="built_in">set</span>(<span class="variable">$count</span> = <span class="variable">$count</span> - 1)</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="keyword">if</span> ( <span class="variable">$count</span> &gt; 0 )&lt;br&gt;</span></div><div class="line"><span class="meta">#</span><span class="bash">parse( <span class="string">"parsefoo.vm"</span> )</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"><span class="keyword">else</span></span></div><div class="line">&lt;br&gt;All done with parsefoo.vm!</div></pre></td></tr></table></figure></p>
+<p><code>#end</code>的显示结果为：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">Count down.</div><div class="line"></div><div class="line"><span class="number">8</span></div><div class="line"></div><div class="line"><span class="number">7</span></div><div class="line"></div><div class="line"><span class="number">6</span></div><div class="line"></div><div class="line"><span class="number">5</span></div><div class="line"></div><div class="line"><span class="number">4</span></div><div class="line"></div><div class="line"><span class="number">3</span></div><div class="line"></div><div class="line"><span class="number">2</span></div><div class="line"></div><div class="line"><span class="number">1</span></div><div class="line"></div><div class="line"><span class="number">0</span></div><div class="line"></div><div class="line">All done with parsefoo.vm!</div><div class="line"></div><div class="line">All done with dofoo.vm!</div></pre></td></tr></table></figure></p>
+<p>注意：在vm中使用<code>#parse</code>来嵌套另外一个vm时的变量共享问题。如：</p>
+<p>-&gt;a.vm 里嵌套 b.vm；</p>
+<p>-&gt;a.vm 里定义了变量 $param；</p>
+<p>-&gt;b.vm 里可以直接使用$param，无任何限制。</p>
+<p>但需要特别注意的是，如果b.vm里同时定义有变量$param，则b.vm里将使用b.vm里定义的值。</p>
+<h2 id="转义字符’-’的使用"><a href="#转义字符’-’的使用" class="headerlink" title="转义字符’\’的使用"></a>转义字符’\’的使用</h2><p>如果reference被定义，两个’\’意味着输出一个’\’，如果未被定义，刚按原样输出。</p>
+<p>如：<br><figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#<span class="keyword">set</span>(<span class="built_in">$email</span> = <span class="string">"foo"</span> )</div><div class="line"></div><div class="line"><span class="built_in">$email</span></div><div class="line"></div><div class="line">\<span class="built_in">$emai</span></div><div class="line"></div><div class="line">\\<span class="built_in">$email</span></div><div class="line"></div><div class="line">\\\<span class="built_in">$email</span></div></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">foo</div><div class="line"></div><div class="line"><span class="meta"><span class="meta-keyword">$email</span></span></div><div class="line"></div><div class="line">\foo</div><div class="line"></div><div class="line">\<span class="symbol">$</span>email</div></pre></td></tr></table></figure></p>
+<p>如果$email 未定义<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">$email</span></span></div><div class="line"></div><div class="line">\<span class="symbol">$</span>email</div><div class="line"></div><div class="line">\\<span class="symbol">$</span>email</div><div class="line"></div><div class="line">\\\<span class="symbol">$</span>email</div></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">$email</span></span></div><div class="line"></div><div class="line">\<span class="symbol">$</span>email</div><div class="line"></div><div class="line">\\<span class="symbol">$</span>email</div><div class="line"></div><div class="line">\\<span class="symbol">$</span>email</div></pre></td></tr></table></figure></p>
+<h2 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h2><p>Velocity内置了一些对象，在vm模版里可以直接调用，列举如下：</p>
+<p><code>$request</code>、<code>$response</code>、<code>$session</code>，另外，模板内还可以使用 <code>$msg</code>内的消息工</p>
+<p>具访问 Struts 的国际化资源，达到简便实现国际化的方法。</p>
+<h2 id="数组访问"><a href="#数组访问" class="headerlink" title="数组访问"></a>数组访问</h2><p>对数组的访问在Velocity中存在问题，因为Velocity只能访问对象的方法，而数组</p>
+<p>又是一个特殊的Array，所以虽然数组可以进行循环列举，但却不能定位访问特定</p>
+<p>位置的元素，如 strs[2]，数组对固定位置元素的访问调用了Array的反射方法</p>
+<p>get(Object array, int index)，而Velocity没能提供这样的访问，所以数组要么改成</p>
+<p>List等其他类容器的方式来包装，要么就通过公用Util类的方式来提供，传入数组</p>
+<p>对象和要访问的位置参数，从而达到返回所需值的目的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/Velocity/" rel="tag"># Velocity</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/21/mybatis学习笔记/" rel="next" title="mybatis学习笔记">
+                <i class="fa fa-chevron-left"></i> mybatis学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/23/Linux命令行/" rel="prev" title="Linux命令行">
+                Linux命令行 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Velocity"><span class="nav-number">1.</span> <span class="nav-text">什么是Velocity?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Velocity脚本语法摘要"><span class="nav-number">2.</span> <span class="nav-text">Velocity脚本语法摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">2.1.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义："><span class="nav-number">2.1.1.</span> <span class="nav-text">变量的定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量规范的写法"><span class="nav-number">2.1.2.</span> <span class="nav-text">变量规范的写法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.2.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件语句"><span class="nav-number">2.3.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语句的嵌套"><span class="nav-number">2.4.</span> <span class="nav-text">语句的嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">2.5.</span> <span class="nav-text">注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单行注释："><span class="nav-number">2.5.1.</span> <span class="nav-text">单行注释：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多行注释："><span class="nav-number">2.5.2.</span> <span class="nav-text">多行注释：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档格式："><span class="nav-number">2.5.3.</span> <span class="nav-text">文档格式：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关系和逻辑操作符"><span class="nav-number">2.6.</span> <span class="nav-text">关系和逻辑操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Velocity-中的宏"><span class="nav-number">2.7.</span> <span class="nav-text">Velocity 中的宏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#宏的定义"><span class="nav-number">2.7.1.</span> <span class="nav-text">宏的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宏的调用"><span class="nav-number">2.7.2.</span> <span class="nav-text">宏的调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stop"><span class="nav-number">2.8.</span> <span class="nav-text">#stop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include与-parse"><span class="nav-number">2.9.</span> <span class="nav-text">#include与#parse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义字符’-’的使用"><span class="nav-number">2.10.</span> <span class="nav-text">转义字符’\’的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内置对象"><span class="nav-number">2.11.</span> <span class="nav-text">内置对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组访问"><span class="nav-number">2.12.</span> <span class="nav-text">数组访问</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

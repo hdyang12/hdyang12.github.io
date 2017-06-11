@@ -1,0 +1,1084 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="随笔," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="以下将详细描述一个java高级工程师的进阶之路，也可以为你的学习做些参考">
+<meta name="keywords" content="随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个java高级工程师的进阶之路">
+<meta property="og:url" content="http://yoursite.com/2016/02/12/一个java高级工程师的进阶之路/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="以下将详细描述一个java高级工程师的进阶之路，也可以为你的学习做些参考">
+<meta property="og:updated_time" content="2016-02-29T12:25:00.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个java高级工程师的进阶之路">
+<meta name="twitter:description" content="以下将详细描述一个java高级工程师的进阶之路，也可以为你的学习做些参考">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/12/一个java高级工程师的进阶之路/"/>
+
+
+
+
+
+  <title>一个java高级工程师的进阶之路 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/12/一个java高级工程师的进阶之路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个java高级工程师的进阶之路</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-12T15:25:25+08:00">
+                2016-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/02/12/一个java高级工程师的进阶之路/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/02/12/一个java高级工程师的进阶之路/" class="leancloud_visitors" data-flag-title="一个java高级工程师的进阶之路">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,149 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  以下将详细描述一个java高级工程师的进阶之路，也可以为你的学习做些参考
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="宏观方面"><a href="#宏观方面" class="headerlink" title="宏观方面"></a>宏观方面</h1><p><strong><em>一、JAVA。</em></strong>要想成为JAVA（高级）工程师肯定要学习JAVA。一般的程序员或许只需知道一些JAVA的语法结构就可以应付了。但要成为JAVA（高级）工程师，您要对JAVA做比较深入的研究。您应该多研究一下<strong><em>JDBC、IO包、Util包、Text包、JMS、EJB、RMI、线程。</em></strong>如果可能，希望您对JAVA的所有包都浏览一下，知道大概的API，这样您就发现其实您想实现的很多功能，通过JAVA的API都可以实现了，就不必自己费太多的脑经了。 </p>
+<p><strong><em>二、设计模式。</em></strong>其实写代码是很容易的事情，我相信您也有同感。但如何写得好就比较难了。这个“好”字包括代码<strong><em>可重用性，可维护性，可扩展性等。</em></strong>如何写出好的代码往往要借助一些设计模式。当然长期的代码经验积累，只要您用心，会使您形成自己代码风格。相信您的代码也比较符合代码的可重用性，可维护性，可扩展性。但既然前人已经给我们总结出了经验，我们何不踩着前人的肩膀前进？ </p>
+<p><strong><em>三、XML。</em></strong>现在的系统中不使用XML几乎是不可能的。XML的功能非常强大，它可以做数据转换、做系统的配置、甚至可保存您的系统业务数据。因此您必须了解XML，包括它的语法，结构。您还需要比较熟练的使用解析XML的一些API，比如JDOM，SAX等，因为在我们一般的项目中，XML往往担当系统配置信息的作用，您需要用这些API解析这些配置信息，开发完美的项目。 </p>
+<p><strong><em>四、精通使用一种或两种框架。</em></strong>“框架都会有许多可重用的代码，良好的层次关系和业务控制逻辑，基于框架的开发使你可以省出很多的开发成本”。但我这里希望您能精通，更多的是希望您能通过框架的使用了解框架的思想。这样您在开发一个项目时思路会开阔一些，比如您会想到把SQL语句与您的JAVA代码分开，再比如您会考虑把您的业务逻辑配置到XML或者数据库中，这样整个项目就很容易扩张了。 </p>
+<p><strong><em>五、熟悉主流数据库。</em></strong>其实真正比较大的项目都是有人专门做数据库的，但往往很多项目要求作为（高级）工程师的您也参与数据库的设计以及SQL的编写。所以为了更好地成长，建议您还是多了解一些主流数据库，比如SQLSERVER，ORACLE，多连接SQL和存储过程以及触发器。如果您不是“科班”出身，您还需要补充一些数据库原理方面的知识。 </p>
+<p><strong><em>六、精通一种或两种WEBServer。</em></strong>作为JAVA工程师，特别时想成为高级JAVA工程师的您，您不可避免地要部署您的项目到WebServer上，而且只有当您精通一种WebServer，您才可能最大限度地使用它的资源，这往往可以节省很多时间和精力。 </p>
+<p><strong><em>七、UML。</em></strong>我知道您肯定想成为高级工程师，因此您有必要了解或熟练或精通UML，这取决于您有多大决心想成为高级工程师和项目经理。在比较正规的开发团队中，UML是讨论项目的交流工具，您要想做一个软件工程师，您至少要能看懂，您要想做高级工程师，您要能通过它来描述您对项目的理解，尽管这不是必须，但却很重要。 </p>
+<p><strong><em>八、站在高度分析问题：</em></strong>这不是一个知识点，也不是通过书本就能学得到的。只所以提到这一点，是因为我比您还着急，我希望您更快的成为一个高级的软件工程师，而不是一个一般的软件工程师。希望您在工作中多向您的系统分析员、需求分析员、系统设计员学习，多站在他们角度上去看您在开发的项目。在最好在项目之初先在您的脑海里对项目有个大致的分析、设计，然后和他们进行比较，找找差别，想想缺点。<br><strong><em>九、工具。</em></strong>您在这个阶段可能接触到不同的工具了，尽管您还需要使用JB或者IDEA，但能可能对ROSE，Together要多了解一些，因为您要画UML了。不要再对Dreamweaver等HTML编辑器情有独钟了，那些JSP页面让初级程序员去写吧</p>
+<h1 id="微观方面"><a href="#微观方面" class="headerlink" title="微观方面"></a>微观方面</h1><p><strong><em>1.Core Java部分</em></strong><br>这是最基础的,对于一个java高级开发/设计人员,你需要对这一部分达到精通的水平,重点内容如下:<br>a.面向对象编程思想(封装继承多态接口)<br>b.字符串处理<br>c.java.lang包,java.util包等常用包<br>d.java异常处理</p>
+<p><strong><em>2.Java高级部分</em></strong><br>a.Java I/O流<br>b.Java多线程技术<br>c.Java网络编程<br>d.Java Swing<br>后两项可以了解即可,如果项目需要可以深入研究</p>
+<p><strong><em>3.前端基本技能</em></strong></p>
+<ul>
+<li>HTML + CSS网页开发</li>
+<li>JavaScript</li>
+<li>Jquery</li>
+<li>浏览器兼容性 CSS hack(了解)</li>
+</ul>
+<p><strong><em>4.熟练使用JSP + Servlet进行开发</em></strong></p>
+<p><strong><em>5.MVC设计模式,原理,以及相关框架,如Struts</em></strong></p>
+<p><strong><em>6.SSH框架</em></strong></p>
+<p><strong><em>7.缓存技术 session &amp; cookie</em></strong></p>
+<p><strong><em>8.熟练使用一种以上Java开发工具（Eclipse/MyEclipse/Jbuilder/Jcreator/IntelliJIDEA/NetBeans）</em></strong></p>
+<p><strong><em>9.熟练使用XML</em></strong><br>JDOM w3c.dom SAX</p>
+<p><strong><em>10.Java设计模式</em></strong><br>工厂模式,单例模式 等等</p>
+<p><strong><em>11.Java反射机制</em></strong><br>反射的各种用法</p>
+<p><strong><em>12.了解或熟悉 C, C++, .NET</em></strong></p>
+<p><strong><em>13.熟悉JDK的配置,环境变量</em></strong></p>
+<p><strong><em>14.数据库oracle必学,其他最好了解一种以上(mysql,sql server,MongoDB等等)</em></strong><br>oracle:视图,索引,存储过程,触发器,游标,包,常用函数 等等</p>
+<p><strong><em>15.数据库原理</em></strong><br>事务的原理,锁机制,表连接,复杂查询语句(工作经验),性能调优,锁表以及解决方案等等</p>
+<p><strong><em>16.JDBC,连接池</em></strong></p>
+<p><strong><em>17.Ajax,反向Ajax</em></strong></p>
+<p><strong><em>18.HTTP协议,request 和 response的原理,HTTP status(了解常用的),Https原理</em></strong></p>
+<p><strong><em>19.熟悉Linux基本命令,使用过Linux/Unix系统,可以编写shell脚本,可以在Linux上部署项目</em></strong></p>
+<p><strong><em>20.了解windows系统批处理脚本bat</em></strong></p>
+<p><strong><em>21.了解HTML5,最好学习过</em></strong></p>
+<p><strong><em>22.熟悉一种JS框架,如Prototype</em></strong></p>
+<p><strong><em>23.J2EE原理 熟悉一种以上web容器如Tomcat,JBoss,websphere,weblogic等等</em></strong></p>
+<p><strong><em>24.熟悉ant或maven</em></strong></p>
+<p><strong><em>25.熟悉一门脚本语言,如python ,ruby</em></strong></p>
+<p><strong><em>26.了解php/ asp</em></strong></p>
+<p><strong><em>27.了解ftp协议及原理</em></strong></p>
+<p><strong><em>28.熟练使用Junit测试,熟悉Mockito等测试工具</em></strong></p>
+<p><strong><em>29,熟悉javac,javadoc,native,native2ascii等常用命令</em></strong></p>
+<p><strong><em>30.熟悉常用的排序算法,如冒泡排序,快速排序等,最好自己研究过一些的算法。</em></strong></p>
+<p><strong><em>31.了解Flex(不学也没关系)</em></strong></p>
+<p><strong><em>32.了解敏捷开发模式</em></strong></p>
+<p><strong><em>33.工作流workflow至少用过一种,如OSworkflow,了解原理</em></strong></p>
+<p><strong><em>34.使用过VPN了解其原理</em></strong></p>
+<p><strong><em>35.熟悉jstl表达式和el表达式</em></strong></p>
+<p><strong><em>36.熟悉webservice,WSDL,SOAP</em></strong></p>
+<p><strong><em>37.图片处理,如图片上传,预览,限制大小等</em></strong></p>
+<p><strong><em>38.版本控制工具,CVS VSS SVN</em></strong></p>
+<p><strong><em>39.JSON技术,JSON+AJAX</em></strong></p>
+<p><strong><em>40.分页技术,最好自己实现过不仅仅是用过要知道原理</em></strong></p>
+<p><strong><em>41.Java Mail</em></strong></p>
+<p><strong><em>42.Java读写txt,excel,JXL技术</em></strong></p>
+<p><strong><em>43.JVM原理,JVM内存管理,GC,Java堆栈池</em></strong></p>
+<p><strong><em>44.熟练使用下面的工具:</em></strong><br>office办公软件,word,excel,ppt等<br>plsql,sqldevelop 数据库开发工具<br>outlook大公司都用<br>ue编辑器<br>浏览器控制台,调试<br>SHH/PUTTY 远程</p>
+<p><strong><em>45.UML建模工具Rational Rose等</em></strong></p>
+<p><strong><em>46. 使用log4j</em></strong></p>
+<p><strong><em>47.使用过开放Api如百度，腾讯街景，新浪微博等</em></strong></p>
+<p><strong><em>48.页面静态化技术（伪静态页面）</em></strong></p>
+<p><strong><em>49.报表技术，使用过报表制作工具，如水晶易表。</em></strong></p>
+<p><strong><em>50.定时任务，如Spring batch ,学会自定义batch任务（不适用第三方工具）</em></strong></p>
+<p><strong><em>51.了解uuid</em></strong></p>
+<p><strong><em>52.b/s 和 c/s架构</em></strong></p>
+<p><strong><em>53.正则表达式</em></strong></p>
+<p><strong><em>54.了解jndi jms</em></strong></p>
+<p><strong><em>55.ERP</em></strong></p>
+<p><strong><em>56.UNICODE编码，乱码解决</em></strong></p>
+<p><strong><em>57.开源网络编辑器，如ckEditor</em></strong></p>
+<p><strong><em>58.二进制原理</em></strong></p>
+<p><strong><em>59.使用过，了解过开源论坛框架，如discuzz</em></strong></p>
+<p><strong><em>60.GWT，Closure框架</em></strong></p>
+<p><strong><em>61.了解大数据，云计算</em></strong></p>
+<p><strong><em>62.搜索引擎搜索技术</em></strong></p>
+<p><strong><em>63.软件工程，项目管理</em></strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/随笔/" rel="tag"># 随笔</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/11/程序员需要每天写代码吗？/" rel="next" title="程序员需要每天写代码吗？">
+                <i class="fa fa-chevron-left"></i> 程序员需要每天写代码吗？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/13/如何避免写出烂代码？/" rel="prev" title="如何避免写出烂代码？">
+                如何避免写出烂代码？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#宏观方面"><span class="nav-number">1.</span> <span class="nav-text">宏观方面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#微观方面"><span class="nav-number">2.</span> <span class="nav-text">微观方面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>

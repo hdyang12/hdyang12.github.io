@@ -1,0 +1,1109 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程,Spring," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Spring的IOC容器的概念与实现">
+<meta name="keywords" content="编程,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring概述与IoC容器">
+<meta property="og:url" content="http://yoursite.com/2016/04/02/SpringIoC/index.html">
+<meta property="og:site_name" content="杨辉的博客">
+<meta property="og:description" content="Spring的IOC容器的概念与实现">
+<meta property="og:image" content="http://yoursite.com/uploads/Spring1.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/Spring2.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/Spring3.jpg">
+<meta property="og:updated_time" content="2016-04-06T01:33:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring概述与IoC容器">
+<meta name="twitter:description" content="Spring的IOC容器的概念与实现">
+<meta name="twitter:image" content="http://yoursite.com/uploads/Spring1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/02/SpringIoC/"/>
+
+
+
+
+
+  <title>Spring概述与IoC容器 | 杨辉的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?25d5549f6b6af286e840f1034cc24b33";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨辉的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'du6D1jsDKiCRGdnhB_hF','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/02/SpringIoC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨辉的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring概述与IoC容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-02T19:35:25+08:00">
+                2016-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/04/02/SpringIoC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/04/02/SpringIoC/" class="leancloud_visitors" data-flag-title="Spring概述与IoC容器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,907 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  19 分钟
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Spring的IOC容器的概念与实现
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spring框架概述"><a href="#Spring框架概述" class="headerlink" title="Spring框架概述"></a>Spring框架概述</h1><p><code>Spring</code>是于2003年兴起的一个轻量级的<code>Java</code>开发框架<br><code>Spring</code>框架理念:基于<strong>POJO</strong>(<code>Plain Old Java Object</code>，简单<code>Java</code>对象)的<strong>轻量级</strong>开发理念<br><code>Spring</code>框架总体结构:<br><img src="/uploads/Spring1.jpg" alt=""><br>组成整个<code>Spring</code>框架的各种服务实现被划分到了多个相互独立却又相互依赖的模块当中。这些模块组成了<code>Spring</code>框架的核心骨架<br><code>ORM</code>(<code>Object Relational Mapping</code>对象关系映射)产品:<code>Hibernate</code>/<code>iBATIS</code>/<code>Toplink</code>/<code>JPA</code>等</p>
+<h2 id="Core模块"><a href="#Core模块" class="headerlink" title="Core模块"></a>Core模块</h2><p>整个<code>Spring</code>框架构建在<code>Core</code>核心模块之上，它是整个框架的基础。在该模块中，<code>Spring</code>为我们提供了一个<strong>IoC容器实现</strong>，用于帮助我们以<strong>依赖注入</strong>的方式管理对象之间的依赖关系。<code>Core</code>核心模块还包括框架内部使用的各种工具类</p>
+<h1 id="Spring的IoC容器"><a href="#Spring的IoC容器" class="headerlink" title="Spring的IoC容器"></a>Spring的IoC容器</h1><p><code>Spring</code>的<code>IoC</code>容器是整个<code>Spring</code>框架的核心和基础</p>
+<h2 id="IoC的基本概念"><a href="#IoC的基本概念" class="headerlink" title="IoC的基本概念"></a>IoC的基本概念</h2><p><code>IOC</code>(<code>Inversion of Control</code>控制反转)概念:程序中对象的获取方式发生反转，由最初的<code>new</code>方式创建，转变为由第三方框架创建、注入。<br><code>IOC</code>控制由<code>DI</code>(依赖注入)方式实现。<code>DI</code>是实现<code>IOC</code>的主要技术途径。</p>
+<h3 id="三种依赖注入的方式"><a href="#三种依赖注入的方式" class="headerlink" title="三种依赖注入的方式"></a>三种依赖注入的方式</h3><h4 id="构造方法-构造器-注入"><a href="#构造方法-构造器-注入" class="headerlink" title="构造方法(构造器)注入"></a>构造方法(构造器)注入</h4><p>构造方法注入，就是被注入对象可以通过在其构造方法中声明依赖对象的参数列表，让外部(通常是<code>IoC</code>容器)知道它需要哪些依赖对象。<br><code>IoC Service Provider</code>会检查被注入对象的构造方法，取得它所需要的依赖对象列表，进而为其注入相应的对象。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 构造器注入 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDAO"</span> <span class="attr">class</span>=<span class="string">"dao.OracleDriver"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">constructor-argindex="0"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h4 id="setter-方法注入"><a href="#setter-方法注入" class="headerlink" title="setter 方法注入"></a>setter 方法注入</h4><p>对于<code>JavaBean</code>对象来说，通常会通过<code>setXXX()</code>和<code>getXXX()</code>方法来访问对应属性。这些<code>setXXX()</code>方法统称为<code>setter</code>方法，<code>getXXX()</code>称为<code>getter</code>方法。<br>当前对象只要为其依赖对象所对应的属性添加<code>setter</code>方法，就可以通过<code>setter</code>方法将相应的依赖对象设置到被注入对象中。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- setter注入 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 使用&lt;property&gt;标签为基于setter注入的&lt;bean&gt;元素内 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"dao.JDBCDataSource"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 注入属性 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"oracle.jdbc.OracleDriver"</span>/&gt;</span></div><div class="line"><span class="comment">&lt;!-- 注入Bean对象 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"userDAO"</span>&gt;</span><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.dao.OracleYserDao"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"pwd"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h4 id="接口注入"><a href="#接口注入" class="headerlink" title="接口注入"></a>接口注入</h4><p>被注入对象如果想要<code>IoC Service Provider</code>为其注入依赖对象，就必须实现某个接口。这个接口提供一个方法，用来为其注入依赖对象。<code>IoC Service Provider</code>最终通过这些接口来了解应该为被注入对象注入什么依赖对象。</p>
+<h4 id="三种注入方式的比较"><a href="#三种注入方式的比较" class="headerlink" title="三种注入方式的比较"></a>三种注入方式的比较</h4><ul>
+<li>接口注入:不提倡，它强制被注入对象实现不必要的接口，带有侵入性。</li>
+<li>构造方法注入:优点是构造完成后就可以马上进入就绪状态;缺点是依赖对象较多时，构造方法的参数列表比较长，通过反射构造对象时，对相同类型的参数处理比较困难，维护和使用上也比较麻烦。而且在<code>Java</code>中，构造方法无法被继承，无法设置默认值。对于非必须的依赖处理，可能需要引入多个构造方法，而参数数量的变动可能造成维护上的不便。</li>
+<li><code>setter</code>方法注入:优点是<code>setter</code>方法可以被继承，允许设置默认值，而且有良好的IDE支持。缺点是对象无法在构造完成后马上进入就绪状态。</li>
+</ul>
+<p>经过对比，<code>setter</code>方法注入是相对最好的。</p>
+<h3 id="IoC的好处"><a href="#IoC的好处" class="headerlink" title="IoC的好处"></a>IoC的好处</h3><p>不会对业务对象构成很强的侵入性，使用<code>IoC</code>后对象具有更好的可测试性、可重用性和可扩展性等。<br><code>IoC</code>是一种可以帮助我们解耦各业务对象间依赖关系的对象绑定方式!</p>
+<h2 id="IoC-Service-Provider"><a href="#IoC-Service-Provider" class="headerlink" title="IoC Service Provider"></a>IoC Service Provider</h2><p><code>IoC Service Provider</code>是一个抽象的概念，可以指代任何将IoC场景中的<strong>业务对象绑定</strong>到一起的<strong>实现方式</strong>。它可以是一段代码，也可以是一组相关的类，甚至可以是比较通用的<code>IoC</code>框架或者<code>IoC</code>容器实现。<br><code>Spring</code>的<code>IoC</code>容器就是一个提供依赖注入服务的<code>IoC Service Provider</code>。</p>
+<h3 id="IoC-Service-Provider-的职责"><a href="#IoC-Service-Provider-的职责" class="headerlink" title="IoC Service Provider 的职责"></a>IoC Service Provider 的职责</h3><h4 id="业务对象的构建管理"><a href="#业务对象的构建管理" class="headerlink" title="业务对象的构建管理"></a>业务对象的构建管理</h4><p>在<code>IoC</code>场景中，业务对象无需关心所依赖的对象如何构建如何取得，但这部分工作始终需要有人来做。所以，<code>IoC Service Provider</code>需要将对象的构建逻辑从客户端对象那里剥离出来，以免这部分逻辑污染业务对象的实现。<br>客户端对象:这里指代使用某个对象或者某种服务的对象。如果对象A需要引用对象B，那么A就是B的客户端对象，而不管A处于<code>Service</code>层还是数据访问层。</p>
+<h4 id="业务对象间的依赖绑定"><a href="#业务对象间的依赖绑定" class="headerlink" title="业务对象间的依赖绑定"></a>业务对象间的依赖绑定</h4><p>最艰巨也是最重要的职责;<br><code>IoC Service Provider</code>通过结合之前构建和管理的所有业务对象，以及各个业务对象间可以识别的依赖关系，将这些对象所依赖的对象注入绑定，从而保证每个业务对象在使用的时候，可以处于就绪状态。</p>
+<h3 id="对象间依赖关系管理"><a href="#对象间依赖关系管理" class="headerlink" title="对象间依赖关系管理"></a>对象间依赖关系管理</h3><h4 id="直接编码方式"><a href="#直接编码方式" class="headerlink" title="直接编码方式"></a>直接编码方式</h4><p>当前大部分的IoC容器都应该支持直接编码方式，比如PicoContainer、Spring、Avalon等<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">IoContainer container = ... ;</div><div class="line">container.register(FXNewsProvider.class,<span class="keyword">new</span> <span class="type">FXNewsProvider</span>());</div><div class="line">container.register(IFXNewsListener.class,<span class="keyword">new</span> <span class="type">DowJonesNewsListener</span>());</div><div class="line">...</div><div class="line">FXNewsProvider <span class="keyword">new</span><span class="type">sProvider</span> = (FXNewsProvider)container.<span class="keyword">get</span>(FXNewsProvider.class);</div><div class="line"><span class="keyword">new</span><span class="type">Provider</span>.getAndPersistNews();</div></pre></td></tr></table></figure></p>
+<h4 id="配置文件方式"><a href="#配置文件方式" class="headerlink" title="配置文件方式"></a>配置文件方式</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;bean <span class="built_in">id</span>=<span class="string">"newsProvider"</span> <span class="built_in">class</span>=<span class="string">"..FXNewsProvider"</span>&gt;</div><div class="line">	&lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"newsListener"</span>&gt;&lt;<span class="keyword">ref</span> bean=<span class="string">"djNewsListener"</span>/&gt;&lt;/<span class="keyword">property</span>&gt;</div><div class="line">	&lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"newPersistener"</span>&gt;&lt;<span class="keyword">ref</span> bean=<span class="string">"djNewsPersister"</span>/&gt;&lt;/<span class="keyword">property</span>&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;bean <span class="built_in">id</span>=<span class="string">"djNewsListener"</span> <span class="built_in">class</span>=<span class="string">"..impl.DowJonesNewsListener"</span>&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;bean <span class="built_in">id</span>=<span class="string">"djNewsPersister"</span> <span class="built_in">class</span>=<span class="string">"..impl.DowJonesNewsPersister"</span>&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<h4 id="元数据-注解-方式"><a href="#元数据-注解-方式" class="headerlink" title="元数据(注解)方式"></a>元数据(注解)方式</h4><p>元数据是关于数据的数据。在编程语言上下文中，元数据是添加到程序元素如方法、字段、类和包上的额外信息。<br>注解最终也要通过代码处理来确定最终的注入关系，从这点儿来说，注解方式可以算作编码方式的一种特殊情况。</p>
+<h2 id="Spring的IoC容器类型"><a href="#Spring的IoC容器类型" class="headerlink" title="Spring的IoC容器类型"></a>Spring的IoC容器类型</h2><p><code>Spring</code>提供了两种容器类型:<code>BeanFactory</code>和<code>ApplicationContext</code></p>
+<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>基础类型<code>IoC</code>容器，提供完整的<code>IoC</code>服务支持。如果没有特殊指定，默认采用延迟初始化策略(<code>lazy-load</code>)。只有当客户端对象需要访问容器中的某个受管对象的时候，才对该受管对象进行初始化以及依赖注入操作。所以相对来说，容器启动初期速度较快。</p>
+<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p><code>ApplicationContext</code>在<code>BeanFactory</code>的基础上构建，是相对比较高级的容器实现，除了拥有<code>BeanFactory</code>的所有支持，<code>ApplicationContext</code>还提供了其他高级特性，比如事件发布、国际化信息支持等。<code>ApplicationContext</code>所管理的对象，在该类型容器启动之后，默认全部初始化并绑定完成。因为在启动时就完成所有初始化，容器启动时间较<code>BeanFactory</code>更长一些。<br><img src="/uploads/Spring2.jpg" alt=""><br><code>ApplicationContext</code>间接继承自<code>BeanFactory</code>，所以说它是构建于<code>BeanFactory</code>之上的IoC容器。</p>
+<h2 id="BeanFactory-1"><a href="#BeanFactory-1" class="headerlink" title="BeanFactory"></a>BeanFactory</h2><p>Spring 的 IoC 容器之 BeanFactory</p>
+<h3 id="BeanFactory-作用"><a href="#BeanFactory-作用" class="headerlink" title="BeanFactory 作用"></a>BeanFactory 作用</h3><p><code>BeanFactory</code>，顾名思义，就是生产<code>Bean</code>的工厂。<code>Spring</code>框架提倡使用<code>POJO</code>(简单<code>Java</code>对象，就是普通的<code>JavaBeans</code>)，把每个业务对象看做一个<code>JavaBean</code>对象。<br><code>BeanFactory</code>可以完成作为<code>IoC Service Provider</code>的所有职责，包括<strong>业务对象的注册</strong>和<strong>对象间依赖关系的绑定</strong>。</p>
+<h3 id="BeanFactory-的对象注册与依赖绑定方式"><a href="#BeanFactory-的对象注册与依赖绑定方式" class="headerlink" title="BeanFactory 的对象注册与依赖绑定方式"></a>BeanFactory 的对象注册与依赖绑定方式</h3><h4 id="直接编码方式-1"><a href="#直接编码方式-1" class="headerlink" title="直接编码方式"></a>直接编码方式</h4><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args)&#123;</div><div class="line">	DefaultListableBeanFactory beanRegistry = <span class="keyword">new</span> <span class="type">DefaultListableBeanFactory</span>();</div><div class="line">	BeanFactory container = (BeanFactory)bindViaCode(beanRegistry);</div><div class="line">	FXNewsProvider <span class="keyword">new</span><span class="type">sProvider</span> = (FXNewsProvider)container.getBean(<span class="string">"djNewsProvider"</span>);</div><div class="line">	<span class="keyword">new</span><span class="type">sProvider</span>.getAndPersistNews();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> BeanFactory bindViaCode(BeanDefinitionRegistry registry)&#123;</div><div class="line">	AbstractBeanDefinition <span class="keyword">new</span><span class="type">sProvider</span> = <span class="keyword">new</span> <span class="type">RootBeanDefinition</span>(FXNewsProvider.class,<span class="literal">true</span>);</div><div class="line">	AbstractBeanDefinition <span class="keyword">new</span><span class="type">sListener</span> = <span class="keyword">new</span> <span class="type">RootBeanDefinition</span>(DowJonesNewsListener.class,<span class="literal">true</span>);</div><div class="line">	AbstractBeanDefinition <span class="keyword">new</span><span class="type">sPersister</span> = <span class="keyword">new</span> <span class="type">RootBeanDefinition</span>(DowJonesNewsPersister.class,<span class="literal">true</span>);</div><div class="line">	<span class="comment">//将bean定义注册到容器中</span></div><div class="line">	registry.registerBeanDefinition(<span class="string">"djNewsProvider"</span>,<span class="keyword">new</span><span class="type">sProvider</span>);</div><div class="line">	registry.registerBeanDefinition(<span class="string">"djListener"</span>,<span class="keyword">new</span><span class="type">sListener</span>);</div><div class="line">	registry.registerBeanDefinition(<span class="string">"djPersister"</span>,<span class="keyword">new</span><span class="type">sPersister</span>);</div><div class="line">	<span class="comment">//指定依赖关系</span></div><div class="line">	<span class="comment">// 1.可以通过构造方法注入方式</span></div><div class="line">	ConstructorArgumentValues argValues = <span class="keyword">new</span> <span class="type">ConstructorArgumentValues</span>();</div><div class="line">	argValues.addIndexedArgumentValue(<span class="number">0</span>,<span class="keyword">new</span><span class="type">sListener</span>);</div><div class="line">	argValues.addIndexedArgumentValue(<span class="number">1</span>,<span class="keyword">new</span><span class="type">sPersister</span>);</div><div class="line">	<span class="keyword">new</span><span class="type">sProvider</span>.setConstructorArgumentValues(argValues);</div><div class="line">	<span class="comment">// 2.或者通过setter方法注入方式</span></div><div class="line">	MutablePropertyValues propertyValues = <span class="keyword">new</span> <span class="type">MutablePropertyValues</span>();</div><div class="line">	propertyValues.addPropertyValue(<span class="keyword">new</span> <span class="type">ropertyValue</span>(<span class="string">"newsListener"</span>,<span class="keyword">new</span><span class="type">sListener</span>));</div><div class="line">	propertyValues.addPropertyValue(<span class="keyword">new</span> <span class="type">ropertyValue</span>(<span class="string">"newsPersistener"</span>,<span class="keyword">new</span><span class="type">sPersister</span>));</div><div class="line">	<span class="keyword">new</span><span class="type">sProvider</span>.setPropertyValues(propertyValues);</div><div class="line">	<span class="comment">//绑定完成</span></div><div class="line">	<span class="keyword">return</span> (BeanFactory)registry;</div></pre></td></tr></table></figure>
+<ul>
+<li>在<code>main</code>方法中，首先构造一个<code>DefaultListableBeanFactory</code>作为<code>BeanDefinitionRegistry</code>,然后将其交给<code>bindViaCode</code>方法进行具体的对象注册和相关依赖管理，然后通过<code>bindViaCode</code>返回的 <code>BeanFactory</code>取得需要的对象，最后执行相应逻辑。</li>
+<li>在<code>bindViaCode</code>方法中，首先针对相应的业务对象构造与其相对应的<code>BeanDefinition</code>,使用了<code>RootBeanDefinition</code>作为<code>BeanDefinition</code>的实现类。构造完成后，将这些<code>BeanDefinition</code>注册到通过方法参数传进来的<code>BeanDefinitionRegistry</code>中。因为我们的<code>FXNewsProvider</code>是采用的构造方法注入，所以，需要通过<code>ConstructorArgumentValues</code>为其注入相关依赖。在这里为了同时说明<code>setter</code>方法注入，也同时展示了在<code>Spring</code>中如何使用代码实现<code>setter</code>方法注入。如果要运行这段代码，需要把<code>setter</code>方法注入的4行代码注释掉。最后，以<code>BeanFactory</code>的形式返回已经注册并绑定了所有相关业务对象的<code>BeanDefinitionRegistry</code>实例。</li>
+</ul>
+<h4 id="外部配置文件方式"><a href="#外部配置文件方式" class="headerlink" title="外部配置文件方式"></a>外部配置文件方式</h4><p><code>Spring</code>的<code>IoC</code>容器支持两种配置文件格式:</p>
+<ul>
+<li><code>Properties</code>文件格式</li>
+<li><code>XML</code>文件格式</li>
+</ul>
+<h5 id="Properties配置格式的加载"><a href="#Properties配置格式的加载" class="headerlink" title="Properties配置格式的加载"></a>Properties配置格式的加载</h5><p><code>Spring</code>提供了<code>org.springframework.beans.factory.support.PropertiesBeanDefinitionReader</code>类用于Properties格式配置文件的加载，所以，我们不用自己去实现<code>BeanDefinitionReader</code>，只要根据该类的<strong>读取规则</strong>，提供相应的配置文件即可。</p>
+<p><code>Properties</code>格式表达的依赖注入配置内容<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">djNewsProvider.(<span class="keyword">class</span>)=..FXNewsProvider</div><div class="line">#---------------通过构造方法注入的时候--------</div><div class="line">djNewsProvider.$<span class="number">0</span>(ref)=djListener</div><div class="line">djNewsProvider.$<span class="number">1</span>(ref)=djPersister</div><div class="line">#---------------通过setter方法注入的时候------</div><div class="line"># djNewsProvider.newsListener(ref)=djListener</div><div class="line"># djNewsProvider.newPersistener(ref)=djPersister</div><div class="line"></div><div class="line">djListener.(<span class="keyword">class</span>)=..impl.DowJonesNewsListener</div><div class="line"></div><div class="line">djPersister.(<span class="keyword">class</span>)=..impl.DowJonesNewsPersister</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>djNewsProvider</code>作为<code>beanName</code>，后面通过.(class)表明对应的实现类是什么，实际上使用djNewsProvider.class=…的形式也是可以的，但是<code>Spring 1.2.6</code>之后不再提倡使用，而提倡使用.(class)的形式。其他两个类的注册，<code>djListener</code>和<code>djPersister</code>，也是相同的道理。</li>
+<li>通过在表示<code>beanName</code>的名称后添加<code>.$[number]</code>后缀的形式，来表示当前<code>beanName</code>对应的对象需要通过构造方法注入的方式注入相应依赖对象。在这里，我们分别将构造方法的第一个参数和第二个参数对应到<code>djListener</code>和<code>djPersister</code>。需要注意的一点，就是$0和$1后面的(ref)，(ref)用来表示所依赖的是引用对象，而不是普通的类型。如果不加(ref)，<code>PropertiesBeanDefinitionReader</code>会将<code>djListener</code>和<code>djPersister</code>作为简单的<code>String</code>类型进行注入，异常自然不可避免。</li>
+<li><code>setter</code>方法注入使用相应的属性名称来指定注入。<code>newsListener</code>和<code>newPersistener</code>恰好就是我们的<code>FXNewsProvider</code>类中所声明的属性名称。同时不要忘了(ref)的作用。</li>
+<li>构造方法注入和<code>setter</code>方法注入差异:构造方法注入无法通过参数名称来标识注入的确切位置，而<code>setter</code>方法注入则可以通过属性名称来明确标识注入。</li>
+</ul>
+<p>加载Properties配置的BeanFactory的使用演示<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args)&#123;</div><div class="line">	DefaultListableBeanFactory beanRegistry = <span class="keyword">new</span> <span class="type">DefaultListableBeanFactory</span>();</div><div class="line">	BeanFactory container = (BeanFactory)bindViaPropertiesFile(beanRegistry);</div><div class="line">	FXNewsProvider <span class="keyword">new</span><span class="type">sProvider</span> = (FXNewsProvider)container.getBean(<span class="string">"jdNewsProvider"</span>);</div><div class="line">	<span class="keyword">new</span><span class="type">sProvider</span>.getAndPersistNews();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> BeanFactory bindViaPropertiesFile(BeanDefinitionRegistry registry)&#123;</div><div class="line">	PropertiesBeanDefinitionReader reader = <span class="keyword">new</span> <span class="type">PropertiesBeanDefinitionReader</span>(registry);</div><div class="line">	reader.loadBeanDefinitions(<span class="string">"classpath:.../../binding-config.properties"</span>);</div><div class="line">	<span class="keyword">return</span> (BeanFactory)registry;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="XML-配置格式的加载"><a href="#XML-配置格式的加载" class="headerlink" title="XML 配置格式的加载"></a>XML 配置格式的加载</h5><p>XML配置格式是Spring支持最完整，功能最强大的表达方式。<br>XML配置文件内容:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml veersion=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="meta">&lt;!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"</span></div><div class="line">"http://www.springframework.org/dtd/spring-beans.dtd"&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">beans</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"djNewsProvider"</span> <span class="attr">class</span>=<span class="string">"..FXNewsProvider"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"djNewsListener"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"djNewsPersister"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"djNewsListener"</span> <span class="attr">class</span>=<span class="string">"..impl.DowJonesNewsListener"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"djNewsPersister"</span> <span class="attr">class</span>=<span class="string">"..impl.DowJonesNewsPersister"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>加载XML配置文件的BeanFactory的使用演示<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args)&#123;</div><div class="line">	DefaultListableBeanFactory beanRegistry = <span class="keyword">new</span> <span class="type">DefaultListableBeanFactory</span>();</div><div class="line">	BeanFactory container = (BeanFactory)bindViaXMLFile(beanRegistry);</div><div class="line">	FXNewsProvider <span class="keyword">new</span><span class="type">sProvider</span> = (FXNewsProvider)container.getBean(<span class="string">"djNewsProvider"</span>);</div><div class="line">	<span class="keyword">new</span><span class="type">sProvider</span>.getAndPersistNews();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> BeanFactory bindViaXMLFile(BeanDefinitionRegistry registry)&#123;</div><div class="line">	XmlBeanDefinitionReader reader = <span class="keyword">new</span> <span class="type">XmlBeanDefinitionReader</span>(registry);</div><div class="line">	reader.loadBeanDefinitions(<span class="string">"classpath:../news-config.xml"</span>);</div><div class="line">	<span class="keyword">return</span> (BeanFactory)registry;</div><div class="line">	<span class="comment">//或者直接</span></div><div class="line">	<span class="comment">//return new XmlBeanFactory(new ClassPathResource("../news-config.xml"));</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="注解方式"><a href="#注解方式" class="headerlink" title="注解方式"></a>注解方式</h5><ul>
+<li>在<code>Spring 2.5</code>发布之前，<code>Spring</code>框架并没有正式支持基于注解方式的依赖注入;</li>
+<li><code>Spring 2.5</code>发布的基于注解的依赖注入方式，如果不使用<code>classpath-scanning</code>功能的话，依然部分依赖于”基于XML配置文件”的依赖注入方式。</li>
+<li>注解是<code>Java5</code>之后才引入的，所以，一下内容只适用于引用程序使用了<code>Spring 2.5</code>以及<code>Java 5</code>或者更高版本情况下。<br>使用指定注解标注的相关类<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FXNewsProvider</span>&#123;</span></div><div class="line">	<span class="meta">@Autowired</span></div><div class="line">	<span class="keyword">private</span> IFXNewsListener newsListener;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Spring.xml里面需要配置 组件扫描</span></div><div class="line">&lt;<span class="string">context:</span>component-scan base-<span class="keyword">package</span>=<span class="string">"cn.base.package"</span>/&gt;</div></pre></td></tr></table></figure>
+<p><context:component-scan>会到指定的包(package)下面扫描标注有 <code>@Component</code> 的类，如果找到，则将他们添加到容器进行管理，并根据它们所标注的 <code>@Autowired</code> 为这些类注入符合条件的依赖对象。<br>注解完成后，加载配置并演示<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args)&#123;</div><div class="line">	ApplicationContext ctx = <span class="keyword">new</span> <span class="type">ClassPathXmlApplicationContext</span>(<span class="string">"配置文件路径"</span>);</div><div class="line">	FXNewsProvider <span class="keyword">new</span><span class="type">sProvider</span> = (FXNewsProvider)container.getBean(<span class="string">"FXNewsProvider"</span>);</div><div class="line">	<span class="keyword">new</span><span class="type">sProvider</span>.getAndPersistNews();</div></pre></td></tr></table></figure></context:component-scan></p>
+<h3 id="BeanFactory的XML配置文件"><a href="#BeanFactory的XML配置文件" class="headerlink" title="BeanFactory的XML配置文件"></a>BeanFactory的XML配置文件</h3><p>每一个对象在XML中的映射自然而然地对应一个叫做<bean>的元素</bean></p>
+<p><beans>是XML配置文件中最顶层的元素，它下面可以包含0或者1个<description>和多个<bean>以及<import>或者<alias></alias></import></bean></description></beans></p>
+<p><beans>拥有相应的属性(attribute)对所辖的<bean>进行统一的默认行为设置，包括:</bean></beans></p>
+<ul>
+<li><strong>default-lazy-init</strong>  其值可以指定为true或者false，默认为false。用来标志是否对所有的<bean>进行延迟初始化。</bean></li>
+<li><strong>default-autowire</strong>   可以取值为no、byName、byType、constructor以及autodetect。默认值为no，如果使用自动绑定的话，用来标志全体bean使用哪一种默认绑定方式。</li>
+</ul>
+<p><description><br>可以通过<description>在配置的文件中指定一些描述性的信息。通常情况下，该元素是省略的。</description></description></p>
+<p><import><br>在主要的配置文件中通过<import>元素对其所依赖的配置文件进行引用。比如:如果A.xml中的<bean>定义可能依赖B.xml中的某些<bean>定义，那么就可以在A.xml中使用<import>将B.xml引入到A.xml，以类似于<import resource="B.xml">的形式。</import></import></bean></bean></import></import></p>
+<p><alias></alias></p>
+<p><alias name="dataSourceForMasterDatabase" alias="masterDataSource"><br>为某些<bean>起一些”外号”(别名)，两个名称都可以引用这个<bean></bean></bean></alias></p>
+<h3 id="scope-作用域"><a href="#scope-作用域" class="headerlink" title="scope(作用域)"></a>scope(作用域)</h3><h4 id="singleton"><a href="#singleton" class="headerlink" title="singleton"></a>singleton</h4><ul>
+<li>对象实例数量:singleton类型的bean定义，在一个容器中只存在一个共享实例。所有对该类型bean的依赖都引用这一单一实例。</li>
+<li>对象存活时间:singleton类型bean定义，从容器启动，到它第一次被请求而实例化开始，只要容器不销毁或者退出，该类型bean的单一实例就会一直存活。</li>
+</ul>
+<p>通常如果不指定bean的scope，singleton便是容器默认的scope;下面三种配置达到的效果是一样的:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean <span class="attribute">id</span>=<span class="string">"mockObject"</span> <span class="attribute">class</span>=<span class="string">"...MockBusinessObject"</span>/&gt;</div><div class="line">&lt;bean <span class="attribute">id</span>=<span class="string">"mockObject"</span> <span class="attribute">class</span>=<span class="string">"...MockBusinessObject"</span> <span class="attribute">singleton</span>=<span class="string">"true"</span>/&gt;</div><div class="line">&lt;bean <span class="attribute">id</span>=<span class="string">"mockObject"</span> <span class="attribute">class</span>=<span class="string">"...MockBusinessObject"</span> <span class="attribute">scope</span>=<span class="string">"singleton"</span>/&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h4><p>针对声明为拥有prototype scope的bean定义，容器在接到该类型对象的请求的时候，会每次都重新生成一个新的对象实例给请求方。</p>
+<h3 id="IoC容器实现两个阶段"><a href="#IoC容器实现两个阶段" class="headerlink" title="IoC容器实现两个阶段"></a>IoC容器实现两个阶段</h3><p><img src="/uploads/Spring3.jpg" alt=""><br>Spring的IoC容器的实现可以划分为两个阶段:</p>
+<ul>
+<li>容器启动阶段</li>
+<li>Bean实例化阶段</li>
+</ul>
+<h4 id="容器启动阶段"><a href="#容器启动阶段" class="headerlink" title="容器启动阶段"></a>容器启动阶段</h4><p>容器启动伊始，首先会通过某种途径加载Configuration MetaData。除了代码方式比较直接，在大部分情况下，容器需要依赖某些工具类(BeanDefinitionReader)对加载的Configuration MetaData进行解析和分析,并将分析后的信息编组为相应的BeanDefinition，最后把这些保存了bean定义必要信息的BeanDefinition，注册到相应的BeanDefinitionRegistry，这样容器启动工作就完成了。</p>
+<h4 id="Bean实例化阶段"><a href="#Bean实例化阶段" class="headerlink" title="Bean实例化阶段"></a>Bean实例化阶段</h4><p>当某个请求方通过容器的getBean方法明确地请求某个对象，或者因依赖关系容器需要隐式地调用getBean方法时，就会触发第二阶段的活动。</p>
+<p>容器启动之后，并不会马上就实例化相应的bean定义。容器现在仅仅拥有所有对象的BeanDefinition来保存实例化阶段将要用的必要信息。只有当请求方通过BeanFactory的getBean()方法来请求某个对象实例的时候，才有可能触发Bean实例化阶段的活动。</p>
+<ul>
+<li>对于BeanFactory来说，对象实例化默认采用延迟初始化。通常情况下，当对象A被请求而需要第一次实例化的时候，如果它所依赖的对象B之前同样没有被实例化，那么容器会先实例化对象A所依赖的对象。这种情况是容器内部调用getBean()，对于本次请求的请求方是隐式的。</li>
+<li>ApplicationContext启动后会实例化所有的bean定义</li>
+</ul>
+<p>第二次被调用则会直接返回容器缓存的第一次实例化完的对象实例(prototype类型bean除外)。</p>
+<h2 id="ApplicationContext-1"><a href="#ApplicationContext-1" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h2><h2 id="基于注解的依赖注入"><a href="#基于注解的依赖注入" class="headerlink" title="基于注解的依赖注入"></a>基于注解的依赖注入</h2><h3 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h3><p>将自动绑定的标志用注解来表示时，也就得到了基于注解的依赖注入，或者更确切地称为基于注解的自动绑定。<br>@Autowired 是基于注解的依赖注入的核心注解，它的存在可以让容器知道需要为当前类注入哪些依赖。<br>与原有的byType类型的自动绑定方式类似， @Autowired 也是按照类型匹配进行依赖注入的，只不过，它要比byType更加灵活，也更加强大。 @Autowired 可以标注于类定义的多个位置，包括如下几个:</p>
+<ul>
+<li>域(Filed)或者说属性(Property):不管它们声明的访问限制符是private、protected还是public，只要标注了 @Autowired ，它们所需要的依赖注入需求就都能够被满足。</li>
+<li>构造方法定义(Constructor):标注于类的构造方法之上的 @Autowired，相当于抢夺了原有自动绑定功能中”constructor”方式的权利，它将根据构造方法参数类型，来决定将什么样的依赖对象注入给当前对象。</li>
+<li>方法定义(Method): @Autowired 不仅可以标注于传统的setter方法之上，而且还可以标注于任意名称的方法定义之上，只要该方法定义了需要被注入的参数。</li>
+</ul>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//属性使用 @Autowired </span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FXNewsProvider</span></span></div><div class="line">&#123;</div><div class="line">@Autowired</div><div class="line"><span class="keyword">private</span> IFXNewsListener <span class="keyword">new</span><span class="type">sListener</span>;</div><div class="line">@Autowired</div><div class="line"><span class="keyword">private</span> IFXNewsPersister <span class="keyword">new</span><span class="type">Persistener</span>;</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//构造方法使用 @Autowired </span></div><div class="line">@Autowired</div><div class="line"><span class="keyword">public</span> FXNewsProvider(IFXNewsListener <span class="keyword">new</span><span class="type">sListner</span>,IFXNewsPersister <span class="keyword">new</span><span class="type">sPersister</span>)</div><div class="line">&#123;</div><div class="line"><span class="built_in">this</span>.<span class="keyword">new</span><span class="type">sListener</span> = <span class="keyword">new</span><span class="type">sListner</span>;</div><div class="line"><span class="built_in">this</span>.<span class="keyword">new</span><span class="type">Persistener</span> = <span class="keyword">new</span><span class="type">sPersister</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 标注于方法之上的 @Autowired 代码示例</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FXNewsProvider</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">private</span> IFXNewsListener <span class="keyword">new</span><span class="type">sListener</span>;</div><div class="line"><span class="keyword">private</span> IFXNewsPersister <span class="keyword">new</span><span class="type">Persistener</span>;</div><div class="line">@Autowired</div><div class="line"><span class="keyword">public</span> void setUp(IFXNewsListener <span class="keyword">new</span><span class="type">sListener</span>,IFXNewsPersister <span class="keyword">new</span><span class="type">Persistener</span>)</div><div class="line">&#123;</div><div class="line"><span class="built_in">this</span>.<span class="keyword">new</span><span class="type">sListener</span> = <span class="keyword">new</span><span class="type">sListener</span>;</div><div class="line"><span class="built_in">this</span>.<span class="keyword">new</span><span class="type">Persistener</span> = <span class="keyword">new</span><span class="type">Persistener</span>;</div><div class="line">&#125;</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="classpath-scanning"><a href="#classpath-scanning" class="headerlink" title="classpath-scanning"></a>classpath-scanning</h3><p>classpath-scanning 功能可以从某一顶层包(base package) 开始扫描。当扫描到某个类标注了相应的注解之后，就会提取该类的相关信息，构建对应的BeanDefinition，然后把构建完的BeanDefinition注册到容器中。<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="keyword">context</span>:<span class="keyword">component</span>-scan base-<span class="keyword">package</span>=<span class="string">"org.yhpackage"</span>/&gt;</div><div class="line">//如果要扫描的类定义存在于不同的源码包下面，也可以为base-<span class="keyword">package</span>指定多个以逗号分隔的扫描路径。</div><div class="line">&lt;<span class="keyword">context</span>:<span class="keyword">component</span>-scan base-<span class="keyword">package</span>=<span class="string">"org.yhpackage,org.yhpackage1,org.yhpackage2"</span>/&gt;</div></pre></td></tr></table></figure></p>
+<p><context:component-scan>默认扫描的注解类型是 @Component。不过，在 @Component语义基础上细化后的 @Repository、 @Service和 @Controller也同样可以获得<context:component-scan>的青睐。 @Component的语义更广、更宽泛，而 @Repository、 @Service和 @Controller的语义则更具体。所以，同样对于服务层的类定义来说，使用 @Service 标注它，要比使用 @Component更为确切，对于其他两种注解也是同样的道理。</context:component-scan></context:component-scan></p>
+<p><context:component-scan>在扫描相关类定义并将它们添加到容器的时候,会通过Bean命名规范，来生成那些添加到容器的bean定义的名称(beanName)。</context:component-scan></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/24/Json和xml/" rel="next" title="Json和XML的解析和序列化">
+                <i class="fa fa-chevron-left"></i> Json和XML的解析和序列化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/06/使用Spring访问数据/" rel="prev" title="使用Spring访问数据">
+                使用Spring访问数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring框架概述"><span class="nav-number">1.</span> <span class="nav-text">Spring框架概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Core模块"><span class="nav-number">1.1.</span> <span class="nav-text">Core模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring的IoC容器"><span class="nav-number">2.</span> <span class="nav-text">Spring的IoC容器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IoC的基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">IoC的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三种依赖注入的方式"><span class="nav-number">2.1.1.</span> <span class="nav-text">三种依赖注入的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造方法-构造器-注入"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">构造方法(构造器)注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setter-方法注入"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">setter 方法注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口注入"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">接口注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三种注入方式的比较"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">三种注入方式的比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoC的好处"><span class="nav-number">2.1.2.</span> <span class="nav-text">IoC的好处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IoC-Service-Provider"><span class="nav-number">2.2.</span> <span class="nav-text">IoC Service Provider</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IoC-Service-Provider-的职责"><span class="nav-number">2.2.1.</span> <span class="nav-text">IoC Service Provider 的职责</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#业务对象的构建管理"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">业务对象的构建管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#业务对象间的依赖绑定"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">业务对象间的依赖绑定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象间依赖关系管理"><span class="nav-number">2.2.2.</span> <span class="nav-text">对象间依赖关系管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接编码方式"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">直接编码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件方式"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">配置文件方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元数据-注解-方式"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">元数据(注解)方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring的IoC容器类型"><span class="nav-number">2.3.</span> <span class="nav-text">Spring的IoC容器类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactory"><span class="nav-number">2.3.1.</span> <span class="nav-text">BeanFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContext"><span class="nav-number">2.3.2.</span> <span class="nav-text">ApplicationContext</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BeanFactory-1"><span class="nav-number">2.4.</span> <span class="nav-text">BeanFactory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactory-作用"><span class="nav-number">2.4.1.</span> <span class="nav-text">BeanFactory 作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactory-的对象注册与依赖绑定方式"><span class="nav-number">2.4.2.</span> <span class="nav-text">BeanFactory 的对象注册与依赖绑定方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接编码方式-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">直接编码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部配置文件方式"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">外部配置文件方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Properties配置格式的加载"><span class="nav-number">2.4.2.2.1.</span> <span class="nav-text">Properties配置格式的加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XML-配置格式的加载"><span class="nav-number">2.4.2.2.2.</span> <span class="nav-text">XML 配置格式的加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注解方式"><span class="nav-number">2.4.2.2.3.</span> <span class="nav-text">注解方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactory的XML配置文件"><span class="nav-number">2.4.3.</span> <span class="nav-text">BeanFactory的XML配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope-作用域"><span class="nav-number">2.4.4.</span> <span class="nav-text">scope(作用域)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#singleton"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">singleton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prototype"><span class="nav-number">2.4.4.2.</span> <span class="nav-text">prototype</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoC容器实现两个阶段"><span class="nav-number">2.4.5.</span> <span class="nav-text">IoC容器实现两个阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器启动阶段"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">容器启动阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bean实例化阶段"><span class="nav-number">2.4.5.2.</span> <span class="nav-text">Bean实例化阶段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ApplicationContext-1"><span class="nav-number">2.5.</span> <span class="nav-text">ApplicationContext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于注解的依赖注入"><span class="nav-number">2.6.</span> <span class="nav-text">基于注解的依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Autowired"><span class="nav-number">2.6.1.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classpath-scanning"><span class="nav-number">2.6.2.</span> <span class="nav-text">classpath-scanning</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>
