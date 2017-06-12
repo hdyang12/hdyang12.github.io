@@ -765,9 +765,35 @@
 
   
 
+  <script type="text/javascript">  
+	function IsPC() {
+		var userAgentInfo = navigator.userAgent;
+		var Agents = ["Android", "iPhone",
+					"SymbianOS", "Windows Phone",
+					"iPad", "iPod"];
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	} 
+  
+var scriptNode = document.createElement("script"); 
+scriptNode.setAttribute("type", "text/javascript");  
+  
+if(IsPC()){  
+	<!-- 背景动画 -->
+    scriptNode.setAttribute("src", "/js/src/particle.js");  
+} 
+ 
+document.head.appendChild(scriptNode); 
+</script>
 </body>
-<!-- 背景动画 -->
-<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 背景动画
+<script type="text/javascript" src="/js/src/particle.js"></script> -->
 <!-- 页面点击小红心 -->
 <script type="text/javascript" src="/js/src/love.js"></script>
 </html>
