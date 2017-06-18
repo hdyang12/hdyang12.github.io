@@ -145,7 +145,7 @@
 <meta property="og:image" content="http://yoursite.com/uploads/jvm16.jpg">
 <meta property="og:image" content="http://yoursite.com/uploads/jvm17.jpg">
 <meta property="og:image" content="http://yoursite.com/uploads/jvm18.jpg">
-<meta property="og:updated_time" content="2017-06-15T00:36:06.426Z">
+<meta property="og:updated_time" content="2017-06-18T14:35:28.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机">
 <meta name="twitter:description" content="首先说一下，这不是打广告;每个学习Java的人都应该看下这本书">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,668 字
+                  1,744 字
                 </span>
               
 
@@ -530,7 +530,8 @@
 <h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><p>和ParNew类似，但是具有吞吐量最大化效果(需要配合Parallel Old )；在Parallel Old出来之前，只能和Serial Old搭配，比较尴尬(Serial Old 的拖累)</p>
 <h2 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h2><p>是Serial的老年代版本，单线程收集器；</p>
 <h2 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h2><p>是Parallel Scavenge收集器的老年代版本，JDK 1.6才开始提供；</p>
-<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><ul>
+<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p>G1收集器是比较特殊的，在G1之前其他的垃圾收集器的范围是整个新生代或者老年代。G1不是这样的，使用G1时，Java堆的内存布局有了很大的不同，它将堆分为多个大小相等的独立区域；</p>
+<ul>
 <li>G1收集器是当今收集器技术发展的最前沿成果之一；</li>
 <li>G1是一款面向服务端应用的垃圾收集器;</li>
 <li>oracle官方计划在jdk9中将G1变成默认的垃圾收集器;替换掉JDK1.5中发布的CMS收集器；</li>
