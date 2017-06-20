@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-18T14:35:28.134Z</updated>
+  <updated>2017-06-20T00:28:48.980Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微信机器人</title>
+    <link href="http://yoursite.com/2017/06/19/%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
+    <id>http://yoursite.com/2017/06/19/微信机器人/</id>
+    <published>2017-06-19T14:44:25.000Z</published>
+    <updated>2017-06-20T00:28:48.980Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="个人微信接入图灵机器人-基于Python"><a href="#个人微信接入图灵机器人-基于Python" class="headerlink" title="个人微信接入图灵机器人(基于Python)"></a>个人微信接入图灵机器人(基于Python)</h1><p>开发环境：阿里云 Ubuntu 16.04<br>编程语言：Python2.7</p>
+<ol>
+<li>在<a href="http://www.tuling123.com" target="_blank" rel="external">图灵机器人官网</a>注册账号，创建机器人，如果只是学习的话，可以使用免费版，一个账号最多可以创建5个机器人，一个机器人日调用接口数5000次<br> <img src="/uploads/weixin1.jpg" alt=""><a id="more"></a></li>
+<li><p>开发环境搭建</p>
+ <figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//安装python2.7</span></div><div class="line">$ sudo apt-<span class="built_in">get</span> install python2<span class="number">.7</span></div><div class="line"><span class="comment">//安装pip: </span></div><div class="line">$ sudo apt-<span class="built_in">get</span> install python-pip</div><div class="line"><span class="comment">//有时候安装pillow会出现依赖包缺失错误，需要先安装pillow依赖库</span></div><div class="line">$ sudo apt-<span class="built_in">get</span> install libtiff5-<span class="built_in">dev</span> libjpeg8-<span class="built_in">dev</span> zlib1g-<span class="built_in">dev</span> libfreetype6-<span class="built_in">dev</span> liblcms2-<span class="built_in">dev</span> libwebp-<span class="built_in">dev</span> tcl8<span class="number">.6</span>-<span class="built_in">dev</span> tk8<span class="number">.6</span>-<span class="built_in">dev</span> python-tk</div><div class="line"><span class="comment">//借助python的itchat和pillow，可以使用pip安装。itchat 是 A complete and graceful API for Wechat</span></div><div class="line">$ sudo pip install itchat pillow</div></pre></td></tr></table></figure>
+</li>
+<li><p>python代码编写，创建demo.py脚本文件</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> itchat, time, re</div><div class="line"><span class="keyword">from</span> itchat, content <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> urllib2,urllib</div><div class="line"><span class="keyword">import</span> json</div><div class="line"><span class="keyword">import</span> sys</div><div class="line">reload(sys)</div><div class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</div><div class="line"></div><div class="line"><span class="meta">@itchat.msg_register([TEXT])</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_reply</span><span class="params">(msg)</span>:</span></div><div class="line">	info = msg[<span class="string">'Text'</span>].encode(<span class="string">'UTF-8'</span>)</div><div class="line">	url = <span class="string">'http://www.tuling123.com/openapi/api'</span></div><div class="line">	data = &#123;<span class="string">u"key"</span>: <span class="string">"9ab235c4ec4b4c2887d4e57627d41ab6"</span>,<span class="string">"info"</span>:info,<span class="string">u"loc"</span>: <span class="string">""</span>,<span class="string">"userid"</span>: <span class="string">""</span>&#125;</div><div class="line">	data = urllib.urlencode(data)</div><div class="line">		</div><div class="line">	url2 = urllib2.Request(url, data)</div><div class="line">		</div><div class="line">	response = urllib2.urlopen(url2)</div><div class="line">		</div><div class="line">	apicontent = response.read()</div><div class="line">	s = json.loads(apicontent, encoding=<span class="string">'utf-8'</span>)</div><div class="line">	<span class="keyword">print</span> <span class="string">'s=='</span>,s</div><div class="line">	<span class="keyword">if</span> s[<span class="string">'code'</span>]== <span class="number">100000</span>:</div><div class="line">		itchat.send(s[<span class="string">'text'</span>], msg[<span class="string">'FromUserName'</span>])</div><div class="line">			</div><div class="line">itchat.auto_login(enableCmdQR=<span class="number">2</span>,hotReload=<span class="keyword">True</span>)</div><div class="line">itchat.run(debug=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;个人微信接入图灵机器人-基于Python&quot;&gt;&lt;a href=&quot;#个人微信接入图灵机器人-基于Python&quot; class=&quot;headerlink&quot; title=&quot;个人微信接入图灵机器人(基于Python)&quot;&gt;&lt;/a&gt;个人微信接入图灵机器人(基于Python)&lt;/h1&gt;&lt;p&gt;开发环境：阿里云 Ubuntu 16.04&lt;br&gt;编程语言：Python2.7&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在&lt;a href=&quot;http://www.tuling123.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;图灵机器人官网&lt;/a&gt;注册账号，创建机器人，如果只是学习的话，可以使用免费版，一个账号最多可以创建5个机器人，一个机器人日调用接口数5000次&lt;br&gt; &lt;img src=&quot;/uploads/weixin1.jpg&quot; alt=&quot;&quot;&gt;
+    
+    </summary>
+    
+      <category term="blog" scheme="http://yoursite.com/categories/blog/"/>
+    
+    
+      <category term="编程" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Java虚拟机</title>
@@ -1829,40 +1863,6 @@ inherit：从父级继承来clear的值
   </entry>
   
   <entry>
-    <title>使用Spring访问数据</title>
-    <link href="http://yoursite.com/2016/04/06/%E4%BD%BF%E7%94%A8Spring%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE/"/>
-    <id>http://yoursite.com/2016/04/06/使用Spring访问数据/</id>
-    <published>2016-04-06T01:39:25.000Z</published>
-    <updated>2016-04-11T14:58:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="统一的数据访问异常层次体系"><a href="#统一的数据访问异常层次体系" class="headerlink" title="统一的数据访问异常层次体系"></a>统一的数据访问异常层次体系</h1><p>为了统一和简化相关的数据访问操作，J2EE核心模式提出了DAO(Data Access Object，数据访问对象)模式。使用DAO模式，可以完全分离数据的访问和存储，很好地屏蔽了各种数据访问方式的差异性。不论数据存储在普通的文本文件或者csv文件，还是关系数据库(RDBMS)或者LDAP(Lightweight Directory Access Protocol,轻量级目录访问协议)系统中，使用DAO模式访问数据的客户端代码可以完全忽视这种差异，而以统一的接口来访问相应数据。</p>
-<p>当数据访问接口的实现类随着需求而发生变化时，客户端代码(service层代码)可以完全忽视这种变化，唯一需要变动的地方可能只是Factory对象的几行代码，甚至只是IoC容器配置文件中简单的class类型替换而已，客户端代码无需任何变动。所以，DAO模式对屏蔽不同数据访问机制的差异性起到举足轻重的作用。</p>
-<h2 id="异常导致接口无法定义"><a href="#异常导致接口无法定义" class="headerlink" title="异常导致接口无法定义"></a>异常导致接口无法定义</h2><p><strong>那么问题来了:</strong><br>当DAO实现类出现异常的时候,如何捕获SQLException呢？如果直接在DAO实现类处理掉的话，客户端代码就不知道在数据访问期间发生的问题。所以只好先将SQLException抛给客户端。但是这样会产生2个问题:<br><strong>问题1:</strong><br>我们的数据访问接口对于客户端来说是通用的，不管数据访问对象因为数据访问机制的不同而如何变更，客户端代码不应该受其牵连。但是，现在因为使用JDBC做数据访问，需要抛出特定的SQLException，那么客户端代码就需要捕捉该异常并做相应的处理。这是与数据访问对象模式的设计初衷相背离的。<br><strong>问题2:</strong><br>在引入另一种数据访问机制时，问题更是接踵而来。当换了一个Dao实现，需要抛出另一个Exception，例如:NamingException,如果要保证方法被实现就需要更改方法签名。这样更糟糕了，我们把统一的访问接口给改了。<br>因为数据访问机制的不同，我们的数据访问接口的定义变成了空中楼阁，我们无法最终定义并确定这个接口。</p>
-<h2 id="Spring-数据访问异常层次体系"><a href="#Spring-数据访问异常层次体系" class="headerlink" title="Spring 数据访问异常层次体系"></a>Spring 数据访问异常层次体系</h2><p>Spring 框架中统一的异常层次体系所涉及的大部分异常类型都定义在<code>org.springframework.dao</code>包中，处于这个体系的所有异常类型均以<code>org.springframework.dao.DataAccessException</code>为“统领”，然后根据职能划分为不同的异常子类型，总体上看，整个异常层次体系如下图所示:<br><img src="/uploads/Spring6.jpg" alt=""></p>
-<h1 id="JDBC-API-的最佳实践"><a href="#JDBC-API-的最佳实践" class="headerlink" title="JDBC API 的最佳实践"></a>JDBC API 的最佳实践</h1><h2 id="基于Template的JDBC使用方式"><a href="#基于Template的JDBC使用方式" class="headerlink" title="基于Template的JDBC使用方式"></a>基于<code>Template</code>的<code>JDBC</code>使用方式</h2><p>由于<code>JDBC API</code>在使用中容易出错，使用繁琐;为了解决它在实际使用中的尴尬局面，<code>Spring</code>框架提出了<code>org.springframework.jdbc.core.jdbcTemplate</code>作为数据访问的<code>Helper</code>类。抓住<code>JdbcTemplate</code>，就抓住了<code>Spring</code>框架<code>JDBC API</code>最佳实践的核心。<br><strong><code>JdbcTemplate</code>主要关注如下两个事情</strong>:</p>
-<ul>
-<li>封装所有基于JDBC的数据访问代码，以统一的格式和规范来使用JDBC API。所有基于JDBC的数据访问需求现在全部通过JdbcTemplate进行，从而避免了让烦琐易错的基于JDBC API的数据访问代码散落于系统各处。</li>
-<li>对SQLException所提供的异常信息在框架内进行统一转译，将基于JDBC的数据访问异常纳入Spring自身的异常层次体系中，统一了数据接口的定义，简化了客户端代码对数据访问异常的处理。</li>
-</ul>
-<p>JdbcTemplate主要通过模板方法模式对基于JDBC的数据访问代码进行统一封装。<br><strong>模板方法模式</strong>:主要用于对算法或者行为逻辑进行封装，即如果多个类中存在某些相似的算法逻辑或者行为逻辑，可以将这些相似的逻辑提取到模板方法类中实现，然后让相应的子类根据需要实现某些自定义逻辑。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      包括统一的数据访问异常层次体系和JDBCAPI以及统一集成各种ORM方案
-    
-    </summary>
-    
-      <category term="Spring" scheme="http://yoursite.com/categories/Spring/"/>
-    
-    
-      <category term="编程" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A8%8B/"/>
-    
-      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Spring AOP 框架</title>
     <link href="http://yoursite.com/2016/04/06/SpringAOP/"/>
     <id>http://yoursite.com/2016/04/06/SpringAOP/</id>
@@ -1898,6 +1898,40 @@ inherit：从父级继承来clear的值
     <summary type="html">
     
       Spring AOP 概述及其实现机制和扩展
+    
+    </summary>
+    
+      <category term="Spring" scheme="http://yoursite.com/categories/Spring/"/>
+    
+    
+      <category term="编程" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Spring访问数据</title>
+    <link href="http://yoursite.com/2016/04/06/%E4%BD%BF%E7%94%A8Spring%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE/"/>
+    <id>http://yoursite.com/2016/04/06/使用Spring访问数据/</id>
+    <published>2016-04-06T01:39:25.000Z</published>
+    <updated>2016-04-11T14:58:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="统一的数据访问异常层次体系"><a href="#统一的数据访问异常层次体系" class="headerlink" title="统一的数据访问异常层次体系"></a>统一的数据访问异常层次体系</h1><p>为了统一和简化相关的数据访问操作，J2EE核心模式提出了DAO(Data Access Object，数据访问对象)模式。使用DAO模式，可以完全分离数据的访问和存储，很好地屏蔽了各种数据访问方式的差异性。不论数据存储在普通的文本文件或者csv文件，还是关系数据库(RDBMS)或者LDAP(Lightweight Directory Access Protocol,轻量级目录访问协议)系统中，使用DAO模式访问数据的客户端代码可以完全忽视这种差异，而以统一的接口来访问相应数据。</p>
+<p>当数据访问接口的实现类随着需求而发生变化时，客户端代码(service层代码)可以完全忽视这种变化，唯一需要变动的地方可能只是Factory对象的几行代码，甚至只是IoC容器配置文件中简单的class类型替换而已，客户端代码无需任何变动。所以，DAO模式对屏蔽不同数据访问机制的差异性起到举足轻重的作用。</p>
+<h2 id="异常导致接口无法定义"><a href="#异常导致接口无法定义" class="headerlink" title="异常导致接口无法定义"></a>异常导致接口无法定义</h2><p><strong>那么问题来了:</strong><br>当DAO实现类出现异常的时候,如何捕获SQLException呢？如果直接在DAO实现类处理掉的话，客户端代码就不知道在数据访问期间发生的问题。所以只好先将SQLException抛给客户端。但是这样会产生2个问题:<br><strong>问题1:</strong><br>我们的数据访问接口对于客户端来说是通用的，不管数据访问对象因为数据访问机制的不同而如何变更，客户端代码不应该受其牵连。但是，现在因为使用JDBC做数据访问，需要抛出特定的SQLException，那么客户端代码就需要捕捉该异常并做相应的处理。这是与数据访问对象模式的设计初衷相背离的。<br><strong>问题2:</strong><br>在引入另一种数据访问机制时，问题更是接踵而来。当换了一个Dao实现，需要抛出另一个Exception，例如:NamingException,如果要保证方法被实现就需要更改方法签名。这样更糟糕了，我们把统一的访问接口给改了。<br>因为数据访问机制的不同，我们的数据访问接口的定义变成了空中楼阁，我们无法最终定义并确定这个接口。</p>
+<h2 id="Spring-数据访问异常层次体系"><a href="#Spring-数据访问异常层次体系" class="headerlink" title="Spring 数据访问异常层次体系"></a>Spring 数据访问异常层次体系</h2><p>Spring 框架中统一的异常层次体系所涉及的大部分异常类型都定义在<code>org.springframework.dao</code>包中，处于这个体系的所有异常类型均以<code>org.springframework.dao.DataAccessException</code>为“统领”，然后根据职能划分为不同的异常子类型，总体上看，整个异常层次体系如下图所示:<br><img src="/uploads/Spring6.jpg" alt=""></p>
+<h1 id="JDBC-API-的最佳实践"><a href="#JDBC-API-的最佳实践" class="headerlink" title="JDBC API 的最佳实践"></a>JDBC API 的最佳实践</h1><h2 id="基于Template的JDBC使用方式"><a href="#基于Template的JDBC使用方式" class="headerlink" title="基于Template的JDBC使用方式"></a>基于<code>Template</code>的<code>JDBC</code>使用方式</h2><p>由于<code>JDBC API</code>在使用中容易出错，使用繁琐;为了解决它在实际使用中的尴尬局面，<code>Spring</code>框架提出了<code>org.springframework.jdbc.core.jdbcTemplate</code>作为数据访问的<code>Helper</code>类。抓住<code>JdbcTemplate</code>，就抓住了<code>Spring</code>框架<code>JDBC API</code>最佳实践的核心。<br><strong><code>JdbcTemplate</code>主要关注如下两个事情</strong>:</p>
+<ul>
+<li>封装所有基于JDBC的数据访问代码，以统一的格式和规范来使用JDBC API。所有基于JDBC的数据访问需求现在全部通过JdbcTemplate进行，从而避免了让烦琐易错的基于JDBC API的数据访问代码散落于系统各处。</li>
+<li>对SQLException所提供的异常信息在框架内进行统一转译，将基于JDBC的数据访问异常纳入Spring自身的异常层次体系中，统一了数据接口的定义，简化了客户端代码对数据访问异常的处理。</li>
+</ul>
+<p>JdbcTemplate主要通过模板方法模式对基于JDBC的数据访问代码进行统一封装。<br><strong>模板方法模式</strong>:主要用于对算法或者行为逻辑进行封装，即如果多个类中存在某些相似的算法逻辑或者行为逻辑，可以将这些相似的逻辑提取到模板方法类中实现，然后让相应的子类根据需要实现某些自定义逻辑。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      包括统一的数据访问异常层次体系和JDBCAPI以及统一集成各种ORM方案
     
     </summary>
     
@@ -2093,38 +2127,6 @@ inherit：从父级继承来clear的值
       <category term="Json" scheme="http://yoursite.com/tags/Json/"/>
     
       <category term="XML" scheme="http://yoursite.com/tags/XML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java安全编码</title>
-    <link href="http://yoursite.com/2016/03/23/Java%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81/"/>
-    <id>http://yoursite.com/2016/03/23/Java安全编码/</id>
-    <published>2016-03-23T03:35:25.000Z</published>
-    <updated>2016-06-26T09:23:33.900Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前在写代码的时候，就一直想过关于编码安全的问题，以及编码规范的问题。但一直没有机会去总结。<br>最近借了一本书看一下,名字叫<code>Java安全编码标准</code>。讲述了关于编码安全的内容。看了这本书后，我自己也写了点感悟和总结。<br><img src="/uploads/codesafe.jpg" alt=""></p>
-<h1 id="编码安全"><a href="#编码安全" class="headerlink" title="编码安全"></a>编码安全</h1><p>Java语言的核心和扩展API以及JVM提供的安全特性包括安全管理器、访问控制器、加密、自动内存管理、强类型检查、字节码验证等</p>
-<h2 id="敏感数据泄露"><a href="#敏感数据泄露" class="headerlink" title="敏感数据泄露"></a>敏感数据泄露</h2><p>在Java中，接口、类和类成员(如字段和方法)是访问受控的，这种访问受控由访问修饰符(public、private、protected、默认(package-private))来标识。<br>但是有一些Java平台的设计会让这种保护失效，从而导致出现安全漏洞，比如对Java反射机制的错误使用。<br><img src="/uploads/codesafe2.jpg" alt=""><br>其中Class是当前类，Package是同一个包中的类，Subclass是子类，World是全局。</p>
-<h2 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h2><h3 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h3><p>在大多数实际的多线程应用中，两个或两个以上的线程需要共享对同一数据的存取。如果i线程存取相同的对象，并且每一个线程都调用了一个修改该对象状态的方法，将会发生什么呢？可以想象，线程彼此踩了对方的脚。根据线程访问数据的次序，可能会产生讹误的对象。这样的情况通常称为竞态条件。<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> </span>&#123;  </div><div class="line">    <span class="keyword">protected</span> <span class="keyword">long</span> <span class="keyword">count</span> = <span class="number">0</span>;  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> add(<span class="keyword">long</span> value) &#123;  </div><div class="line">        <span class="keyword">this</span>.<span class="keyword">count</span> = <span class="keyword">this</span>.<span class="keyword">count</span> + value;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>假定线程A和线程B同时执行add方法,两个线程分别加了2和3到count变量上，两个线程执行结束后count变量的值应该等于5。然而由于两个线程是交叉执行的，两个线程从内存中读出的初始值都是0。然后各自加了2和3，并分别写回内存。最终的值并不是期望的5，而是最后写回内存的那个线程的值，上面例子中最后写回内存的是线程A，但实际中也可能是线程B。如果没有采用合适的同步机制，线程间的交叉执行情况就无法预料。<br>add()方法就是一个临界区,它会产生竞态条件。<br>解决方案:内置锁</p>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>volatile是一个特殊的修饰符，只有成员变量才能使用它。在Java并发程序缺少同步类的情况下，多线程对成员变量的操作对其它线程是透明的。volatile变量可以保证下一个读取操作会在前一个写操作之后发生。线程都会直接从内存中读取该变量并且不缓存它。这就确保了线程读取到的变量是同内存中是一致的。</p>
-<h2 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h2><p>穿越受信边界的非受信数据</p>
-<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>当初始的SQL查询被修改成另一个完全不同形式的查询的时候，就会出现SQL注入漏洞，执行这一被修改过的查询，可能会导致信息泄露或者数据被修改。防止SQL注入漏洞的主要方法是，净化并验证非受信输入，同时采用参数化查询的方法。<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一个用来验证用户名和密码的SQL语句</span></div><div class="line"><span class="built_in">SELECT</span> *</div></pre></td></tr></table></figure></p>
-<h3 id="XML注入"><a href="#XML注入" class="headerlink" title="XML注入"></a>XML注入</h3>]]></content>
-    
-    <summary type="html">
-    
-      java如何进行安全编码
-    
-    </summary>
-    
-      <category term="blog" scheme="http://yoursite.com/categories/blog/"/>
-    
-    
-      <category term="编程" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A8%8B/"/>
-    
-      <category term="安全编码" scheme="http://yoursite.com/tags/%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81/"/>
     
   </entry>
   
