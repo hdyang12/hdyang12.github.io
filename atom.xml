@@ -1093,7 +1093,7 @@ inherit：从父级继承来clear的值
     <link href="http://yoursite.com/2016/08/21/installSoftware/"/>
     <id>http://yoursite.com/2016/08/21/installSoftware/</id>
     <published>2016-08-21T11:35:25.000Z</published>
-    <updated>2017-06-18T08:02:39.700Z</updated>
+    <updated>2017-07-30T08:37:35.406Z</updated>
     
     <content type="html"><![CDATA[<h1 id="eclipse"><a href="#eclipse" class="headerlink" title="eclipse"></a>eclipse</h1><p>eclipse是一个基于Java的开发环境，所以说要在系统中安装eclipse需要先安装Java运行环境(JDK)</p>
 <h2 id="Windows7版"><a href="#Windows7版" class="headerlink" title="Windows7版"></a>Windows7版</h2><p>查看JDK是否安装：<br>打开DOS命令行(cmd)，输入:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> java -version</span></div></pre></td></tr></table></figure></p>
@@ -1323,6 +1323,61 @@ inherit：从父级继承来clear的值
 <li>在MongoDB安装盘符下创建文件夹data\db:<code>C:\data\db</code></li>
 <li>在MongoDB的bin目录下(<code>C:\Program Files\MongoDB\Server\3.2\bin</code>)运行mongod</li>
 <li>在MongoDB的bin目录下运行mongo，进入mongo数据库</li>
+</ol>
+<h2 id="Linux版-阿里云Ubuntu-16-04-1"><a href="#Linux版-阿里云Ubuntu-16-04-1" class="headerlink" title="Linux版(阿里云Ubuntu 16.04)"></a>Linux版(阿里云Ubuntu 16.04)</h2><h3 id="MongoDB安装-集群"><a href="#MongoDB安装-集群" class="headerlink" title="MongoDB安装(集群)"></a>MongoDB安装(集群)</h3><ol>
+<li><p>下载到服务器</p>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget -c https:<span class="regexp">//</span>fastdl.mongodb.org<span class="regexp">/linux/m</span>ongodb-linux-x86_64-ubuntu1604-<span class="number">3.2</span>.<span class="number">8</span>.tgz</div></pre></td></tr></table></figure>
+</li>
+<li><p>解压</p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tar -zxvf mongodb-linux-x86_64-ubuntu1604<span class="number">-3.2</span><span class="number">.8</span>.tgz</div><div class="line">$ mv mongodb-linux-x86_64-ubuntu1604<span class="number">-3.2</span><span class="number">.8</span> mongodb</div></pre></td></tr></table></figure>
+</li>
+<li><p>进入解压后的目录，建立文件夹(该集群只开启shard1)</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mkdir logs</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir logs/shard1</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir data</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir data/shard1</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir run</span></div><div class="line"><span class="meta">$</span><span class="bash"> touch run/shard1.pid</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir etc</span></div><div class="line"><span class="meta">$</span><span class="bash"> touch etc/shard1.conf</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>进入etc目录，设置配置文件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> etc</span></div><div class="line"><span class="meta">$</span><span class="bash"> vim shard1.conf</span></div></pre></td></tr></table></figure>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="attr">dbpath</span>=/home/mongo/mongodb/data/shard1</div><div class="line"><span class="attr">logpath</span>=/home/mongo/mongodb/logs/shard.log</div><div class="line"><span class="attr">pidfilepath</span>=/home/mongo/mongodb/run/shard1.pid</div><div class="line"><span class="attr">directoryperdb</span>=<span class="literal">true</span></div><div class="line"><span class="attr">logappend</span>=<span class="literal">true</span></div><div class="line"><span class="comment">#replSet=testrs</span></div><div class="line"><span class="comment">#bind_ip=10.10.148.130</span></div><div class="line"><span class="attr">port</span>=<span class="number">10001</span></div><div class="line"><span class="attr">oplogSize</span>=<span class="number">10000</span></div><div class="line"><span class="attr">fork</span>=<span class="literal">true</span></div><div class="line"><span class="attr">noprealloc</span>=<span class="literal">true</span></div></pre></td></tr></table></figure>
+<p> 参数解释：</p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">dbpath：数据存放目录</div><div class="line">logpath：日志存放路径</div><div class="line">pidfilepath：进程文件，方便停止mongodb</div><div class="line">directoryperdb：为每一个数据库按照数据库名建立文件夹存放</div><div class="line">logappend：以追加的方式记录日志</div><div class="line">replSet：replica set的名字</div><div class="line">bind_ip：mongodb所绑定的ip地址</div><div class="line">port：mongodb进程所使用的端口号，默认为<span class="number">27017</span></div><div class="line">oplogSize：mongodb操作日志文件的最大大小。单位为Mb，默认为硬盘剩余空间的<span class="number">5</span>%</div><div class="line">fork：以后台方式运行进程</div><div class="line">noprealloc：不预先分配存储</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动mongodb</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /home/mongo/mongodb/bin</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./monood -f ../etc/shard1.conf</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>进入mongo</p>
+ <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="string">./mongo</span> <span class="params">--port</span> 10001</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><h2 id="Linux版-阿里云Ubuntu-16-04-2"><a href="#Linux版-阿里云Ubuntu-16-04-2" class="headerlink" title="Linux版(阿里云Ubuntu 16.04)"></a>Linux版(阿里云Ubuntu 16.04)</h2><h3 id="Zookeeper安装-需要先安装jdk"><a href="#Zookeeper安装-需要先安装jdk" class="headerlink" title="Zookeeper安装(需要先安装jdk)"></a>Zookeeper安装(需要先安装jdk)</h3><p>ZooKeeper是用Java编写的，运行在Java环境上，因此，在部署zk的机器上需要安装Java运行环境。为了正常运行zk，我们需要JRE1.6或者以上的版本。</p>
+<ol>
+<li><p>下载到服务器</p>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget -c http:<span class="regexp">//</span>apache.fayea.com<span class="regexp">/zookeeper/</span>zookeeper-<span class="number">3.5</span>.<span class="number">1</span>-alpha<span class="regexp">/zookeeper-3.5.1-alpha.tar.gz</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>解压</p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tar -zxvf zookeeper<span class="number">-3.5</span><span class="number">.1</span>-alpha.tar.gz</div><div class="line">$ mv zookeeper<span class="number">-3.5</span><span class="number">.1</span>-alpha zookeeper</div></pre></td></tr></table></figure>
+</li>
+<li><p>新建文件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /home/zookeeper/zookeeper</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir data</span></div><div class="line"><span class="meta">$</span><span class="bash"> mkdir logs</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>编辑配置文件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /home/zookeeper/zookeeper/conf</span></div><div class="line"><span class="meta">$</span><span class="bash"> cp zoo_sample.cfg zoo.cfg</span></div><div class="line"><span class="meta">$</span><span class="bash"> vim zoo.cfg</span></div></pre></td></tr></table></figure>
+<p> 完善配置如下：</p>
+ <figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tickTime=2000               //基本时间度量单位,一次心跳时间</div><div class="line">dataDir=/home/zookeeper/zookeeper/data</div><div class="line">dataLogDir=/home/zookeeper/zookeeper/logs</div><div class="line">clientPort=2181</div><div class="line">initLimit=5                 //初始化连接时, follower和leader之间的最长心跳时间5 * 2000ms = 10s</div><div class="line">syncLimit=2                 //请求和应答的最大时间长度 2 * 2000ms</div><div class="line"><span class="section">server.1=zoo1:2888:3888		//server.1=192.168.111.101:2888:3888	</span></div><div class="line"><span class="section">server.2=zoo2:2888:3888		//server.2=192.168.111.102:2888:3888	</span></div><div class="line"><span class="section">server.3=zoo3:2888:3888		//server.3=192.168.111.103:2888:3888</span></div></pre></td></tr></table></figure>
+<p> 在dataDir对应目录下创建myid文件，文件中只包含一行，且内容为该节点对应的server.id中的id编号</p>
+</li>
+<li><p>启动zookeeper</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /home/zookeeper/zookeeper/bin</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./zkServer.sh start</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>查看状态</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ./zkServer.sh status</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h1><h2 id="Linux版-阿里云Ubuntu-16-04-3"><a href="#Linux版-阿里云Ubuntu-16-04-3" class="headerlink" title="Linux版(阿里云Ubuntu 16.04)"></a>Linux版(阿里云Ubuntu 16.04)</h2><h3 id="JDK安装-1"><a href="#JDK安装-1" class="headerlink" title="JDK安装"></a>JDK安装</h3><ol>
+<li><p>安装<br>直接使用apt install 安装</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt <span class="keyword">install</span> openjdk-<span class="number">8</span>-jre-headless</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ java -version</div><div class="line">openjdk version <span class="string">"1.8.0_131"</span></div><div class="line">OpenJDK Runtime Environment (build 1.8.0_131-8u131-b11-0ubuntu1.16.04.2-b11)</div><div class="line">OpenJDK 64-Bit<span class="built_in"> Server </span>VM (build 25.131-b11, mixed mode)</div></pre></td></tr></table></figure>
+</li>
 </ol>
 ]]></content>
     
