@@ -1,0 +1,1201 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="编程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hui Yang's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/author.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="名词解释竞态条件在并发编程中，由于不恰当的执行时序而出现不正确的结果； 重排序Java内存模型允许编译器对操作顺序进行重排序，允许CPU对操作顺序进行重排序； 内存屏障硬件层内存屏障硬件层的内存屏障分为两种：Load Barrier 和 Store Barrier即读屏障和写屏障。 内存屏障有两个作用：  阻止屏障两侧的指令重排序； 强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数">
+<meta name="keywords" content="编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发编程">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/Java并发编程/index.html">
+<meta property="og:site_name" content="Hui Yang&#39;s Blog">
+<meta property="og:description" content="名词解释竞态条件在并发编程中，由于不恰当的执行时序而出现不正确的结果； 重排序Java内存模型允许编译器对操作顺序进行重排序，允许CPU对操作顺序进行重排序； 内存屏障硬件层内存屏障硬件层的内存屏障分为两种：Load Barrier 和 Store Barrier即读屏障和写屏障。 内存屏障有两个作用：  阻止屏障两侧的指令重排序； 强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数">
+<meta property="og:image" content="http://yoursite.com/uploads/thread1.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/thread2.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/thread3.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/thread4.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/thread5.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/thread6.jpg">
+<meta property="og:image" content="http://yoursite.com/uploads/thread7.jpg">
+<meta property="og:updated_time" content="2017-10-19T15:53:21.479Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java并发编程">
+<meta name="twitter:description" content="名词解释竞态条件在并发编程中，由于不恰当的执行时序而出现不正确的结果； 重排序Java内存模型允许编译器对操作顺序进行重排序，允许CPU对操作顺序进行重排序； 内存屏障硬件层内存屏障硬件层的内存屏障分为两种：Load Barrier 和 Store Barrier即读屏障和写屏障。 内存屏障有两个作用：  阻止屏障两侧的指令重排序； 强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数">
+<meta name="twitter:image" content="http://yoursite.com/uploads/thread1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/12/Java并发编程/"/>
+
+
+
+
+
+  <title>Java并发编程 | Hui Yang's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	<a href="https://github.com/hdyang12"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hui Yang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/Java并发编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨辉">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hui Yang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java并发编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T22:44:25+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blog/" itemprop="url" rel="index">
+                    <span itemprop="name">blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/10/12/Java并发编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/12/Java并发编程/" class="leancloud_visitors" data-flag-title="Java并发编程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  9,839 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  37 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h1><h4 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h4><p>在并发编程中，由于不恰当的执行时序而出现不正确的结果；</p>
+<h4 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h4><p>Java内存模型允许编译器对操作顺序进行重排序，允许CPU对操作顺序进行重排序；</p>
+<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><h5 id="硬件层内存屏障"><a href="#硬件层内存屏障" class="headerlink" title="硬件层内存屏障"></a>硬件层内存屏障</h5><p>硬件层的内存屏障分为两种：<code>Load Barrier</code> 和 <code>Store Barrier</code>即读屏障和写屏障。</p>
+<p>内存屏障有两个作用：</p>
+<ol>
+<li>阻止屏障两侧的指令重排序；</li>
+<li>强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数据失效。</li>
+</ol>
+<p>对于Load Barrier来说，在指令前插入Load Barrier，可以让高速缓存中的数据失效，强制从新从主内存加载数据；<br>对于Store Barrier来说，在指令后插入Store Barrier，能让写入缓存中的最新数据更新写入主内存，让其他线程可见。</p>
+<h5 id="java内存屏障"><a href="#java内存屏障" class="headerlink" title="java内存屏障"></a>java内存屏障</h5><p>java的内存屏障通常所谓的四种即LoadLoad,StoreStore,LoadStore,StoreLoad实际上也是上述两种的组合，完成一系列的屏障和数据同步功能。</p>
+<ul>
+<li>LoadLoad屏障：对于这样的语句Load1; LoadLoad; Load2，在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取完毕。</li>
+<li>StoreStore屏障：对于这样的语句Store1; StoreStore; Store2，在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。</li>
+<li>LoadStore屏障：对于这样的语句Load1; LoadStore; Store2，在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。</li>
+<li>StoreLoad屏障：对于这样的语句Store1; StoreLoad; Load2，在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。它的开销是四种屏障中最大的。在大多数处理器的实现中，这个屏障是个万能屏障，兼具其它三种内存屏障的功能</li>
+</ul>
+<h4 id="Compare-And-Swap-CAS"><a href="#Compare-And-Swap-CAS" class="headerlink" title="Compare And Swap(CAS)"></a>Compare And Swap(CAS)</h4><p>比较并交换。</p>
+<p>CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值(B)。如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该位置的值。CAS 有效地说明了“我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”</p>
+<h4 id="long和double的非原子性协定"><a href="#long和double的非原子性协定" class="headerlink" title="long和double的非原子性协定"></a>long和double的非原子性协定</h4><p>64位数据的读写操作划分为2次32位的操作来进行；在实际开发中，目前各种平台下的商业虚拟机几乎都选择把64位数据的读写操作作为原子操作来对待；</p>
+<h4 id="线程封闭"><a href="#线程封闭" class="headerlink" title="线程封闭"></a>线程封闭</h4><p>某个对象封闭在一个线程中时，这种用法将自动实现线程安全性；Swing、JDBC；</p>
+<h4 id="栈封闭"><a href="#栈封闭" class="headerlink" title="栈封闭"></a>栈封闭</h4><p>通过局部变量才能访问对象，是线程封闭的一种特例，易于维护，更加健壮<br><a id="more"></a></p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h2 id="什么是线程"><a href="#什么是线程" class="headerlink" title="什么是线程"></a>什么是线程</h2><p>线程，有时被称为轻量级进程，是程序执行流的最小单元。每个线程都是独立的，线程会共享进程范围内的资源。一个程序中的多个线程可以被同时调度到多个CPU上运行。一个程序至少有一个进程,一个进程至少有一个线程。</p>
+<h2 id="为什么要使用并发"><a href="#为什么要使用并发" class="headerlink" title="为什么要使用并发"></a>为什么要使用并发</h2><p>在早期的计算机中时没有使用并发的，它们从头到尾只执行一个程序，这对于计算机资源来说是一种浪费</p>
+<ol>
+<li>资源利用率：在一些情况下，程序要等待一些外部操作的完成，比如输入、输出、访问数据库等造成的阻塞，在阻塞的时候，程序无法进行任何别的操作，要是在等待的时候可以运行另一个程序，无疑会极大提升程序利用率</li>
+<li>公平性：所有的用户和线程对计算机资源有着相同的使用权，应该通过时间分片，而不是等一个任务执行完了再执行另一个任务</li>
+<li>便利性：不同任务相互协作</li>
+</ol>
+<h2 id="线程的优势"><a href="#线程的优势" class="headerlink" title="线程的优势"></a>线程的优势</h2><ol>
+<li>发挥多处理器的能力：由于通过时钟频率来提高性能已经越来越困难，产商开始向多核处理器转变；目前多核处理器比比皆是，16核，32核的都有很多，如果是单线程跑程序就不能发挥多核处理器的优势，造成很大的资源浪费；</li>
+<li>阻塞时：很多时候会产生阻塞比如数据输出，访问数据库，访问接口；要是单线程的话会一直等待，而多线程可以切换成别的线程运行，提高了计算机资源的利用率</li>
+</ol>
+<h2 id="线程的风险"><a href="#线程的风险" class="headerlink" title="线程的风险"></a>线程的风险</h2><ol>
+<li>提高了开发人员的技术要求：开发人员必须要了解线程方面的内容</li>
+<li>安全性问题：这是一个很大，很复杂的问题，多线程的操作顺序是不可预测的，不正确的使用可能会导致出现莫名其妙的结果，测试时很难发现问题，并且排查问题的难度很大。</li>
+</ol>
+<h2 id="线程调度方式"><a href="#线程调度方式" class="headerlink" title="线程调度方式"></a>线程调度方式</h2><h3 id="协同式线程调度"><a href="#协同式线程调度" class="headerlink" title="协同式线程调度"></a>协同式线程调度</h3><p>程的执行时间由线程本身来控制，线程把自己的工作执行完了之后，要主动通知系统切换到另一个线程上；</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>实现简单</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>不稳定，程序可能会阻塞甚至崩溃</p>
+<h3 id="抢占式线程调度"><a href="#抢占式线程调度" class="headerlink" title="抢占式线程调度"></a>抢占式线程调度</h3><p>程执行时间由系统分配</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><p>线程执行时间可控，不会导致进程阻塞</p>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p><img src="/uploads/thread1.jpg" alt=""></p>
+<ol>
+<li>新建(New)：创建后尚未启动的线程处于这种状态</li>
+<li>运行(Runable)：Runable 包括了操作系统线程状态中的 Running 和 Ready，处于此状态的线程可能正在执行，也可能正在等待 CPU 为它分配执行时间；<br>3.无期限等待(Waiting)：处于这种状态的线程不会被分配 CPU 执行时间，它们要等待被其他线程显式地唤醒；以下方法会让线程陷入无期限的等待状态：<br>没有设置Timeout参数的Object.wait() 方法<br>没有设置Timeout参数的Thread.join()方法</li>
+<li>期限等待(Timed Waiting)：处于这种状态的线程不会被分配CPU执行时间，但它不需要被其他线程显式唤醒，在一定时间之后会由系统自动唤醒；以下方法会让线程进入期限等待状态：<br>Thread.sleep()方法；<br>设置了Timeout参数的Object.wait() 方法<br>设置了Timeout参数的Thread.join()方法</li>
+<li>阻塞(Blocked)：线程被阻塞；在程序进入同步区域的时候，线程将进入这种状态；<br>阻塞与等待区别：”阻塞状态”在等待获取一个排他锁(在另外一个线程放弃这个锁的时候发生)，等待状态是在等待一段时间或者唤醒动作的发生；</li>
+<li>结束(Terminated)：线程已经执行结束</li>
+</ol>
+<h1 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h1><p>线程安全：多个线程访问一个对象时，调用这个对象的行为都能获得正确的结果</p>
+<p>线程安全的实现方法：</p>
+<ol>
+<li><p>互斥同步(阻塞同步，悲观的并发策略，重量级锁)：synchronized关键字；synchronized关键字经过编译之后，会在同步块的前后分别形成monitorenter和monitorexit这两个字节码指令(上锁，解锁，锁计数器+_1)，这两个字节码都需要一个reference类型的参数来指明要锁定和解锁的对象。如果Java程序中的synchronized明确指定了对象参数，那就是这个对象的reference；如果没有明确指定，那就根据synchronized修饰的是实例方法还是类方法，去取对应的对象实例或Class对象来作为锁对象；<br> synchronized同步块对同一条线程来说是可重入的，不会出现自己把自己锁死的问题；<br> Java如果要阻塞或唤醒一个线程都需要从用户态转换到核心态中，很耗时；要避免频繁切入到核心态之中；<br><strong>公平锁</strong>：多个线程在等待同一个锁时，按照申请锁的时间顺序来依次获得锁；synchronized中的锁是非公平的；</p>
+</li>
+<li><p>非阻塞同步(乐观的并发策略)</p>
+</li>
+<li><p>无同步方案<br> 可重入代码：不依赖储存在堆上的数据和公用的系统资源，用到的状态量都由参数传入，不调用非可重入的方法等；<br>线程本地储存：把共享数据的可见范围限制在同一个线程之内；一个请求对应一个服务器线程</p>
+<h2 id="竞态条件-1"><a href="#竞态条件-1" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>在同一程序中运行多个线程本身不会导致问题，问题在于多个线程访问了相同的资源。并且向这些资源做了写操作时才有可能发生问题，只要资源没有发生变化,多个线程读取相同的资源就是安全的。<br>当两个线程竞争同一资源时，如果对资源的访问顺序敏感，就称存在竞态条件。导致竞态条件发生的代码区称作临界区。下例中add()方法就是一个临界区,它会产生竞态条件。在临界区中使用适当的同步就可以避免竞态条件。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Counter</span> </span>&#123;</div><div class="line">	<span class="keyword">protected</span> <span class="keyword">long</span> <span class="keyword">count</span> = <span class="number">0</span>;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> add(<span class="keyword">long</span> value) &#123;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">count</span> = <span class="keyword">this</span>.<span class="keyword">count</span> + value;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>假定线程A和线程B同时执行add方法,两个线程分别加了2和3到count变量上，两个线程执行结束后count变量的值应该等于5。然而由于两个线程是交叉执行的，两个线程从内存中读出的初始值都是0。然后各自加了2和3，并分别写回内存。最终的值并不是期望的5，而是最后写回内存的那个线程的值，上面例子中最后写回内存的是线程A，但实际中也可能是线程B。如果没有采用合适的同步机制，线程间的交叉执行情况就无法预料。<br>add()方法就是一个临界区,它会产生竞态条件。</p>
+<p>延迟初始化中的竞态条件：<br>线程A和B同时执行getInstance ，可能会导致两次调用getInstance得到不同的结果；<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@NotThreadSafe<span class="keyword"></span></div><div class="line">public class LazyInitRace &#123;</div><div class="line"><span class="keyword">	private</span> ExpensiveObject<span class="built_in"> instance </span>= null;</div><div class="line">	</div><div class="line"><span class="keyword">	public</span> ExpensiveObject getInstance () &#123;</div><div class="line">	<span class="built_in">	if </span>(instance == null) &#123;</div><div class="line">		<span class="built_in">	instance </span>=<span class="built_in"> new </span>ExpensiveObject();</div><div class="line">		&#125;</div><div class="line">	<span class="built_in">	return </span>instance;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>线程a和线程b同时执行getInstance()，线程a看到instance为空，创建了一个新的instance对象，此时线程b也需要判断instance是否为空，此时的instance是否为空取决于不可预测的时序：包括线程a创建instance对象需要多长时间以及线程的调度方式，如果b检测时，instance为空，那么b也会创建一个instance对象。</p>
+<p>和大多数并发错误一样，竞态条件不总是会产生问题，还需要不恰当的执行时序</p>
+<h2 id="同步机制"><a href="#同步机制" class="headerlink" title="同步机制"></a>同步机制</h2><h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><p><a href="http://blog.csdn.net/tear2210/article/details/49451947" target="_blank" rel="external">http://blog.csdn.net/tear2210/article/details/49451947</a></p>
+<h3 id="关键词volatile"><a href="#关键词volatile" class="headerlink" title="关键词volatile"></a>关键词volatile</h3><p>关键词volatile：Java虚拟机提供的最轻量级的同步机制；不依赖变量原值时可以使用，比如说set()</p>
+<p><strong>特性一</strong>：保证此变量对所有线程的可见性(一条线程修改了此变量的值，新值对所有线程可以立即得知；普通变量需要先写入主内存，别的线程再从主内存读取该线程才能新值可见)；<br><strong>特性二</strong>：volatile变量的运算在并发下一样是不安全的(Java里面的运算并非原子操作)；只能保证可见性；当volatile变量被取到栈顶时，其他线程可能已经改变该变量值，导致该变量栈顶值过期；<br><strong>特性三</strong>：volatile变量禁止指令重排序优化(内存屏障)；</p>
+<p>volatile的使用要求满足下面的两个条件：</p>
+<ol>
+<li>对变量或者引用的写操作不依赖于变量或者引用的当前值(如果只有特定的单个线程修改共享变量，那么修改操作也是可以依赖于当前值)；</li>
+<li>该变量或者引用没有包含在其它的不变式条件中；</li>
+</ol>
+<p><strong>volatile最常见的错误使用场景</strong>是使用volatile来实现并发 i++; 错误的原因是，该操作依赖于 i 变量的当前值，他是在 i 变量的当前值的基础上加一，所以说他依赖于 i 的当前值。多个线程执行 i++; 会丢失更新。比如两个线程同时读到 i 的当前值8，都进行加一，然后写回，最终 i 的结果是 9，而不是我们期待的10，丢失了更新。</p>
+<p>Volatile修饰的成员变量在每次被线程访问时，都强迫从共享内存中重读该成员变量的值。而且，当成员变量发生变化时，强迫线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的值是相同的，更简单一点理解就是volatile修饰的变量值发生变化时对于另外的线程是可见的。</p>
+<h4 id="为什么要使用Volatile-好处"><a href="#为什么要使用Volatile-好处" class="headerlink" title="为什么要使用Volatile(好处)"></a>为什么要使用Volatile(好处)</h4><p>Volatile变量修饰符如果使用<strong>恰当</strong>的话，它比synchronized的<strong>使用和执行成本会更低</strong>，因为它不会引起线程上下文的切换和调度。<br>有volatile变量修饰的共享变量进行写操作的时候会多第二行汇编代码<br>0x01a3de24: <strong>lock</strong> addl $0x0,(%esp);<br><strong>lock前缀</strong>的指令在多核处理器下会引发了两件事情。</p>
+<ul>
+<li><p>将当前处理器缓存行的数据会写回到系统内存。</p>
+</li>
+<li><p>这个写回内存的操作会引起在其他CPU里缓存了该内存地址的数据无效。</p>
+</li>
+</ul>
+<p>处理器为了提高处理速度，不直接和内存进行通讯，而是先将系统内存的数据读到内部缓存（L1,L2或其他）后再进行操作，但操作完之后不知道何时会写到内存，如果对声明了Volatile变量进行写操作，JVM就会向处理器发送一条Lock前缀的指令，将这个变量所在缓存行的数据写回到系统内存。但是就算写回到内存，如果其他处理器缓存的值还是旧的，再执行计算操作就会有问题，所以在多处理器下，为了保证各个处理器的缓存是一致的，就会实现缓存一致性协议，每个处理器通过嗅探在总线上传播的数据来检查自己缓存的值是不是过期了，当处理器发现自己缓存行对应的内存地址被修改，就会将当前处理器的缓存行设置成无效状态，当处理器要对这个数据进行修改操作的时候，会强制重新从系统内存里把数据读到处理器缓存里。<br><strong>Lock前缀指令会引起处理器缓存回写到内存</strong>。Lock前缀指令导致在执行指令期间，声言处理器的 LOCK# 信号。在多处理器环境中，LOCK# 信号确保在声言该信号期间，处理器可以独占使用任何共享内存。（因为它会锁住总线，导致其他CPU不能访问总线，不能访问总线就意味着不能访问系统内存），但是在最近的处理器里，LOCK＃信号一般不锁总线，而是锁缓存，毕竟锁总线开销比较大。在8.1.4章节有详细说明锁定操作对处理器缓存的影响，对于Intel486和Pentium处理器，在锁操作时，总是在总线上声言LOCK#信号。但在P6和最近的处理器中，如果访问的内存区域已经缓存在处理器内部，则不会声言LOCK#信号。相反地，它会锁定这块内存区域的缓存并回写到内存，并使用缓存一致性机制来确保修改的原子性，此操作被称为“缓存锁定”，<strong>缓存一致性机制会阻止同时修改被两个以上处理器缓存的内存区域数据</strong>。<br><strong>一个处理器的缓存回写到内存会导致其他处理器的缓存无效。</strong>IA-32处理器和Intel 64处理器使用MESI（修改，独占，共享，无效）控制协议去维护内部缓存和其他处理器缓存的一致性。在多核处理器系统中进行操作的时候，IA-32 和Intel 64处理器能嗅探其他处理器访问系统内存和它们的内部缓存。它们使用嗅探技术保证它的内部缓存，系统内存和其他处理器的缓存的数据在总线上保持一致。例如在Pentium和P6 family处理器中，如果通过嗅探一个处理器来检测其他处理器打算写内存地址，而这个地址当前处理共享状态，那么正在嗅探的处理器将无效它的缓存行，在下次访问相同内存地址时，强制执行缓存行填充。<br>对一个volatile变量的读，总是能看到（任意线程）对这个volatile变量最后的写入。<br>当读一个volatile变量时，JMM会把该线程对应的本地内存置为无效。线程接下来将从主内存中读取共享变量。<br>什么时候读？就是每次使用这个变量的时候，也就是说，每次用到这个变量的时候都会取到最新值</p>
+<h4 id="volatile内存语义的实现"><a href="#volatile内存语义的实现" class="headerlink" title="volatile内存语义的实现"></a>volatile内存语义的实现</h4><p>为了实现volatile内存语义，<strong>JMM( Java Memory Model(Java内存模型) )</strong>会分别限制编译器重排序和处理器重排序</p>
+<p>volatile重排序规则表：<br><img src="/uploads/thread2.jpg" alt=""></p>
+<ol>
+<li>当第一个操作为普通的读或写时，如果第二个操作为volatile写，则编译器不能重排序这两个操作（1,3）</li>
+<li>当第一个操作是volatile读时，不管第二个操作是什么，都不能重排序。这个规则确保volatile读之后的操作不会被编译器重排序到volatile读之前(第二行)</li>
+<li>当第一个操作是volatile写，第二个操作是volatile读时，不能重排序(3,2)</li>
+<li>当第二个操作是volatile写时，不管第一个操作是什么，都不能重排序（第三列）</li>
+</ol>
+<p>为了实现volatile的内存语义，编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。<br>对于编译器来说，发现一个最优布置来最小化插入屏障的总数几乎不可能，为此，JMM采取保守策略。下面是基于保守策略的JMM内存屏障插入策略：</p>
+<ul>
+<li>在每个volatile写操作的前面插入一个StoreStore屏障。</li>
+<li>在每个volatile写操作的后面插入一个StoreLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadStore屏障。</li>
+</ul>
+<p>上面的优化是针对任意处理器平台，由于不同的处理器有不同“松紧度”的处理器内存模型，内存屏障的插入还可以根据具体的处理器内存模型继续优化。以x86处理器为例，上图中除最后的StoreLoad屏障外，其它的屏障都会被省略。<br>x86处理器仅会对写-读操作做重排序。X86不会对读-读，读-写和写-写操作做重排序，因此在x86处理器中会省略掉这三种操作类型对应的内存屏障。</p>
+<p><img src="/uploads/thread3.jpg" alt=""><br>上图的StoreStore屏障可以保证在volatile写之前，其前面的所有普通写操作已经对任意处理器可见了。因为StoreStore屏障将保障上面所有的普通写在volatile写之前刷新到主内存<br><img src="/uploads/thread4.jpg" alt=""><br><img src="/uploads/thread5.jpg" alt=""><br>x86处理器仅仅会对写-读操作做重排序，因此会省略掉读-读、读-写和写-写操作做重排序的内存屏障。在x86中，JMM仅需在volatile后面插入一个StoreLoad屏障即可正确实现volatile写-读的内存语义，这意味着在x86处理器中，volatile写的开销比volatile读的大，因为StoreLoad屏障开销比较大。<br><img src="/uploads/thread6.jpg" alt=""></p>
+<h2 id="原子变量和原子引用"><a href="#原子变量和原子引用" class="headerlink" title="原子变量和原子引用"></a>原子变量和原子引用</h2><p>原子变量和引用都是使用<strong>compareAndSwap（CAS指令）</strong>来实现：<strong>依赖当前值的原子修改的</strong>。<br>而且他们的实现都是使用<strong>volatile</strong>和<strong>Unsafe</strong>：volatile保证可见性，而Unsafe保证原子性。</p>
+<p>从Java 1.5开始引入了原子变量和原子引用：<br>java.util.concurrent.atomic.AtomicBoolean<br>java.util.concurrent.atomic.AtomicInteger<br>java.util.concurrent.atomic.AtomicLong<br>java.util.concurrent.atomic.AtomicReference</p>
+<p>以及他们对应的数组：<br>java.util.concurrent.atomic.AtomicIntegerArray<br>java.util.concurrent.atomic.AtomicLongArray<br>java.util.concurrent.atomic.AtomicReferenceArray</p>
+<p>AtomicReference的源码：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicReference</span>&lt;<span class="title">V</span>&gt;  <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">-1848883965231344442</span>L;</div><div class="line"></div><div class="line">    <span class="comment">// 获取Unsafe对象，Unsafe的作用是提供CAS操作</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        <span class="comment">//获得AtomicReference&lt;V&gt;实例化对象中的 value 属性的在该对象在堆内存的偏移 valueOffset 位置</span></div><div class="line">        valueOffset = unsafe.objectFieldOffset</div><div class="line">            (AtomicReference.class.getDeclaredField(<span class="string">"value"</span>));</div><div class="line">      &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//使用了volatile类型来保证 value 的可见性；</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> V value;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicReference</span><span class="params">(V initialValue)</span> </span>&#123;</div><div class="line">        value = initialValue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicReference</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function">V <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(V newValue)</span> </span>&#123;</div><div class="line">        value = newValue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">void</span> <span class="title">lazySet</span><span class="params">(V newValue)</span> </span>&#123;</div><div class="line">        unsafe.putOrderedObject(<span class="keyword">this</span>, valueOffset, newValue);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//通过比较valueOffset处的内存的值是否为expect，是的话就更新替换成新值update，这个操作是原子性的。</span></div><div class="line">    <span class="comment">//CAS操作有3个操作数，内存值M，预期值E，新值U，如果M==E，则将内存值修改为B，否则啥都不做。Unsafe的实现主要是通过编译器，利用CPU的一些原子指令来实现的。</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(V expect, V update)</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapObject</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">weakCompareAndSet</span><span class="params">(V expect, V update)</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapObject</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function">V <span class="title">getAndSet</span><span class="params">(V newValue)</span> </span>&#123;</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">            V x = get();</div><div class="line">            <span class="keyword">if</span> (compareAndSet(x, newValue))</div><div class="line">                <span class="keyword">return</span> x;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> String.valueOf(get());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>示例：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// AtomicReferenceTest.java的源码</span></div><div class="line">import java.util.concurrent.atomic.AtomicReference;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AtomicReferenceTest</span> &#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// 创建两个Person对象，它们的id分别是101和102。</span></div><div class="line">        Person p1 = <span class="keyword">new</span> Person(<span class="number">101</span>);</div><div class="line">        Person p2 = <span class="keyword">new</span> Person(<span class="number">102</span>);</div><div class="line">        <span class="comment">// 新建AtomicReference对象，初始化它的值为p1对象</span></div><div class="line">        AtomicReference ar = <span class="keyword">new</span> AtomicReference(p1);</div><div class="line">        <span class="comment">// 通过CAS设置ar。如果ar的值为p1的话，则将其设置为p2。</span></div><div class="line">        ar.compareAndSet(p1, p2);</div><div class="line"></div><div class="line">        Person p3 = (Person)ar.<span class="keyword">get</span>();</div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"p3 is "</span>+p3);</div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"p3.equals(p1)="</span>+p3.<span class="keyword">equals</span>(p1));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">class</span> <span class="title">Person</span> &#123;</div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> id;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span>(<span class="params"><span class="keyword">long</span> id</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"id:"</span>+id;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p3 <span class="keyword">is</span> <span class="built_in">id</span>:<span class="number">102</span></div><div class="line">p3.<span class="keyword">equals</span>(p1)=<span class="literal">false</span></div></pre></td></tr></table></figure></p>
+<p>AtomicInteger源码：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Written by Doug Lea with assistance from members of JCP JSR-166</div><div class="line"> * Expert Group and released to the public domain, as explained at</div><div class="line"> * http://creativecommons.org/publicdomain/zero/1.0/</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">package</span> java.util.concurrent.atomic;</div><div class="line"><span class="keyword">import</span> sun.misc.Unsafe;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * An &#123;<span class="doctag">@code</span> int&#125; value that may be updated atomically.  See the</div><div class="line"> * &#123;<span class="doctag">@link</span> java.util.concurrent.atomic&#125; package specification for</div><div class="line"> * description of the properties of atomic variables. An</div><div class="line"> * &#123;<span class="doctag">@code</span> AtomicInteger&#125; is used in applications such as atomically</div><div class="line"> * incremented counters, and cannot be used as a replacement for an</div><div class="line"> * &#123;<span class="doctag">@link</span> java.lang.Integer&#125;. However, this class does extend</div><div class="line"> * &#123;<span class="doctag">@code</span> Number&#125; to allow uniform access by tools and utilities that</div><div class="line"> * deal with numerically-based classes.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@since</span> 1.5</div><div class="line"> * <span class="doctag">@author</span> Doug Lea</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicInteger</span> <span class="keyword">extends</span> <span class="title">Number</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">6214790243416807050</span>L;</div><div class="line"></div><div class="line">    <span class="comment">// setup to use Unsafe.compareAndSwapInt for updates</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Unsafe unsafe = Unsafe.getUnsafe();</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;<span class="comment">//value值的偏移地址</span></div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        valueOffset = unsafe.objectFieldOffset</div><div class="line">            (AtomicInteger.class.getDeclaredField(<span class="string">"value"</span>));</div><div class="line">      &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;<span class="comment">//实际的值</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Creates a new AtomicInteger with the given initial value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> initialValue the initial value</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicInteger</span><span class="params">(<span class="keyword">int</span> initialValue)</span> </span>&#123;</div><div class="line">        value = initialValue;<span class="comment">//初始化</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Creates a new AtomicInteger with initial value &#123;<span class="doctag">@code</span> 0&#125;.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicInteger</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Gets the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> the current value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> value;<span class="comment">//返回value值</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Sets to the given value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> newValue the new value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;</div><div class="line">        value = newValue;<span class="comment">//设置新值,因为没有判断oldvalue，所以此操作是非线程安全的</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Eventually sets to the given value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> newValue the new value</div><div class="line">     * <span class="doctag">@since</span> 1.6</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">void</span> <span class="title">lazySet</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;</div><div class="line">        unsafe.putOrderedInt(<span class="keyword">this</span>, valueOffset, newValue);<span class="comment">//与set操作效果一样，只是采用的是unsafe对象中通过偏移地址来设置值的方式</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically sets to the given value and returns the old value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> newValue the new value</div><div class="line">     * <span class="doctag">@return</span> the previous value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">getAndSet</span><span class="params">(<span class="keyword">int</span> newValue)</span> </span>&#123;<span class="comment">//原子操作，设置新值，返回老值</span></div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, newValue))<span class="comment">//通过CAS算法，比较current的值和实际值是否一致，如果一致则设置为newValue</span></div><div class="line">                <span class="keyword">return</span> current;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically sets the value to the given updated value</div><div class="line">     * if the current value &#123;<span class="doctag">@code</span> ==&#125; the expected value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> expect the expected value</div><div class="line">     * <span class="doctag">@param</span> update the new value</div><div class="line">     * <span class="doctag">@return</span> true if successful. False return indicates that</div><div class="line">     * the actual value was not equal to the expected value.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapInt</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically sets the value to the given updated value</div><div class="line">     * if the current value &#123;<span class="doctag">@code</span> ==&#125; the expected value.</div><div class="line">     *</div><div class="line">     * &lt;p&gt;May &lt;a href="package-summary.html#Spurious"&gt;fail spuriously&lt;/a&gt;</div><div class="line">     * and does not provide ordering guarantees, so is only rarely an</div><div class="line">     * appropriate alternative to &#123;<span class="doctag">@code</span> compareAndSet&#125;.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> expect the expected value</div><div class="line">     * <span class="doctag">@param</span> update the new value</div><div class="line">     * <span class="doctag">@return</span> true if successful.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">weakCompareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapInt</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically increments by one the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> the previous value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;<span class="comment">//i++操作</span></div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();<span class="comment">//获取当前值</span></div><div class="line">            <span class="keyword">int</span> next = current + <span class="number">1</span>;<span class="comment">//当前值+1</span></div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, next))<span class="comment">//比较current值和实际的值是否一致，如不一致，则继续循环</span></div><div class="line">                <span class="keyword">return</span> current;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically decrements by one the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> the previous value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">getAndDecrement</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">int</span> next = current - <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, next))</div><div class="line">                <span class="keyword">return</span> current;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically adds the given value to the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> delta the value to add</div><div class="line">     * <span class="doctag">@return</span> the previous value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">getAndAdd</span><span class="params">(<span class="keyword">int</span> delta)</span> </span>&#123;<span class="comment">//例如：当我们统计接口的响应时间时，可以利用此方法</span></div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">int</span> next = current + delta;</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, next))</div><div class="line">                <span class="keyword">return</span> current;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically increments by one the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> the updated value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">incrementAndGet</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">int</span> next = current + <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, next))</div><div class="line">                <span class="keyword">return</span> next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically decrements by one the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> the updated value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">decrementAndGet</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">int</span> next = current - <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, next))</div><div class="line">                <span class="keyword">return</span> next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Atomically adds the given value to the current value.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> delta the value to add</div><div class="line">     * <span class="doctag">@return</span> the updated value</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">addAndGet</span><span class="params">(<span class="keyword">int</span> delta)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">int</span> next = current + delta;</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, next))</div><div class="line">                <span class="keyword">return</span> next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns the String representation of the current value.</div><div class="line">     * <span class="doctag">@return</span> the String representation of the current value.</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Integer.toString(get());</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">intValue</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">return</span> <span class="title">get</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">longValue</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">long</span>)get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">floatValue</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">double</span> <span class="title">doubleValue</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>)get();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>首先毫无疑问，在没有锁的机制下可能需要借助volatile原语，保证线程间的数据是可见的（共享的）。<br>这样才获取变量的值的时候才能直接读取。<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> value;<span class="comment">//返回value值</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>然后来看看++i是怎么做到的。<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> incrementAndGet() &#123;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            <span class="keyword">int</span> current = get();</div><div class="line">            <span class="keyword">int</span> <span class="keyword">next</span> = current + <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (compareAndSet(current, <span class="keyword">next</span>))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">next</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>在这里采用了CAS操作，每次从内存中读取数据然后将此数据和+1后的结果进行CAS操作，如果成功就返回结果，否则重试直到成功为止。<br>而compareAndSet利用JNI来完成CPU指令的操作。<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">return</span> unsafe.<span class="title">compareAndSwapInt</span><span class="params">(<span class="keyword">this</span>, valueOffset, expect, update)</span></span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>整体的过程就是这样子的，利用CPU的CAS指令，同时借助JNI来完成Java的非阻塞算法。其它原子操作都是利用类似的特性完成的。<br>其中<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">unsafe</span>.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</div></pre></td></tr></table></figure></p>
+<p>类似：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="keyword">this</span> == expect) &#123;</div><div class="line">  <span class="keyword">this</span> = update</div><div class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"><span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>那么问题就来了，成功过程中需要2个步骤：比较<code>this == expect</code>，替换<code>this = update</code>，<code>compareAndSwapInt</code>如何这两个步骤的原子性呢？ 参考CAS的原理。</p>
+<h2 id="compareAndSwap（CAS指令）"><a href="#compareAndSwap（CAS指令）" class="headerlink" title="compareAndSwap（CAS指令）"></a>compareAndSwap（CAS指令）</h2><p>比较并交换。</p>
+<p>CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值(B)。如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该位置的值。CAS 有效地说明了“我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”</p>
+<p>Java并发包(java.util.concurrent)中大量使用了CAS操作,涉及到并发的地方都调用了sun.misc.Unsafe类方法进行CAS操作。java.util.concurrent包完全建立在CAS之上的，没有CAS就不会有此包。java.util.concurrent包中借助CAS实现了区别于synchronouse同步锁的一种乐观锁。</p>
+<h3 id="CAS的原理"><a href="#CAS的原理" class="headerlink" title="CAS的原理"></a>CAS的原理</h3><p>CAS通过调用<strong>JNI</strong>的代码实现的。JNI:java Native Interface为JAVA本地调用，允许java调用其他语言。<br>而compareAndSwapObject就是借助C来调用CPU底层指令实现的。<br>程序会根据当前处理器的类型来决定是否为cmpxchg指令添加<strong>lock前缀</strong>。如果程序是在多处理器上运行，就为cmpxchg指令加上lock前缀（lock cmpxchg）。反之，如果程序是在单处理器上运行，就省略lock前缀（单处理器自身会维护单处理器内的顺序一致性，不需要lock前缀提供的内存屏障效果）。</p>
+<h3 id="lock前缀"><a href="#lock前缀" class="headerlink" title="lock前缀"></a>lock前缀</h3><p>intel的手册对lock前缀的说明如下：</p>
+<ul>
+<li>确保对内存的读-改-写操作原子执行。在Pentium及Pentium之前的处理器中，带有lock前缀的指令在执行期间会锁住总线，使得其他处理器暂时无法通过总线访问内存。很显然，这会带来昂贵的开销。从Pentium 4，Intel Xeon及P6处理器开始，intel在原有总线锁的基础上做了一个很有意义的优化：如果要访问的内存区域（area of memory）在lock前缀指令执行期间已经在处理器内部的缓存中被锁定（即包含该内存区域的缓存行当前处于独占或以修改状态），并且该内存区域被完全包含在单个缓存行（cache line）中，那么处理器将直接执行该指令。由于在指令执行期间该缓存行会一直被锁定，其它处理器无法读/写该指令要访问的内存区域，因此能保证指令执行的原子性。这个操作过程叫做缓存锁定（cache locking），缓存锁定将大大降低lock前缀指令的执行开销，但是当多处理器之间的竞争程度很高或者指令访问的内存地址未对齐时，仍然会锁住总线。</li>
+<li>禁止该指令与之前和之后的读和写指令重排序。</li>
+<li>把写缓冲区中的所有数据刷新到内存中。</li>
+</ul>
+<h3 id="备注知识："><a href="#备注知识：" class="headerlink" title="备注知识："></a>备注知识：</h3><p>关于CPU的锁有如下3种：</p>
+<ul>
+<li><p>处理器自动保证基本内存操作的原子性<br>　　首先处理器会自动保证基本的内存操作的原子性。处理器保证从系统内存当中读取或者写入一个字节是原子的，意思是当一个处理器读取一个字节时，其他处理器不能访问这个字节的内存地址。奔腾6和最新的处理器能自动保证单处理器对同一个缓存行里进行16/32/64位的操作是原子的，但是复杂的内存操作处理器不能自动保证其原子性，比如跨总线宽度，跨多个缓存行，跨页表的访问。但是处理器提供总线锁定和缓存锁定两个机制来保证复杂内存操作的原子性。</p>
+</li>
+<li><p>使用总线锁保证原子性<br>　　第一个机制是通过总线锁保证原子性。如果多个处理器同时对共享变量进行读改写（i++就是经典的读改写操作）操作，那么共享变量就会被多个处理器同时进行操作，这样读改写操作就不是原子的，操作完之后共享变量的值会和期望的不一致，举个例子：如果i=1,我们进行两次i++操作，我们期望的结果是3，但是有可能结果是2。如下图<br><img src="/uploads/thread7.jpg" alt=""><br>原因是有可能多个处理器同时从各自的缓存中读取变量i，分别进行加一操作，然后分别写入系统内存当中。那么想要保证读改写共享变量的操作是原子的，就必须保证CPU1读改写共享变量的时候，CPU2不能操作缓存了该共享变量内存地址的缓存。<br>　　处理器使用总线锁就是来解决这个问题的。所谓总线锁就是使用处理器提供的一个LOCK＃信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住,那么该处理器可以独占使用共享内存。
+　　</p>
+</li>
+<li>使用缓存锁保证原子性<br>　　第二个机制是通过缓存锁定保证原子性。在同一时刻我们只需保证对某个内存地址的操作是原子性即可，但总线锁定把CPU和内存之间通信锁住了，这使得锁定期间，其他处理器不能操作其他内存地址的数据，所以总线锁定的开销比较大，最近的处理器在某些场合下使用缓存锁定代替总线锁定来进行优化。<br>　　频繁使用的内存会缓存在处理器的L1，L2和L3高速缓存里，那么原子操作就可以直接在处理器内部缓存中进行，并不需要声明总线锁，在奔腾6和最近的处理器中可以使用“缓存锁定”的方式来实现复杂的原子性。所谓“缓存锁定”就是如果缓存在处理器缓存行中内存区域在LOCK操作期间被锁定，当它执行锁操作回写内存时，处理器不在总线上声言LOCK＃信号，而是修改内部的内存地址，并允许它的缓存一致性机制来保证操作的原子性，因为缓存一致性机制会阻止同时修改被两个以上处理器缓存的内存区域数据，当其他处理器回写已被锁定的缓存行的数据时会起缓存行无效，在例1中，当CPU1修改缓存行中的i时使用缓存锁定，那么CPU2就不能同时缓存了i的缓存行。<br>　　但是有两种情况下处理器不会使用缓存锁定。第一种情况是：当操作的数据不能被缓存在处理器内部，或操作的数据跨多个缓存行（cache line），则处理器会调用总线锁定。第二种情况是：有些处理器不支持缓存锁定。对于Inter486和奔腾处理器,就算锁定的内存区域在处理器的缓存行中也会调用总线锁定。</li>
+</ul>
+<p>　　以上两个机制我们可以通过Inter处理器提供了很多LOCK前缀的指令来实现。比如位测试和修改指令BTS，BTR，BTC，交换指令XADD，CMPXCHG和其他一些操作数和逻辑指令，比如ADD（加），OR（或）等，被这些指令操作的内存区域就会加锁，导致其他处理器不能同时访问它。
+　　</p>
+<h3 id="CAS缺点"><a href="#CAS缺点" class="headerlink" title="CAS缺点"></a>CAS缺点</h3><p> CAS虽然很高效的解决原子操作，但是CAS仍然存在三大问题:<br> ABA问题，循环时间长开销大和只能保证一个共享变量的原子操作</p>
+<ol>
+<li><p>ABA问题。因为CAS需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA问题的解决思路就是使用版本号。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么A－B－A 就会变成1A-2B－3A。<br>从Java1.5开始JDK的atomic包里提供了一个类AtomicStampedReference来解决ABA问题。这个类的compareAndSet方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。<br>关于ABA问题参考文档: <a href="http://blog.hesey.Net/2011/09/resolve-aba-by-atomicstampedreference.html" target="_blank" rel="external">http://blog.hesey.Net/2011/09/resolve-aba-by-atomicstampedreference.html</a></p>
+</li>
+<li><p>循环时间长开销大。自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持处理器提供的pause指令那么效率会有一定的提升，pause指令有两个作用，第一它可以延迟流水线执行指令（de-pipeline）,使CPU不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起CPU流水线被清空（CPU pipeline flush），从而提高CPU的执行效率。</p>
+</li>
+<li><p>只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁，或者有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如有两个共享变量i＝2,j=a，合并一下ij=2a，然后用CAS来操作ij。</p>
+</li>
+</ol>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.ThreadPoolExecutor;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Before;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolTest</span> </span>&#123;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(<span class="number">10</span>);</div><div class="line">	<span class="keyword">private</span> List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">	</div><div class="line">	<span class="meta">@Before</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</div><div class="line">			list.add(i);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="meta">@Test</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">threadtest</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">final</span> Integer i : list) &#123;</div><div class="line">			pool.submit(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">				<span class="meta">@Override</span></div><div class="line">				<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">					<span class="keyword">try</span> &#123;</div><div class="line">						System.out.println(i);</div><div class="line">					&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">						e.printStackTrace();</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;);</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h1><h4 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h4><p>线程执行一个忙循环(自旋)；共享数据锁定时间短，为了这段时间去挂起和恢复线程不值得</p>
+<h4 id="自适应自旋"><a href="#自适应自旋" class="headerlink" title="自适应自旋"></a>自适应自旋</h4><p>自旋时间不固定的自旋锁</p>
+<h4 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h4><p>虚拟机即时编译器在运行时，对一些代码上要求同步，但被检测到不可能存在共享数据竞争的锁进行消除。</p>
+<h4 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h4><p>一系列的操作都对同一个对象反复加锁和解锁，甚至加锁操作出现在循环体中，性能损耗大；如果虚拟机探测到有这样一串零碎的操作都对同一个对象加锁，会把加锁同步的范围扩展(粗化)到整个操作序列的外部</p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p>JDK1.6之中加入的新型锁机制；在无竞争的情况下使用CAS操作去消除同步使用的互斥量；</p>
+<h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><p>JDK1.6之中引入的锁优化；在无竞争的情况下消除同步；</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>「真诚赞赏，手留余香」</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.jpg" alt="杨辉 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.jpg" alt="杨辉 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/Spring源码解读/" rel="next" title="Spring源码解读">
+                <i class="fa fa-chevron-left"></i> Spring源码解读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/author.jpg"
+               alt="杨辉" />
+          <p class="site-author-name" itemprop="name">杨辉</p>
+           
+              <p class="site-description motion-element" itemprop="description">淡泊以明志，宁静而致远</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hdyang12" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qq619771478" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#名词解释"><span class="nav-number">1.</span> <span class="nav-text">名词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#竞态条件"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">竞态条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重排序"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">重排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存屏障"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">内存屏障</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件层内存屏障"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">硬件层内存屏障</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java内存屏障"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">java内存屏障</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compare-And-Swap-CAS"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">Compare And Swap(CAS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#long和double的非原子性协定"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">long和double的非原子性协定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程封闭"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">线程封闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈封闭"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">栈封闭</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-number">2.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是线程"><span class="nav-number">2.1.</span> <span class="nav-text">什么是线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用并发"><span class="nav-number">2.2.</span> <span class="nav-text">为什么要使用并发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的优势"><span class="nav-number">2.3.</span> <span class="nav-text">线程的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的风险"><span class="nav-number">2.4.</span> <span class="nav-text">线程的风险</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程调度方式"><span class="nav-number">2.5.</span> <span class="nav-text">线程调度方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协同式线程调度"><span class="nav-number">2.5.1.</span> <span class="nav-text">协同式线程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抢占式线程调度"><span class="nav-number">2.5.2.</span> <span class="nav-text">抢占式线程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点-1"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">优点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程状态"><span class="nav-number">2.6.</span> <span class="nav-text">线程状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程安全"><span class="nav-number">3.</span> <span class="nav-text">线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#竞态条件-1"><span class="nav-number">3.1.</span> <span class="nav-text">竞态条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步机制"><span class="nav-number">3.2.</span> <span class="nav-text">同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized"><span class="nav-number">3.2.1.</span> <span class="nav-text">synchronized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键词volatile"><span class="nav-number">3.2.2.</span> <span class="nav-text">关键词volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要使用Volatile-好处"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">为什么要使用Volatile(好处)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#volatile内存语义的实现"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">volatile内存语义的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子变量和原子引用"><span class="nav-number">3.3.</span> <span class="nav-text">原子变量和原子引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compareAndSwap（CAS指令）"><span class="nav-number">3.4.</span> <span class="nav-text">compareAndSwap（CAS指令）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS的原理"><span class="nav-number">3.4.1.</span> <span class="nav-text">CAS的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lock前缀"><span class="nav-number">3.4.2.</span> <span class="nav-text">lock前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#备注知识："><span class="nav-number">3.4.3.</span> <span class="nav-text">备注知识：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS缺点"><span class="nav-number">3.4.4.</span> <span class="nav-text">CAS缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程池"><span class="nav-number">4.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁优化"><span class="nav-number">5.</span> <span class="nav-text">锁优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自旋锁"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自适应自旋"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">自适应自旋</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁消除"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">锁消除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁粗化"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">锁粗化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#轻量级锁"><span class="nav-number">5.0.0.5.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏向锁"><span class="nav-number">5.0.0.6.</span> <span class="nav-text">偏向锁</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨辉</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<br/>
+<div class="powered-by">
+<span id="busuanzi_container_site_uv"> 
+  本站访客数 <span id="busuanzi_value_site_uv"></span> 人
+</span>
+</div>
+<span id="busuanzi_container_site_pv"> 
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+</span>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e23027f183547059b04893d59788da5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("WVkl2iB2BaJcwxurjLC9hGFS-gzGzoHsz", "MAp4EhLfpT7JJAODisjq2rSh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript">  
+	function IsPC() {
+		var userAgentInfo = navigator.userAgent;
+		var Agents = ["Android", "iPhone",
+					"SymbianOS", "Windows Phone",
+					"iPad", "iPod"];
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	} 
+  
+var scriptNode = document.createElement("script"); 
+scriptNode.setAttribute("type", "text/javascript");  
+  
+if(IsPC()){  
+	<!-- 背景动画 -->
+    scriptNode.setAttribute("src", "/js/src/particle.js");  
+} 
+ 
+document.head.appendChild(scriptNode); 
+</script>
+</body>
+<!-- 背景动画
+<script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>
