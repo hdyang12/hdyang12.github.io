@@ -583,7 +583,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  9,839 字
+                  13,337 字
                 </span>
               
 
@@ -599,7 +599,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  37 分钟
+                  53 分钟
                 </span>
               
             </div>
@@ -620,25 +620,7 @@
         
           <h1 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h1><h4 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h4><p>在并发编程中，由于不恰当的执行时序而出现不正确的结果；</p>
 <h4 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h4><p>Java内存模型允许编译器对操作顺序进行重排序，允许CPU对操作顺序进行重排序；</p>
-<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><h5 id="硬件层内存屏障"><a href="#硬件层内存屏障" class="headerlink" title="硬件层内存屏障"></a>硬件层内存屏障</h5><p>硬件层的内存屏障分为两种：<code>Load Barrier</code> 和 <code>Store Barrier</code>即读屏障和写屏障。</p>
-<p>内存屏障有两个作用：</p>
-<ol>
-<li>阻止屏障两侧的指令重排序；</li>
-<li>强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数据失效。</li>
-</ol>
-<p>对于Load Barrier来说，在指令前插入Load Barrier，可以让高速缓存中的数据失效，强制从新从主内存加载数据；<br>对于Store Barrier来说，在指令后插入Store Barrier，能让写入缓存中的最新数据更新写入主内存，让其他线程可见。</p>
-<h5 id="java内存屏障"><a href="#java内存屏障" class="headerlink" title="java内存屏障"></a>java内存屏障</h5><p>java的内存屏障通常所谓的四种即LoadLoad,StoreStore,LoadStore,StoreLoad实际上也是上述两种的组合，完成一系列的屏障和数据同步功能。</p>
-<ul>
-<li>LoadLoad屏障：对于这样的语句Load1; LoadLoad; Load2，在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取完毕。</li>
-<li>StoreStore屏障：对于这样的语句Store1; StoreStore; Store2，在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。</li>
-<li>LoadStore屏障：对于这样的语句Load1; LoadStore; Store2，在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。</li>
-<li>StoreLoad屏障：对于这样的语句Store1; StoreLoad; Load2，在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。它的开销是四种屏障中最大的。在大多数处理器的实现中，这个屏障是个万能屏障，兼具其它三种内存屏障的功能</li>
-</ul>
-<h4 id="Compare-And-Swap-CAS"><a href="#Compare-And-Swap-CAS" class="headerlink" title="Compare And Swap(CAS)"></a>Compare And Swap(CAS)</h4><p>比较并交换。</p>
-<p>CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值(B)。如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该位置的值。CAS 有效地说明了“我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”</p>
-<h4 id="long和double的非原子性协定"><a href="#long和double的非原子性协定" class="headerlink" title="long和double的非原子性协定"></a>long和double的非原子性协定</h4><p>64位数据的读写操作划分为2次32位的操作来进行；在实际开发中，目前各种平台下的商业虚拟机几乎都选择把64位数据的读写操作作为原子操作来对待；</p>
-<h4 id="线程封闭"><a href="#线程封闭" class="headerlink" title="线程封闭"></a>线程封闭</h4><p>某个对象封闭在一个线程中时，这种用法将自动实现线程安全性；Swing、JDBC；</p>
-<h4 id="栈封闭"><a href="#栈封闭" class="headerlink" title="栈封闭"></a>栈封闭</h4><p>通过局部变量才能访问对象，是线程封闭的一种特例，易于维护，更加健壮<br>
+<h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/10/12/Java并发编程/#more" rel="contents">
