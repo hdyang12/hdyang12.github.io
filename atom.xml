@@ -458,7 +458,7 @@
     <link href="http://yoursite.com/2017/06/14/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     <id>http://yoursite.com/2017/06/14/Java虚拟机/</id>
     <published>2017-06-14T15:18:25.000Z</published>
-    <updated>2017-06-18T14:35:28.134Z</updated>
+    <updated>2017-11-12T02:54:20.567Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/jvm1.jpg" alt=""><br>首先说一下，这不是打广告;每个学习Java的人都应该看下这本书<br><a id="more"></a></p>
 <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>什么是Java虚拟机？</p>
@@ -505,6 +505,7 @@
 <h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><h3 id="串行收集器"><a href="#串行收集器" class="headerlink" title="串行收集器"></a>串行收集器</h3><p>单线程，必须停止其他所有的工作线程，直到收集结束</p>
 <h3 id="并行收集器"><a href="#并行收集器" class="headerlink" title="并行收集器"></a>并行收集器</h3><p>串行收集器的多线程版本，也要stop the world</p>
 <h3 id="并发收集器"><a href="#并发收集器" class="headerlink" title="并发收集器"></a>并发收集器</h3><p>可以和用户线程并发执行</p>
+<h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><p>运行用户代码时间 / （运行用户代码时间 +  垃圾收集时间）；<br>虚拟机总共运行100分钟，垃圾收集用了1分钟，吞吐量就是99%；<br>值得注意的是GC停顿时间是以牺牲吞吐量和新生代空间来换取的；比如说我们把新生代从500M调整到300M，那么原本可能是10s进行一次垃圾回收，每次停顿100ms；就变成了5s收集一次，每次停顿70ms；GC停顿时间降下来了，但是垃圾收集也更频繁了，吞吐量也降下来了；</p>
 <h2 id="CMS垃圾收集器"><a href="#CMS垃圾收集器" class="headerlink" title="CMS垃圾收集器"></a>CMS垃圾收集器</h2><ul>
 <li>JDK1.5发布的，适用于互联网站或者B/S系统服务端上；CMS是老年代收集器，第一款真正意义上的并发收集器</li>
 <li>优点：并发收集，低停顿</li>
@@ -517,6 +518,33 @@
 <li>重新标记(CMS remark)</li>
 <li>并发清除(CMS concurrent sweep)</li>
 </ol>
+<h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><h4 id="堆碎片"><a href="#堆碎片" class="headerlink" title="堆碎片"></a>堆碎片</h4><p>不像吞吐量收集器，CMS收集器并没有任何碎片整理的机制。因此，应用程序有可能出现这样的情形，即使总的堆大小远没有耗尽，但却不能分配对象——仅仅是因为没有足够连续的空间完全容纳对象。当这种事发生后，并发算法不会帮上任何忙，因此，万不得已JVM会触发Full GC。回想一下，Full GC 将运行吞吐量收集器的算法，从而解决碎片问题——但却暂停了应用程序线程。因此尽管CMS收集器带来完全的并发性，但仍然有可能发生长时间的“stop-the-world”的风险。这是“设计”，而不能避免的——我们只能通过调优收集器来它的可能性。想要100%保证避免”stop-the-world”，对于交互式应用是有问题的。</p>
+<h4 id="对象分配率高"><a href="#对象分配率高" class="headerlink" title="对象分配率高"></a>对象分配率高</h4><p>如果获取对象实例的频率高于收集器清除堆里死对象的频率，并发算法将再次失败。从某种程度上说，老年代将没有足够的可用空间来容纳一个从年轻代提升过来的对象。这种情况被称为“并发模式失败”，并且JVM会执行堆碎片整理：触发Full GC。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>当这些情形之一出现在实践中时(经常会出现在生产系统中)，经常被证实是老年代有大量不必要的对象。一个可行的办法就是增加年轻代的堆大小，以防止年轻代短生命的对象提前进入老年代。另一个办法就似乎利用分析器，快照运行系统的堆转储，并且分析过度的对象分配，找出这些对象，最终减少这些对象的申请。</p>
+<h3 id="CMS相关调优参数"><a href="#CMS相关调优参数" class="headerlink" title="CMS相关调优参数"></a>CMS相关调优参数</h3><figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">-XX：+UseConcMarkSweepGC</span></div></pre></td></tr></table></figure>
+<p>该标志首先是激活CMS收集器。默认HotSpot JVM使用的是并行收集器。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">-XX：UseParNewGC</span></div></pre></td></tr></table></figure>
+<p>当使用CMS收集器时，该标志激活年轻代使用多线程并行执行垃圾回收。<br>对于CMS收集器，年轻代GC算法和老年代GC算法是不同的。</p>
+<p>注意最新的JVM版本，当使用-XX：+UseConcMarkSweepGC时，-XX：UseParNewGC会自动开启。因此，如果年轻代的并行GC不想开启，可以通过设置-XX：-UseParNewGC来关掉。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">-XX：+CMSConcurrentMTEnabled</span></div></pre></td></tr></table></figure>
+<p>当该标志被启用时，并发的CMS阶段将以多线程执行(因此，多个GC线程会与所有的应用程序线程并行工作)。该标志已经默认开启，如果顺序执行更好，这取决于所使用的硬件，多线程执行可以通过-XX：-CMSConcurremntMTEnabled禁用。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">-XX：ConcGCThreads</span></div></pre></td></tr></table></figure>
+<p>标志-XX：ConcGCThreads=<value>(早期JVM版本也叫-XX:ParallelCMSThreads)定义并发CMS过程运行时的线程数。比如value=4意味着CMS周期的所有阶段都以4个线程来执行。尽管更多的线程会加快并发CMS过程，但其也会带来额外的同步开销。因此，对于特定的应用程序，应该通过测试来判断增加CMS线程数是否真的能够带来性能的提升。</value></p>
+<p>如果还标志未设置，JVM会根据并行收集器中的-XX：ParallelGCThreads参数的值来计算出默认的并行CMS线程数。该公式是ConcGCThreads = (ParallelGCThreads + 3)/4。因此，对于CMS收集器， -XX:ParallelGCThreads标志不仅影响“stop-the-world”垃圾收集阶段，还影响并发阶段。</p>
+<p>总之，有不少方法可以配置CMS收集器的多线程执行。正是由于这个原因,建议第一次运行CMS收集器时使用其默认设置, 然后如果需要调优再进行测试。只有在生产系统中测量(或类生产测试系统)发现应用程序的暂停时间的目标没有达到 , 就可以通过这些标志应该进行GC调优。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">-XX</span><span class="selector-pseudo">:CMSInitiatingOccupancyFraction</span></div></pre></td></tr></table></figure>
+<p>当堆满之后，并行收集器便开始进行垃圾收集，例如，当没有足够的空间来容纳新分配或提升的对象。对于CMS收集器，长时间等待是不可取的，因为在并发垃圾收集期间应用持续在运行(并且分配对象)。因此，为了在应用程序使用完内存之前完成垃圾收集周期，CMS收集器要比并行收集器更先启动。</p>
+<p>因为不同的应用会有不同对象分配模式，JVM会收集实际的对象分配(和释放)的运行时数据，并且分析这些数据，来决定什么时候启动一次CMS垃圾收集周期。为了引导这一过程， JVM会在一开始执行CMS周期前作一些线索查找。该线索由 -XX:CMSInitiatingOccupancyFraction=<value>来设置，该值代表老年代堆空间的使用率。比如，value=75意味着第一次CMS垃圾收集会在老年代被占用75%时被触发。通常CMSInitiatingOccupancyFraction的默认值为68(之前很长时间的经历来决定的)。</value></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="deletion">-XX：+UseCMSInitiatingOccupancyOnly</span></div></pre></td></tr></table></figure>
+<p>我们用-XX+UseCMSInitiatingOccupancyOnly标志来命令JVM不基于运行时收集的数据来启动CMS垃圾收集周期。而是，当该标志被开启时，JVM通过CMSInitiatingOccupancyFraction的值进行每一次CMS收集，而不仅仅是第一次。然而，请记住大多数情况下，JVM比我们自己能作出更好的垃圾收集决策。因此，只有当我们充足的理由(比如测试)并且对应用程序产生的对象的生命周期有深刻的认知时，才应该使用该标志。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">-XX</span><span class="selector-pseudo">:+CMSClassUnloadingEnabled</span></div></pre></td></tr></table></figure>
+<p>相对于并行收集器，CMS收集器默认不会对永久代进行垃圾回收。如果希望对永久代进行垃圾回收，可用设置标志-XX:+CMSClassUnloadingEnabled。在早期JVM版本中，要求设置额外的标志-XX:+CMSPermGenSweepingEnabled。注意，即使没有设置这个标志，一旦永久代耗尽空间也会尝试进行垃圾回收，但是收集不会是并行的，而再一次进行Full GC。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">-XX</span><span class="selector-pseudo">:+CMSIncrementalMode</span></div></pre></td></tr></table></figure>
+<p>该标志将开启CMS收集器的增量模式。增量模式经常暂停CMS过程，以便对应用程序线程作出完全的让步。因此，收集器将花更长的时间完成整个收集周期。因此，只有通过测试后发现正常CMS周期对应用程序线程干扰太大时，才应该使用增量模式。由于现代服务器有足够的处理器来适应并发的垃圾收集，所以这种情况发生得很少。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">-XX</span><span class="selector-pseudo">:+ExplicitGCInvokesConcurrent</span> <span class="selector-tag">and</span> <span class="selector-tag">-XX</span><span class="selector-pseudo">:+ExplicitGCInvokesConcurrentAndUnloadsClasses</span></div></pre></td></tr></table></figure>
+<p>如今,被广泛接受的最佳实践是避免显式地调用GC(所谓的“系统GC”)，即在应用程序中调用system.gc()。然而，这个建议是不管使用的GC算法的，值得一提的是，当使用CMS收集器时，系统GC将是一件很不幸的事，因为它默认会触发一次Full GC。幸运的是，有一种方式可以改变默认设置。标志-XX:+ExplicitGCInvokesConcurrent命令JVM无论什么时候调用系统GC，都执行CMS GC，而不是Full GC。第二个标志-XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses保证当有系统GC调用时，永久代也被包括进CMS垃圾回收的范围内。因此，通过使用这些标志，我们可以防止出现意料之外的”stop-the-world”的系统GC。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">-XX</span><span class="selector-pseudo">:+DisableExplicitGC</span></div></pre></td></tr></table></figure>
+<p>然而在这个问题上…这是一个很好提到- XX:+ DisableExplicitGC标志的机会，该标志将告诉JVM完全忽略系统的GC调用(不管使用的收集器是什么类型)。对于我而言，该标志属于默认的标志集合中，可以安全地定义在每个JVM上运行，而不需要进一步思考。</p>
 <h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><p>是最基本、发展历史最悠久的收集器，曾经(在JDK1.3.1之前)是虚拟机新生代收集的唯一选择；它在进行垃圾收集时，必须暂停其他所有的工作线程，直到收集结束(Stop The World)；</p>
 <h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><p>Serial收集器的多线程版本；</p>
 <h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><p>和ParNew类似，但是具有吞吐量最大化效果(需要配合Parallel Old )；在Parallel Old出来之前，只能和Serial Old搭配，比较尴尬(Serial Old 的拖累)</p>
@@ -526,7 +554,7 @@
 <ul>
 <li>G1收集器是当今收集器技术发展的最前沿成果之一；</li>
 <li>G1是一款面向服务端应用的垃圾收集器;</li>
-<li>oracle官方计划在jdk9中将G1变成默认的垃圾收集器;替换掉JDK1.5中发布的CMS收集器；</li>
+<li>oracle官方计划在jdk9中将G1变成默认的垃圾收集器;替换掉JDK1.5中发布的CMS收集器；如果现在采用的收集器没有出现问题，目前没有理由去选择G1；</li>
 <li>G1将新生代，老年代的物理空间划分取消了;</li>
 </ul>
 <p>特点：</p>
@@ -537,6 +565,20 @@
 <li>可预测的停顿；</li>
 </ul>
 <h1 id="堆上内存分配与回收"><a href="#堆上内存分配与回收" class="headerlink" title="堆上内存分配与回收"></a>堆上内存分配与回收</h1><h2 id="CMS-ParNew"><a href="#CMS-ParNew" class="headerlink" title="CMS + ParNew"></a>CMS + ParNew</h2><p><img src="/uploads/jvm12.jpg" alt=""></p>
+<p>新生代GC叫MinorGC，是发生在新生代的垃圾收集，比较频繁，速度较快<br>老生代GC叫FullGC，经常会伴随至少一次Minor GC，速度要比Minor GC 慢得多<br>JVM是根据对象的生存特性来讲对象 存放区域划分为新生代和老生代的，大部分的对象优先在新生代中的Eden分配，他们的特点是朝生夕灭，生命周期非常短暂，往往伴随一次GC就会被回收掉；</p>
+<p>老年代的对象被认为是可以长期存活的对象；对象晋级为老年代有2种方式：</p>
+<ol>
+<li>在新生代中经历了一定次数的GC存活下来的对象会被分配到老年代</li>
+<li>大对象直接进入老年代；如何确定大对象？有一个参数：-XX:PretenureSizeThreshold参数，大于这个设置值得对象直接进入老年代；</li>
+</ol>
+<p>新生代用的是复制算法，但是内存的分配不是五五开的，而是通过参数设置的，默认的设置是Eden和Survivor的比值是8:1；因为大部分对象都是朝生夕灭的，所以这个比例已经可以满足了，要是真的有那种特殊情况发生，比如说Eden经过了垃圾回收后，Survivor不够用了，也没事；我们还有一个老年代内存担保；</p>
+<p>什么是老年代内存担保？<br>在MinorGC之前，虚拟机会检验老年代最大连续可用内存是否大于所有新生代对象内存之和；如果大于就没问题，如果小于，虚拟机会查看是否允许担保失败，要是不允许，就会进行一次Full GC了；要是允许就会和历次进入老年代的对象大小的平均值做比较<br>那么新生代中的对象什么时候会进入老年代呢？<br>虚拟机为每个对象设置了一个Age计数器，对象每进行一次Minor GC ，age就会加一岁，当达到某个阈值的时候(默认15，这个是可以设置的：-XX:MaxTenuringThreshold)，就会晋升到老年代。</p>
+<p>最后还有永久代的垃圾回收，这个区的垃圾回收性价比不高，虚拟机规范中也要求这个区可以不进行垃圾回收；<br>永久区的垃圾回收可以分为2个部分：废弃常量和无用的类<br>回收常量：<br>以字符串常量池为例子：如果常量池中有字符串abc，要是当前系统中没有一个String类型的变量叫abc，那么这个常量被认为是可回收的<br>回收类：<br>这个比较麻烦需要满足3个条件：</p>
+<ol>
+<li>Java堆中没有该类的实例</li>
+<li>加载该类的classloader被回收</li>
+<li>该类的.Class对象没有在任何地方被引用，无法在任何地方通过反射访问该类<br>满足以上，该类可以被回收</li>
+</ol>
 <h2 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h2><ul>
 <li>G1将新生代、老年代的物理空间划分取消了；</li>
 <li>G1算法将堆划分为若干个区域（Region），它仍然属于分代收集器；</li>
@@ -545,7 +587,9 @@
 <p>G1提供了两种GC模式，Young GC和Mixed GC，两种都是Stop The World(STW)的；</p>
 <h3 id="Young-GC"><a href="#Young-GC" class="headerlink" title="Young GC"></a>Young GC</h3><p><img src="/uploads/jvm15.jpg" alt=""></p>
 <h3 id="Mixed-GC"><a href="#Mixed-GC" class="headerlink" title="Mixed GC"></a>Mixed GC</h3><p>Mix GC不仅进行正常的新生代垃圾收集，同时也回收部分后台扫描线程标记的老年代分区<br><img src="/uploads/jvm16.jpg" alt=""></p>
+<p>G1将新生代、老年代的物理空间划分取消了；<br>G1算法将堆划分为若干个区域（Region），它仍然属于分代收集器。不过，这些区域的一部分包含新生代，新生代的垃圾收集依然采用暂停所有应用线程的方式，将存活对象拷贝到老年代或者Survivor空间。老年代也分成很多区域，G1收集器通过将对象从一个区域复制到另外一个区域，完成了清理工作。这就意味着，在正常的处理过程中，G1完成了堆的压缩（至少是部分堆的压缩），这样也就不会有cms内存碎片问题的存在了。<br>在G1中，还有一种特殊的区域，叫Humongous区域。 如果一个对象占用的空间超过了分区容量50%以上，G1收集器就认为这是一个巨型对象。这些巨型对象，默认直接会被分配在年老代，但是如果它是一个短期存在的巨型对象，就会对垃圾收集器造成负面影响。为了解决这个问题，G1划分了一个Humongous区，它用来专门存放巨型对象。如果一个H区装不下一个巨型对象，那么G1会寻找连续的H分区来存储。为了能找到连续的H区，有时候不得不启动Full GC。<br>G1的垃圾回收从整体上看是标记-整理的，从局部(2个region)看是复制的；</p>
 <h1 id="GC日志分析"><a href="#GC日志分析" class="headerlink" title="GC日志分析"></a>GC日志分析</h1><p>设置日志：<br>-XX:+PrintGCDetails<br>-Xloggc:D:/mylog/gc.log<br><img src="/uploads/jvm17.jpg" alt=""><br><img src="/uploads/jvm18.jpg" alt=""></p>
+<p>最前面的时间是GC发生的时间，它是从Java虚拟机启动来经过的秒数；GC表示这是一次Minor GC；ParNew是这次GC使用的垃圾收集器<br>CMS concurrent sweep并发清除<br>CMS-concurrent-reset    开始并发重置<br>初始标记(CMS initial mark)；并发标记(CMS concurrent mark)；重新标记(CMS remark)；CMS-concurrent-preclean预清理<br>user：用户态消耗的CPU时间；sys：内核态消耗的CPU事件和操作从开始到结束所经过的墙钟时间；系统有多CPU或者多核的话，多线程操作会叠加这些CPU时间；所以user或sys时间可能会超过real时间；<br>ParNew后面有2个内存变化，第一个是新生代内存变化，第二个是堆内存变化；<br>出现了promotion failed和concurrent mode failure两种状况，当这两种状况出现时可能会触发Full GC。<br>promotion failed是在进行Minor GC时，survivor space放不下、对象只能放入旧生代，而此时旧生代也放不下造成的；concurrent mode failure是在执行CMS GC的过程中同时有对象要放入旧生代(CMS无法处理浮动垃圾)，而此时旧生代空间不足造成的。<br>当出现concurrent mode failure时，虚拟机会启动后备预案，临时启用Serial Old收集器来重新进行老年代的垃圾收集；</p>
 ]]></content>
     
     <summary type="html">
