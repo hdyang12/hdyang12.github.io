@@ -560,7 +560,7 @@
     <link href="http://yoursite.com/2017/06/19/%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
     <id>http://yoursite.com/2017/06/19/微信机器人/</id>
     <published>2017-06-19T14:44:25.000Z</published>
-    <updated>2017-06-20T00:28:48.980Z</updated>
+    <updated>2017-06-20T00:28:48.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="个人微信接入图灵机器人-基于Python"><a href="#个人微信接入图灵机器人-基于Python" class="headerlink" title="个人微信接入图灵机器人(基于Python)"></a>个人微信接入图灵机器人(基于Python)</h1><p>开发环境：阿里云 Ubuntu 16.04<br>编程语言：Python2.7</p>
 <ol>
@@ -746,7 +746,7 @@
     <link href="http://yoursite.com/2017/06/13/springboot/"/>
     <id>http://yoursite.com/2017/06/13/springboot/</id>
     <published>2017-06-13T14:58:25.000Z</published>
-    <updated>2017-06-14T15:26:32.893Z</updated>
+    <updated>2017-06-14T15:26:32.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/uploads/springboot1.jpg" alt=""></p>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong><em>简单！快速！方便！</em></strong></p>
@@ -835,7 +835,7 @@
     <link href="http://yoursite.com/2017/01/01/%E7%95%99%E8%A8%80%E6%9D%BF/"/>
     <id>http://yoursite.com/2017/01/01/留言板/</id>
     <published>2016-12-31T16:00:00.000Z</published>
-    <updated>2017-06-14T00:27:44.484Z</updated>
+    <updated>2017-06-14T00:27:44.000Z</updated>
     
     <summary type="html">
     
@@ -855,7 +855,7 @@
     <link href="http://yoursite.com/2016/11/12/Zookeeper/"/>
     <id>http://yoursite.com/2016/11/12/Zookeeper/</id>
     <published>2016-11-12T03:00:00.000Z</published>
-    <updated>2017-06-12T16:30:20.371Z</updated>
+    <updated>2018-09-25T16:46:08.604Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Zookeeper概述"><a href="#Zookeeper概述" class="headerlink" title="Zookeeper概述"></a>Zookeeper概述</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>随着互联网技术的高速发展，企业对计算机系统的计算、储存能力要求越来越高，最简单的证明就是出现了一些诸如：高并发，海量储存这样的词汇。在这样的背景下，单纯依靠少量高性能主机来完成计算任务已经不能满足企业的需求，企业的IT架构逐渐从集中式向分布式过渡，所谓的分布式是指：把一个计算任务分解成若干个计算单元，并且分派到若干不同的计算机中去执行，然后汇总计算结果的过程！</p>
 <p>分布式系统要解决的核心任务是如何把众多的计算机协同起来完成计算任务</p>
@@ -870,12 +870,6 @@
 <p><img src="/uploads/zookeeper2.jpg" alt=""></p>
 <h3 id="心跳检测"><a href="#心跳检测" class="headerlink" title="心跳检测"></a>心跳检测</h3><p>Zk中我们让所有的机器都注册一个临时节点，我们判断一个机器是否可用，我们只需要判断这个节点在zk中是否存在就可以了。</p>
 <h3 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h3><p>会话是指客户端和Zookeeper服务器的连接，Zookeeper中的会话叫Session，客户端靠与服务器建立一个TCP的长连接来维持一个Session，客户端在启动的时候首先会与服务器建立一个TCP连接，通过这个连接，客户端能够通过心跳检测与服务器保持有效的会话，也能向ZK服务器发送请求并获得响应</p>
-<h3 id="Zookeeper选举机制"><a href="#Zookeeper选举机制" class="headerlink" title="Zookeeper选举机制"></a>Zookeeper选举机制</h3><p>FastLeader选举算法：<br>当Leader崩溃或者失去大多数follower时，这时候Zookeeper进入恢复模式，恢复模式需要重新选举出一个新的leader，让所有的Server都恢复到一个正确的状态。</p>
-<p>历史记录有的话选择历史的那个，没有就选自己，如果票数一样的话，那么id大的胜出<br>简单例子<br>服务器1启动，无其他节点，得不到响应，选举状态为LOOKING状态<br>服务器2启动，没有历史数据，都选自己，2的id大，所以1同意2为leader，但是未过半数，服务器1/2状态依然为LOOKING<br>服务器3启动，1和2有历史数据，都选2，服务器3选自己，2的票数为2,2/3超过半数，2为leader<br>服务器4启动，发起投票，1/2/3根据历史数据选2，leader为2.</p>
-<h2 id="可以简单的说，zookeeper就是一个文件系统加一个通知机制"><a href="#可以简单的说，zookeeper就是一个文件系统加一个通知机制" class="headerlink" title="可以简单的说，zookeeper就是一个文件系统加一个通知机制"></a>可以简单的说，zookeeper就是一个文件系统加一个通知机制</h2><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><p>下面我们看zookeeper是如何实现协同操作的，首先，zookeeper维护了一个类似文件系统的数据结构。可以看到有根目录，根目录下有若干个子目录。每一个子目录都被称为Znode。和文件系统一样我们能够自由地增加删除znode。Znode是可以存储数据的。Zookeeper中znode可以分为4种类型：持久节点、临时节点、持久有序节点、临时有序节点<br>持久节点：<br>即使znode的创建者不再属于系统，数据也可以保存下来而不丢失。例如：<br>分配任务的主节点崩溃，但是从节点的任务分配情况也会保存下来。<br>临时节点：<br>主节点崩溃，该znode(master)和主节点一起消失–&gt;系统检测到–&gt;选举<br>有序：<br>唯一名称，创建顺序，task1,task2…</p>
-<p>文件系统可以提供很多信息。针对一个znode，如果该znode是主节点的znode没有信息，那么说明还没有选出主节点。<br>其他znode节点：<br>workers作为父节点：其下znode节点为可用从节点信息<br>tasks作为父节点：其下znode节点为等待执行任务<br>assign作为父节点：其下znode节点为分配到某从节点任务</p>
-<h3 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h3><p>客户端注册监听它关心的目录节点，当目录节点发生变化(数据改变，被删除，子目录节点增加删除)时，zookeeper会通知客户端。</p>
-<p>leader节点负责写服务和数据的同步，follow节点负责读服务。Zookeeper不允许局部写入或读取znode节点的数据。</p>
 <h2 id="Zookeeper安装"><a href="#Zookeeper安装" class="headerlink" title="Zookeeper安装"></a>Zookeeper安装</h2><ul>
 <li>下载后解压安装Zookeeper包，官方下载链接点击<a href="http://hadoop.apache.org/zookeeper/releases.html" target="_blank" rel="external">这里</a></li>
 <li>根据Zookeeper集群节点情况，创建如下格式的Zookeeper配置文件zoo.cfg：<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">tickTime=2000               //基本时间度量单位,一次心跳时间</div><div class="line">dataDir=/var/zookeeper/config</div><div class="line">clientPort=2181</div><div class="line">initLimit=5                 //初始化连接时, follower和leader之间的最长心跳时间5 * 2000ms = 10s</div><div class="line">syncLimit=2                 //请求和应答的最大时间长度 2 * 2000ms</div><div class="line"><span class="section">server.1=zoo1:2888:3888		//server.1=192.168.111.101:2888:3888	</span></div><div class="line"><span class="section">server.2=zoo2:2888:3888		//server.2=192.168.111.102:2888:3888	</span></div><div class="line"><span class="section">server.3=zoo3:2888:3888		//server.3=192.168.111.103:2888:3888</span></div></pre></td></tr></table></figure>
@@ -884,8 +878,30 @@
 <p>其中，dataDir指定Zookeeper的数据文件目录；其中server.id=host:port:port，id是为每个Zookeeper节点的编号，保存在dataDir目录下的myid文件中，zoo1~zoo3表示各个Zookeeper节点的hostname，第一个port是用于连接leader的端口(仲裁通信)，第二个port是用于leader选举的端口。</p>
 <ul>
 <li>在dataDir目录下创建myid文件，文件中只包含一行，且内容为该节点对应的server.id中的id编号。</li>
-<li>启动Zookeeper服务：<br>通过<strong>bin/zkServer.sh</strong>脚本启动Zookeeper服务。 <code>./zkServer.sh start</code><br>查看该节点是leader还是follow：<strong>zkServer.sh status</strong></li>
+<li>启动Zookeeper服务：<br>通过<strong>bin/zkServer.sh</strong>脚本启动Zookeeper服务。 <code>./zkServer.sh start</code><br>查看该节点是leader还是follow：<strong>zkServer.sh status</strong><h2 id="zookeeper结构"><a href="#zookeeper结构" class="headerlink" title="zookeeper结构"></a>zookeeper结构</h2>可以简单的说，zookeeper就是一个文件系统加一个通知机制<h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3>下面我们看zookeeper是如何实现协同操作的，首先，zookeeper维护了一个类似文件系统的数据结构。可以看到有根目录，根目录下有若干个子目录。每一个子目录都被称为Znode。和文件系统一样我们能够自由地增加删除znode。Znode是可以存储数据的。Zookeeper中znode可以分为4种类型：持久节点、临时节点、持久有序节点、临时有序节点<br>持久节点：<br>即使znode的创建者不再属于系统，数据也可以保存下来而不丢失。例如：<br>分配任务的主节点崩溃，但是从节点的任务分配情况也会保存下来。<br>临时节点：<br>主节点崩溃，该znode(master)和主节点一起消失–&gt;系统检测到–&gt;选举<br>有序：<br>唯一名称，创建顺序，task1,task2…</li>
 </ul>
+<p>文件系统可以提供很多信息。针对一个znode，如果该znode是主节点的znode没有信息，那么说明还没有选出主节点。<br>其他znode节点：<br>workers作为父节点：其下znode节点为可用从节点信息<br>tasks作为父节点：其下znode节点为等待执行任务<br>assign作为父节点：其下znode节点为分配到某从节点任务</p>
+<h3 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h3><p>客户端注册监听它关心的目录节点，当目录节点发生变化(数据改变，被删除，子目录节点增加删除)时，zookeeper会通知客户端。</p>
+<p>leader节点负责写服务和数据的同步，follow节点负责读服务。Zookeeper不允许局部写入或读取znode节点的数据。</p>
+<h2 id="zookeeper-shell客户端命令简介"><a href="#zookeeper-shell客户端命令简介" class="headerlink" title="zookeeper shell客户端命令简介"></a>zookeeper shell客户端命令简介</h2><p><strong><em>zookeeper目录结构</em></strong><br><img src="/uploads/zookeeper3.jpg" alt=""><br><strong><em>客户端连接</em></strong><br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">//</span>当前目录为zookeeper目录;且连接的是当前的zookeeper;连接其他服务器的例如:.<span class="regexp">/bin/</span>zkCli.sh –server <span class="number">10.77</span>.<span class="number">20.23</span>:<span class="number">2181</span></div><div class="line">$ .<span class="regexp">/bin/</span>zkCli.sh</div></pre></td></tr></table></figure></p>
+<p>连接成功<br><img src="/uploads/zookeeper4.jpg" alt=""></p>
+<h3 id="ls-查看"><a href="#ls-查看" class="headerlink" title="ls 查看"></a>ls 查看</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">0</span>] ls /</div></pre></td></tr></table></figure>
+<p><img src="/uploads/zookeeper5.jpg" alt=""><br>这个命令只能看到指定节点下第一级的所有子节点<br>第一次部署的zookeeper集群，默认在根节点”/“下面有一个叫做/zookeeper的保留节点。</p>
+<h3 id="create-创建节点并存储数据"><a href="#create-创建节点并存储数据" class="headerlink" title="create 创建节点并存储数据"></a>create 创建节点并存储数据</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">1</span>] create /zhangsan <span class="string">"zhangsan"</span></div></pre></td></tr></table></figure>
+<p><img src="/uploads/zookeeper6.jpg" alt=""><br>create有以下属性: [-s] [-e]<br>-s 或 -e 分别指定节点特性：顺序 或 临时节点。默认情况下，不添加-s 或 -e 参数的，创建的是不带序号的持久节点。</p>
+<h3 id="get-获取内容"><a href="#get-获取内容" class="headerlink" title="get 获取内容"></a>get 获取内容</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 10</span>] <span class="keyword">get</span> -s /zhangsan</div></pre></td></tr></table></figure>
+<p><img src="/uploads/zookeeper7.jpg" alt=""><br>之前版本的zookeeper不加-s能直接看到属性信息，该版本的不加-s只能看到数据内容<br>数据及各属性信息含义：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//数据内容</div><div class="line"><span class="string">"zhangsan"</span></div><div class="line">//创建该节点的事务ID</div><div class="line">cZxid = 0x43</div><div class="line">ctime = Wed Sep 26 00:12:28 CST 2018</div><div class="line">//最后一次更新该节点的事务ID</div><div class="line">mZxid = 0x43</div><div class="line">//最后一次更新该节点的时间</div><div class="line">mtime = Wed Sep 26 00:12:28 CST 2018</div><div class="line">pZxid = 0x43</div><div class="line">cversion = 0</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 10</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure></p>
+<h3 id="set-重新设置"><a href="#set-重新设置" class="headerlink" title="set 重新设置"></a>set 重新设置</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 11</span>] <span class="keyword">set</span> /zhangsan <span class="string">"zhangsan1"</span></div></pre></td></tr></table></figure>
+<p><img src="/uploads/zookeeper7.jpg" alt=""><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 12</span>] <span class="keyword">get</span> -s /zhangsan</div></pre></td></tr></table></figure></p>
+<p>再次get并查看数据<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="string">"zhangsan1"</span></div><div class="line">cZxid = 0x43</div><div class="line">ctime = Wed Sep 26 00:12:28 CST 2018</div><div class="line">mZxid = 0x46</div><div class="line">mtime = Wed Sep 26 00:32:57 CST 2018</div><div class="line">pZxid = 0x43</div><div class="line">cversion = 0</div><div class="line">dataVersion = 1</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 11</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure></p>
+<p>可以看到 数据内容、mZxid、mtime、dataVersion、dataLength属性发生了变化。</p>
+<h3 id="delete-删除节点"><a href="#delete-删除节点" class="headerlink" title="delete 删除节点"></a>delete 删除节点</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">13</span>] delete /zhangsan</div></pre></td></tr></table></figure>
+<p>使用delete命令可以删除Zookeeper上的指定节点。<br>注意：想要删除某一个指定节点，该节点必须没有子节点存在。无法删除一个包含子节点的节点。<br><img src="/uploads/zookeeper10.jpg" alt=""><br>可以使用deleteall命令进行删除包含子节点的节点。</p>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">20</span>] help</div></pre></td></tr></table></figure>
+<p><img src="/uploads/zookeeper11.jpg" alt=""></p>
+<h2 id="Java客户端API使用"><a href="#Java客户端API使用" class="headerlink" title="Java客户端API使用"></a>Java客户端API使用</h2><p>目前没用过，用到再介绍;主要命令和客户端的一致</p>
+<h2 id="Zookeeper选举机制"><a href="#Zookeeper选举机制" class="headerlink" title="Zookeeper选举机制"></a>Zookeeper选举机制</h2><p>FastLeader选举算法：<br>当Leader崩溃或者失去大多数follower时，这时候Zookeeper进入恢复模式，恢复模式需要重新选举出一个新的leader，让所有的Server都恢复到一个正确的状态。</p>
+<p>历史记录有的话选择历史的那个，没有就选自己，如果票数一样的话，那么id大的胜出<br>简单例子<br>服务器1启动，无其他节点，得不到响应，选举状态为LOOKING状态<br>服务器2启动，没有历史数据，都选自己，2的id大，所以1同意2为leader，但是未过半数，服务器1/2状态依然为LOOKING<br>服务器3启动，1和2有历史数据，都选2，服务器3选自己，2的票数为2,2/3超过半数，2为leader<br>服务器4启动，发起投票，1/2/3根据历史数据选2，leader为2.</p>
 <h2 id="Zookeeper的典型应用场景："><a href="#Zookeeper的典型应用场景：" class="headerlink" title="Zookeeper的典型应用场景："></a>Zookeeper的典型应用场景：</h2><h3 id="统一命名服务"><a href="#统一命名服务" class="headerlink" title="统一命名服务"></a>统一命名服务</h3><p>在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）</p>
 <h3 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h3><p>配置的管理在分布式应用环境中很常见，例如同一个应用系统需要多台 PC Server 运行，但是它们运行的应用系统的某些配置项是相同的，如果要修改这些相同的配置项，那么就必须同时修改每台运行这个应用系统的 PC Server，这样非常麻烦而且容易出错。</p>
 <p>像这样的配置信息完全可以交给 Zookeeper 来管理，将配置信息保存在 Zookeeper 的某个目录节点中，然后将所有需要修改的应用机器监控配置信息的状态，一旦配置信息发生变化，每台应用机器就会收到 Zookeeper 的通知，然后从 Zookeeper 获取新的配置信息应用到系统中</p>
@@ -914,7 +930,7 @@
     <link href="http://yoursite.com/2016/09/20/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/"/>
     <id>http://yoursite.com/2016/09/20/集合框架/</id>
     <published>2016-09-20T05:35:25.000Z</published>
-    <updated>2016-11-12T04:14:53.278Z</updated>
+    <updated>2016-11-12T04:14:53.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><p>Java集合工具包位于Java.util包下，包含了很多常用的数据结构，如数组、链表、栈、队列、集合、哈希表等。学习Java集合框架下大致可以分为如下五个部分：List列表、Set集合、Map映射、迭代器（Iterator、Enumeration）、工具类（Arrays、Collections）。<br>集合类主要分为两大类：</p>
 <ol>
@@ -1129,7 +1145,7 @@
     <link href="http://yoursite.com/2016/08/27/h5/"/>
     <id>http://yoursite.com/2016/08/27/h5/</id>
     <published>2016-08-27T05:35:25.000Z</published>
-    <updated>2016-11-12T04:13:58.131Z</updated>
+    <updated>2016-11-12T04:13:58.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a>相关知识</h1><ol>
 <li>HTML</li>
@@ -2002,7 +2018,7 @@ inherit：从父级继承来clear的值
     <link href="http://yoursite.com/2016/05/20/Spring%E5%90%84%E4%B8%AA%E5%8C%85%E7%9A%84%E4%BD%9C%E7%94%A8/"/>
     <id>http://yoursite.com/2016/05/20/Spring各个包的作用/</id>
     <published>2016-05-19T16:35:25.000Z</published>
-    <updated>2016-05-19T17:17:54.416Z</updated>
+    <updated>2016-05-19T17:17:54.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="1-spring-core-jar"><a href="#1-spring-core-jar" class="headerlink" title="1. spring-core.jar"></a>1. spring-core.jar</h1><p>这个jar文件包含Spring框架基本的核心工具类，Spring其它组件要都要使用到这个包里的类，是其它组件的基本核心。</p>
 <h1 id="2-spring-beans-jar"><a href="#2-spring-beans-jar" class="headerlink" title="2. spring-beans.jar"></a>2. spring-beans.jar</h1><p>这个jar文件是所有应用都要用到的，它包含访问配置文件、创建和管理bean以及进行Inversion of Control / Dependency Injection（IoC/DI）操作相关的所有类。<br>如果应用只需基本的IoC/DI支持，引入spring-core.jar及spring-beans.jar文件就可以了。</p>
@@ -2073,7 +2089,7 @@ inherit：从父级继承来clear的值
     <link href="http://yoursite.com/2016/05/11/Storm%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4/"/>
     <id>http://yoursite.com/2016/05/11/Storm集群安装部署步骤/</id>
     <published>2016-05-11T04:50:25.000Z</published>
-    <updated>2016-05-15T13:24:43.417Z</updated>
+    <updated>2016-05-15T13:24:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Storm集群组件"><a href="#Storm集群组件" class="headerlink" title="Storm集群组件"></a>Storm集群组件</h1><p>Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）。其分别对应的角色如下：</p>
 <ul>
@@ -2189,7 +2205,7 @@ inherit：从父级继承来clear的值
     <link href="http://yoursite.com/2016/05/10/%E4%B8%80%E4%BA%9B%E6%83%B3%E4%BA%86%E8%A7%A3%E7%9A%84%E4%B9%A6/"/>
     <id>http://yoursite.com/2016/05/10/一些想了解的书/</id>
     <published>2016-05-10T11:50:25.000Z</published>
-    <updated>2016-08-21T17:32:14.183Z</updated>
+    <updated>2016-08-21T17:32:14.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="MongoDB权威指南"><a href="#MongoDB权威指南" class="headerlink" title="MongoDB权威指南"></a>MongoDB权威指南</h1><p>详细介绍了MongoDB<br><img src="/uploads/book1.jpg" alt=""></p>
 <h1 id="Effective-Java"><a href="#Effective-Java" class="headerlink" title="Effective Java"></a>Effective Java</h1><p>Effective Java包含了从静态工厂，序列化，equals和hashcode到泛型，枚举，可变参数以及反射的最佳解决方法。<br><img src="/uploads/book2.jpg" alt=""></p>
@@ -2216,7 +2232,7 @@ inherit：从父级继承来clear的值
     <link href="http://yoursite.com/2016/05/07/%E5%85%B3%E4%BA%8E%E8%B5%84%E6%96%99%E4%BB%8Egithub%E4%B8%8B%E8%BD%BD/"/>
     <id>http://yoursite.com/2016/05/07/关于资料从github下载/</id>
     <published>2016-05-07T13:50:25.000Z</published>
-    <updated>2016-05-11T17:20:17.591Z</updated>
+    <updated>2016-05-11T17:20:17.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="如何在github上下载单个文件夹"><a href="#如何在github上下载单个文件夹" class="headerlink" title="如何在github上下载单个文件夹?"></a>如何在github上下载单个文件夹?</h1><p>比如把一些资料放到github上做分类归档，怎样才能下载单一分类文件(夹)</p>
 <h1 id="最方便"><a href="#最方便" class="headerlink" title="最方便"></a>最方便</h1><p>点击<a href="http://kinolien.github.io/gitzip/" target="_blank" rel="external">这里</a><br><img src="/uploads/githubdownload1.jpg" alt=""><br>输入单个文件夹的路径，点击Download直接下载该文件夹;<br>点击Search,列出该文件夹下的列表,可以单独下载<br><img src="/uploads/githubdownload2.jpg" alt=""><br>也可以点进该列表内的文件夹,继续列出文件夹内的列表</p>
@@ -2521,41 +2537,27 @@ inherit：从父级继承来clear的值
   </entry>
   
   <entry>
-    <title>Spring AOP 框架</title>
-    <link href="http://yoursite.com/2016/04/06/SpringAOP/"/>
-    <id>http://yoursite.com/2016/04/06/SpringAOP/</id>
+    <title>使用Spring访问数据</title>
+    <link href="http://yoursite.com/2016/04/06/%E4%BD%BF%E7%94%A8Spring%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE/"/>
+    <id>http://yoursite.com/2016/04/06/使用Spring访问数据/</id>
     <published>2016-04-06T01:39:25.000Z</published>
-    <updated>2016-04-06T08:49:44.000Z</updated>
+    <updated>2016-04-11T14:58:52.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="AOP简述"><a href="#AOP简述" class="headerlink" title="AOP简述"></a>AOP简述</h1><p>AOP全称为Aspect-Oriented Programming ，中文通常翻译为面向方面编程。使用AOP，我们可以对类似于Logging和Security等系统需求进行模块化的组织，简化系统需求与实现之间的对比关系，进而使得整个系统的实现更具模块化。<br>AOP引入了Aspect的概念，用来以模块化的形式对系统中的横切关注点进行封装。Aspect之对于AOP，就相当于Class之对于OOP。AOP仅是对OOP方法的一种补足。<br><img src="/uploads/Spring4.jpg" alt=""></p>
-<h2 id="静态AOP时代-第一代AOP"><a href="#静态AOP时代-第一代AOP" class="headerlink" title="静态AOP时代(第一代AOP)"></a>静态AOP时代(第一代AOP)</h2><ul>
-<li>优点:Aspect直接以Java字节码的形式编译到Java类中,Java虚拟机可以像通常一样加载Java类运行，不会对整个系统的运行造成任何的性能损失。</li>
-<li>缺点:不够灵活</li>
-</ul>
-<h2 id="动态AOP时代-第二代AOP"><a href="#动态AOP时代-第二代AOP" class="headerlink" title="动态AOP时代(第二代AOP)"></a>动态AOP时代(第二代AOP)</h2><p>动态AOP引入了灵活性以及易用性，也不可避免地引入了相应的性能问题;大多数情况下，这种性能损失是可以容忍的。</p>
-<h2 id="Java平台上的AOP实现机制"><a href="#Java平台上的AOP实现机制" class="headerlink" title="Java平台上的AOP实现机制"></a>Java平台上的AOP实现机制</h2><h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>Spring AOP 默认情况下采用这种机制实现AOP机能。(动态代理机制只针对接口有效)</p>
-<h3 id="动态字节码增强"><a href="#动态字节码增强" class="headerlink" title="动态字节码增强"></a>动态字节码增强</h3><p>使用动态字节码增强技术，即使模块类没有实现相应的接口，我们依然可以对其进行扩展，而不用像动态代理那样受限于接口。</p>
-<h1 id="Spring-AOP概述及其实现机制"><a href="#Spring-AOP概述及其实现机制" class="headerlink" title="Spring AOP概述及其实现机制"></a>Spring AOP概述及其实现机制</h1><h2 id="Spring-AOP-概述"><a href="#Spring-AOP-概述" class="headerlink" title="Spring AOP 概述"></a>Spring AOP 概述</h2><p>Spring AOP 是 Spring核心框架的重要组成部分，通常认为它与Spring的IoC容器以及Spring框架对其他JavaEE服务的集成共同组成了Spring框架的”质量三角”。<br><img src="/uploads/Spring5.jpg" alt=""></p>
-<h2 id="Spring-AOP-的实现机制"><a href="#Spring-AOP-的实现机制" class="headerlink" title="Spring AOP 的实现机制"></a>Spring AOP 的实现机制</h2><p>Spring AOP 属于第二代AOP，采用动态代理机制和字节码生成技术实现。动态代理机制和字节码生成都是在运行期间为目标对象生成一个代理对象，而将横切逻辑织入到这个代理对象中，系统最终使用的是织入了横切逻辑的代理对象，而不是真正的目标对象。</p>
-<h3 id="设计模式之代理模式"><a href="#设计模式之代理模式" class="headerlink" title="设计模式之代理模式"></a>设计模式之代理模式</h3><p>在代理模式中，通常涉及4种角色</p>
+    <content type="html"><![CDATA[<h1 id="统一的数据访问异常层次体系"><a href="#统一的数据访问异常层次体系" class="headerlink" title="统一的数据访问异常层次体系"></a>统一的数据访问异常层次体系</h1><p>为了统一和简化相关的数据访问操作，J2EE核心模式提出了DAO(Data Access Object，数据访问对象)模式。使用DAO模式，可以完全分离数据的访问和存储，很好地屏蔽了各种数据访问方式的差异性。不论数据存储在普通的文本文件或者csv文件，还是关系数据库(RDBMS)或者LDAP(Lightweight Directory Access Protocol,轻量级目录访问协议)系统中，使用DAO模式访问数据的客户端代码可以完全忽视这种差异，而以统一的接口来访问相应数据。</p>
+<p>当数据访问接口的实现类随着需求而发生变化时，客户端代码(service层代码)可以完全忽视这种变化，唯一需要变动的地方可能只是Factory对象的几行代码，甚至只是IoC容器配置文件中简单的class类型替换而已，客户端代码无需任何变动。所以，DAO模式对屏蔽不同数据访问机制的差异性起到举足轻重的作用。</p>
+<h2 id="异常导致接口无法定义"><a href="#异常导致接口无法定义" class="headerlink" title="异常导致接口无法定义"></a>异常导致接口无法定义</h2><p><strong>那么问题来了:</strong><br>当DAO实现类出现异常的时候,如何捕获SQLException呢？如果直接在DAO实现类处理掉的话，客户端代码就不知道在数据访问期间发生的问题。所以只好先将SQLException抛给客户端。但是这样会产生2个问题:<br><strong>问题1:</strong><br>我们的数据访问接口对于客户端来说是通用的，不管数据访问对象因为数据访问机制的不同而如何变更，客户端代码不应该受其牵连。但是，现在因为使用JDBC做数据访问，需要抛出特定的SQLException，那么客户端代码就需要捕捉该异常并做相应的处理。这是与数据访问对象模式的设计初衷相背离的。<br><strong>问题2:</strong><br>在引入另一种数据访问机制时，问题更是接踵而来。当换了一个Dao实现，需要抛出另一个Exception，例如:NamingException,如果要保证方法被实现就需要更改方法签名。这样更糟糕了，我们把统一的访问接口给改了。<br>因为数据访问机制的不同，我们的数据访问接口的定义变成了空中楼阁，我们无法最终定义并确定这个接口。</p>
+<h2 id="Spring-数据访问异常层次体系"><a href="#Spring-数据访问异常层次体系" class="headerlink" title="Spring 数据访问异常层次体系"></a>Spring 数据访问异常层次体系</h2><p>Spring 框架中统一的异常层次体系所涉及的大部分异常类型都定义在<code>org.springframework.dao</code>包中，处于这个体系的所有异常类型均以<code>org.springframework.dao.DataAccessException</code>为“统领”，然后根据职能划分为不同的异常子类型，总体上看，整个异常层次体系如下图所示:<br><img src="/uploads/Spring6.jpg" alt=""></p>
+<h1 id="JDBC-API-的最佳实践"><a href="#JDBC-API-的最佳实践" class="headerlink" title="JDBC API 的最佳实践"></a>JDBC API 的最佳实践</h1><h2 id="基于Template的JDBC使用方式"><a href="#基于Template的JDBC使用方式" class="headerlink" title="基于Template的JDBC使用方式"></a>基于<code>Template</code>的<code>JDBC</code>使用方式</h2><p>由于<code>JDBC API</code>在使用中容易出错，使用繁琐;为了解决它在实际使用中的尴尬局面，<code>Spring</code>框架提出了<code>org.springframework.jdbc.core.jdbcTemplate</code>作为数据访问的<code>Helper</code>类。抓住<code>JdbcTemplate</code>，就抓住了<code>Spring</code>框架<code>JDBC API</code>最佳实践的核心。<br><strong><code>JdbcTemplate</code>主要关注如下两个事情</strong>:</p>
 <ul>
-<li>ISubject:该接口是对被访问者或者被访问资源的抽象。</li>
-<li>SubjectImpl:被访问者或者被访问资源的具体实现类</li>
-<li>SubjectProxy:被访问者或者被访问资源的代理实现类，该类持有一个ISubject接口的具体实例。在这个场景中，我们要对SubjectImpl进行代理，那么SubjectProxy现在持有的就是SubjectImpl的实例。</li>
-<li>Client:代表访问者的抽象角色，Client将会访问ISubject类型的对象或者资源。在这个场景中，Client将会请求具体的SubjectImpl实例，但Client无法直接请求其真正要访问的资源SubjectImpl，而是必须要通过ISubject资源的访问代理类SubjectProxy进行。</li>
+<li>封装所有基于JDBC的数据访问代码，以统一的格式和规范来使用JDBC API。所有基于JDBC的数据访问需求现在全部通过JdbcTemplate进行，从而避免了让烦琐易错的基于JDBC API的数据访问代码散落于系统各处。</li>
+<li>对SQLException所提供的异常信息在框架内进行统一转译，将基于JDBC的数据访问异常纳入Spring自身的异常层次体系中，统一了数据接口的定义，简化了客户端代码对数据访问异常的处理。</li>
 </ul>
-<p>SubjectImpl和SubjectProxy都实现了相同的接口ISubject，而SubjectProxy内部持有SubjectImpl的引用。当Client通过request()请求服务的时候，SubjectProxy将转发该请求给SubjectImpl。从这个角度来说，SubjectProxy反而有多此一举之嫌了。不过，SubjectProxy的作用不只局限于请求的转发，更多时候是对请求添加更多访问限制。<br>SubjectImpl和SubjectProxy之间的调用关系如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectProxy</span> <span class="keyword">implements</span> <span class="title">ISubject</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> ISubject subject;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">request</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="comment">//add pre-process logic if necessary</span></div><div class="line"></div><div class="line">	String originalResult = subject.request();</div><div class="line"></div><div class="line">	<span class="comment">//add post process logic if necessary</span></div><div class="line">	<span class="keyword">return</span> <span class="string">"Proxy:"</span> + originalResult;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> ISubject <span class="title">getSubject</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> subject;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSubject</span><span class="params">(ISubject subject)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.subject = subject;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>代理对象SubjectProxy就像是SubjectImpl的影子，只不过这个影子通常拥有更多的功能。</p>
-<h4 id="动态代理-1"><a href="#动态代理-1" class="headerlink" title="动态代理"></a>动态代理</h4><p>动态代理机制的实现主要由一个类和一个接口组成，即java.lang.reflect.Proxy类和java.lang.reflect.InvocationHandler接口。<br>InvocationHandler实现:<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestCtrlInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(RequestCtrlInvocationHandler.class);</div><div class="line">	<span class="keyword">private</span> Object <span class="keyword">target</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">RequestCtrlInvocationHandler</span><span class="params">(Object <span class="keyword">target</span>)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.<span class="keyword">target</span> = <span class="keyword">target</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="function">Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span><span class="keyword">throws</span> Throwable</span>&#123;</div><div class="line">		<span class="keyword">if</span>(method.getName().equals(<span class="string">"request"</span>))&#123;</div><div class="line">			TimeOfDay startTime = <span class="keyword">new</span> TimeOfDay(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">			TimeOfDay endTime = <span class="keyword">new</span> TimeOfDay(<span class="number">5</span>,<span class="number">59</span>,<span class="number">59</span>);</div><div class="line">			TimeOfDay currentTime = <span class="keyword">new</span> TimeOfDay();</div><div class="line">			<span class="keyword">if</span>(currentTime.isAfter(startTime) &amp;&amp; currentTime.isBefore(endTime))&#123;</div><div class="line">				logger.warn(<span class="string">"service is not available now."</span>);</div><div class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="function"><span class="keyword">return</span> method.<span class="title">invoke</span><span class="params">(<span class="keyword">target</span>, args)</span></span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用Proxy和RequestCtrlInvocationHandler创建不同类型目标对象的动态代理<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ISubject subject = (ISubject)Proxy.<span class="keyword">new</span><span class="type">ProxyInstance</span>(</div><div class="line">	ProxyRunner.class.getClassLoader(),</div><div class="line">	<span class="keyword">new</span> <span class="type">Class</span>[]&#123;ISubject.class&#125;,</div><div class="line">	<span class="keyword">new</span> <span class="type">RequestCtrlInvocationHandler</span>(<span class="keyword">new</span> <span class="type">SubjectImpl</span>())</div><div class="line">	);</div><div class="line">subject.request();</div><div class="line"></div><div class="line">IRequestable requestable = (IRequestable)Proxy.<span class="keyword">new</span><span class="type">ProxyInstance</span>(</div><div class="line">	ProxyRunnable.class.getClassLoader(),</div><div class="line">	<span class="keyword">new</span> <span class="type">Class</span>[]&#123;IRequestable.class&#125;,</div><div class="line">	<span class="keyword">new</span> <span class="type">RequestCtrlInvocationHandler</span>(<span class="keyword">new</span> <span class="type">RequestableImpl</span>())</div><div class="line">	);</div><div class="line">requestable.request();</div></pre></td></tr></table></figure></p>
-<h4 id="动态字节码生成"><a href="#动态字节码生成" class="headerlink" title="动态字节码生成"></a>动态字节码生成</h4><p>略</p>
-<h1 id="AOP引用案例"><a href="#AOP引用案例" class="headerlink" title="AOP引用案例"></a>AOP引用案例</h1><h2 id="Java异常处理"><a href="#Java异常处理" class="headerlink" title="Java异常处理"></a>Java异常处理</h2><h2 id="安全检查"><a href="#安全检查" class="headerlink" title="安全检查"></a>安全检查</h2><p>javax.servlet.Filter是Servlet规范为我们提供的一种AOP支持，通过它，我们可以为基于Servlet的Web应用添加相应的资源访问控制。</p>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>使用AOP为系统添加缓存(实例代码没有添加同步逻辑，在生产环境下需要考虑这一点)<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@Aspect</div><div class="line"><span class="keyword">public</span> class CachingAspect&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Map cache = <span class="keyword">new</span> LRUMap(<span class="number">5</span>);</div><div class="line"></div><div class="line">	@Around(<span class="string">"..."</span>)</div><div class="line">	<span class="keyword">public</span> <span class="keyword">Object</span> doCache(ProceedingJoinPoint pjp, <span class="keyword">Object</span> <span class="built_in">key</span>) <span class="keyword">throws</span> Throwable&#123;</div><div class="line">		<span class="keyword">if</span>(cache.containsKey(<span class="built_in">key</span>))&#123;</div><div class="line">			<span class="keyword">return</span> cache.<span class="built_in">get</span>(<span class="built_in">key</span>);</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="keyword">Object</span> retValue = pjp.proceed();</div><div class="line">			cache.put(<span class="built_in">key</span>,retValue);</div><div class="line">			<span class="keyword">return</span> retValue;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>JdbcTemplate主要通过模板方法模式对基于JDBC的数据访问代码进行统一封装。<br><strong>模板方法模式</strong>:主要用于对算法或者行为逻辑进行封装，即如果多个类中存在某些相似的算法逻辑或者行为逻辑，可以将这些相似的逻辑提取到模板方法类中实现，然后让相应的子类根据需要实现某些自定义逻辑。</p>
 ]]></content>
     
     <summary type="html">
     
-      Spring AOP 概述及其实现机制和扩展
+      包括统一的数据访问异常层次体系和JDBCAPI以及统一集成各种ORM方案
     
     </summary>
     
