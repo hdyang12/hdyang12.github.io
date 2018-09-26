@@ -855,7 +855,7 @@
     <link href="http://yoursite.com/2016/11/12/Zookeeper/"/>
     <id>http://yoursite.com/2016/11/12/Zookeeper/</id>
     <published>2016-11-12T03:00:00.000Z</published>
-    <updated>2018-09-25T16:46:08.604Z</updated>
+    <updated>2018-09-26T14:04:03.716Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Zookeeper概述"><a href="#Zookeeper概述" class="headerlink" title="Zookeeper概述"></a>Zookeeper概述</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>随着互联网技术的高速发展，企业对计算机系统的计算、储存能力要求越来越高，最简单的证明就是出现了一些诸如：高并发，海量储存这样的词汇。在这样的背景下，单纯依靠少量高性能主机来完成计算任务已经不能满足企业的需求，企业的IT架构逐渐从集中式向分布式过渡，所谓的分布式是指：把一个计算任务分解成若干个计算单元，并且分派到若干不同的计算机中去执行，然后汇总计算结果的过程！</p>
 <p>分布式系统要解决的核心任务是如何把众多的计算机协同起来完成计算任务</p>
@@ -890,19 +890,193 @@
 <h3 id="create-创建节点并存储数据"><a href="#create-创建节点并存储数据" class="headerlink" title="create 创建节点并存储数据"></a>create 创建节点并存储数据</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">1</span>] create /zhangsan <span class="string">"zhangsan"</span></div></pre></td></tr></table></figure>
 <p><img src="/uploads/zookeeper6.jpg" alt=""><br>create有以下属性: [-s] [-e]<br>-s 或 -e 分别指定节点特性：顺序 或 临时节点。默认情况下，不添加-s 或 -e 参数的，创建的是不带序号的持久节点。</p>
 <h3 id="get-获取内容"><a href="#get-获取内容" class="headerlink" title="get 获取内容"></a>get 获取内容</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 10</span>] <span class="keyword">get</span> -s /zhangsan</div></pre></td></tr></table></figure>
-<p><img src="/uploads/zookeeper7.jpg" alt=""><br>之前版本的zookeeper不加-s能直接看到属性信息，该版本的不加-s只能看到数据内容<br>数据及各属性信息含义：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//数据内容</div><div class="line"><span class="string">"zhangsan"</span></div><div class="line">//创建该节点的事务ID</div><div class="line">cZxid = 0x43</div><div class="line">ctime = Wed Sep 26 00:12:28 CST 2018</div><div class="line">//最后一次更新该节点的事务ID</div><div class="line">mZxid = 0x43</div><div class="line">//最后一次更新该节点的时间</div><div class="line">mtime = Wed Sep 26 00:12:28 CST 2018</div><div class="line">pZxid = 0x43</div><div class="line">cversion = 0</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 10</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/zookeeper7.jpg" alt=""><br>之前版本的zookeeper不加-s能直接看到属性信息，该版本的不加-s只能看到数据内容<br>数据及各属性信息含义：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//数据内容</span></div><div class="line"><span class="string">"zhangsan"</span></div><div class="line"><span class="comment">//创建该节点的事务ID</span></div><div class="line">cZxid = <span class="number">0x43</span></div><div class="line">ctime = Wed Sep <span class="number">26</span> <span class="number">00</span>:<span class="number">12</span>:<span class="number">28</span> CST <span class="number">2018</span></div><div class="line"><span class="comment">//最后一次更新该节点的事务ID</span></div><div class="line">mZxid = <span class="number">0x43</span></div><div class="line"><span class="comment">//最后一次更新该节点的时间</span></div><div class="line">mtime = Wed Sep <span class="number">26</span> <span class="number">00</span>:<span class="number">12</span>:<span class="number">28</span> CST <span class="number">2018</span></div><div class="line">pZxid = <span class="number">0x43</span></div><div class="line">cversion = <span class="number">0</span></div><div class="line">dataVersion = <span class="number">0</span></div><div class="line">aclVersion = <span class="number">0</span></div><div class="line">ephemeralOwner = <span class="number">0x0</span></div><div class="line">dataLength = <span class="number">10</span></div><div class="line">numChildren = <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>其中numChildren为该节点下子节点的个数<br><img src="/uploads/zookeeper14.jpg" alt=""></p>
 <h3 id="set-重新设置"><a href="#set-重新设置" class="headerlink" title="set 重新设置"></a>set 重新设置</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 11</span>] <span class="keyword">set</span> /zhangsan <span class="string">"zhangsan1"</span></div></pre></td></tr></table></figure>
-<p><img src="/uploads/zookeeper7.jpg" alt=""><br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 12</span>] <span class="keyword">get</span> -s /zhangsan</div></pre></td></tr></table></figure></p>
-<p>再次get并查看数据<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="string">"zhangsan1"</span></div><div class="line">cZxid = 0x43</div><div class="line">ctime = Wed Sep 26 00:12:28 CST 2018</div><div class="line">mZxid = 0x46</div><div class="line">mtime = Wed Sep 26 00:32:57 CST 2018</div><div class="line">pZxid = 0x43</div><div class="line">cversion = 0</div><div class="line">dataVersion = 1</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 11</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="meta">zk: localhost:2181(CONNECTED) 12</span>] <span class="keyword">get</span> -s /zhangsan</div></pre></td></tr></table></figure>
+<p>再次get并查看数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="string">"zhangsan1"</span></div><div class="line">cZxid = <span class="number">0x43</span></div><div class="line">ctime = Wed Sep <span class="number">26</span> <span class="number">00</span>:<span class="number">12</span>:<span class="number">28</span> CST <span class="number">2018</span></div><div class="line">mZxid = <span class="number">0x46</span></div><div class="line">mtime = Wed Sep <span class="number">26</span> <span class="number">00</span>:<span class="number">32</span>:<span class="number">57</span> CST <span class="number">2018</span></div><div class="line">pZxid = <span class="number">0x43</span></div><div class="line">cversion = <span class="number">0</span></div><div class="line">dataVersion = <span class="number">1</span></div><div class="line">aclVersion = <span class="number">0</span></div><div class="line">ephemeralOwner = <span class="number">0x0</span></div><div class="line">dataLength = <span class="number">11</span></div><div class="line">numChildren = <span class="number">0</span></div></pre></td></tr></table></figure></p>
 <p>可以看到 数据内容、mZxid、mtime、dataVersion、dataLength属性发生了变化。</p>
 <h3 id="delete-删除节点"><a href="#delete-删除节点" class="headerlink" title="delete 删除节点"></a>delete 删除节点</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">13</span>] delete /zhangsan</div></pre></td></tr></table></figure>
 <p>使用delete命令可以删除Zookeeper上的指定节点。<br>注意：想要删除某一个指定节点，该节点必须没有子节点存在。无法删除一个包含子节点的节点。<br><img src="/uploads/zookeeper10.jpg" alt=""><br>可以使用deleteall命令进行删除包含子节点的节点。</p>
 <h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">zk:</span> <span class="string">localhost:</span><span class="number">2181</span>(CONNECTED) <span class="number">20</span>] help</div></pre></td></tr></table></figure>
 <p><img src="/uploads/zookeeper11.jpg" alt=""></p>
 <h2 id="Java客户端API使用"><a href="#Java客户端API使用" class="headerlink" title="Java客户端API使用"></a>Java客户端API使用</h2><p>目前没用过，用到再介绍;主要命令和客户端的一致</p>
-<h2 id="Zookeeper选举机制"><a href="#Zookeeper选举机制" class="headerlink" title="Zookeeper选举机制"></a>Zookeeper选举机制</h2><p>FastLeader选举算法：<br>当Leader崩溃或者失去大多数follower时，这时候Zookeeper进入恢复模式，恢复模式需要重新选举出一个新的leader，让所有的Server都恢复到一个正确的状态。</p>
-<p>历史记录有的话选择历史的那个，没有就选自己，如果票数一样的话，那么id大的胜出<br>简单例子<br>服务器1启动，无其他节点，得不到响应，选举状态为LOOKING状态<br>服务器2启动，没有历史数据，都选自己，2的id大，所以1同意2为leader，但是未过半数，服务器1/2状态依然为LOOKING<br>服务器3启动，1和2有历史数据，都选2，服务器3选自己，2的票数为2,2/3超过半数，2为leader<br>服务器4启动，发起投票，1/2/3根据历史数据选2，leader为2.</p>
-<h2 id="Zookeeper的典型应用场景："><a href="#Zookeeper的典型应用场景：" class="headerlink" title="Zookeeper的典型应用场景："></a>Zookeeper的典型应用场景：</h2><h3 id="统一命名服务"><a href="#统一命名服务" class="headerlink" title="统一命名服务"></a>统一命名服务</h3><p>在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）</p>
+<h2 id="Zookeeper选举机制"><a href="#Zookeeper选举机制" class="headerlink" title="Zookeeper选举机制"></a>Zookeeper选举机制</h2><p>Leader选举是保证分布式数据一致性的关键所在。当Zookeeper集群中的一台服务器出现以下两种情况之一时，需要进入Leader选举。</p>
+<ul>
+<li>服务器初始化启动。</li>
+<li>服务器运行期间无法和Leader保持连接。</li>
+</ul>
+<h3 id="服务器启动时期的Leader选举"><a href="#服务器启动时期的Leader选举" class="headerlink" title="服务器启动时期的Leader选举"></a>服务器启动时期的Leader选举</h3><ol>
+<li><p>每个Server发出一个投票。由于是初始情况，Server1和Server2都会将自己作为Leader服务器来进行投票，每次投票会包含所推举的服务器的myid和ZXID，使用(myid, ZXID)来表示，此时Server1的投票为(1, 0)，Server2的投票为(2, 0)，然后各自将这个投票发给集群中其他机器。</p>
+</li>
+<li><p>接受来自各个服务器的投票。集群的每个服务器收到投票后，首先判断该投票的有效性，如检查是否是本轮投票、是否来自LOOKING状态的服务器。</p>
+</li>
+<li><p>处理投票。针对每一个投票，服务器都需要将别人的投票和自己的投票进行PK，PK规则如下</p>
+<ul>
+<li>优先检查ZXID。ZXID比较大的服务器优先作为Leader。</li>
+<li><p>如果ZXID相同，那么就比较myid。myid较大的服务器作为Leader服务器。</p>
+<p>对于Server1而言，它的投票是(1, 0)，接收Server2的投票为(2, 0)，首先会比较两者的ZXID，均为0，再比较myid，此时Server2的myid最大，于是更新自己的投票为(2, 0)，然后重新投票，对于Server2而言，其无须更新自己的投票，只是再次向集群中所有机器发出上一次投票信息即可。</p>
+</li>
+</ul>
+</li>
+<li><p>统计投票。每次投票后，服务器都会统计投票信息，判断是否已经有过半机器接受到相同的投票信息，对于Server1、Server2而言，都统计出集群中已经有两台机器接受了(2, 0)的投票信息，此时便认为已经选出了Leader。</p>
+</li>
+<li><p>改变服务器状态。一旦确定了Leader，每个服务器就会更新自己的状态，如果是Follower，那么就变更为FOLLOWING，如果是Leader，就变更为LEADING。</p>
+</li>
+</ol>
+<p>简单例子<br>服务器1启动，无其他节点，得不到响应，选举状态为LOOKING状态<br>服务器2启动，没有历史数据，都选自己，2的id大，所以1同意2为leader，但是未过半数，服务器1/2状态依然为LOOKING<br>服务器3启动，1和2有历史数据，都选2，服务器3选自己，2的票数为2,2/3超过半数，2为leader<br>服务器4启动，发起投票，1/2/3根据历史数据选2，leader为2。</p>
+<h3 id="服务器运行时期的Leader选举"><a href="#服务器运行时期的Leader选举" class="headerlink" title="服务器运行时期的Leader选举"></a>服务器运行时期的Leader选举</h3><p>在Zookeeper运行期间，Leader与非Leader服务器各司其职，即便当有非Leader服务器宕机或新加入，此时也不会影响Leader，但是一旦Leader服务器挂了，那么整个集群将暂停对外服务，进入新一轮Leader选举，其过程和启动时期的Leader选举过程基本一致。假设正在运行的有Server1、Server2、Server3三台服务器，当前Leader是Server2，若某一时刻Leader挂了，此时便开始Leader选举。选举过程如下</p>
+<ol>
+<li><p>变更状态。Leader挂后，余下的非Observer服务器都会讲自己的服务器状态变更为LOOKING，然后开始进入Leader选举过程。</p>
+</li>
+<li><p>每个Server会发出一个投票。在运行期间，每个服务器上的ZXID可能不同，此时假定Server1的ZXID为123，Server3的ZXID为122；在第一轮投票中，Server1和Server3都会投自己，产生投票(1, 123)，(3, 122)，然后各自将投票发送给集群中所有机器。</p>
+</li>
+<li><p>接收来自各个服务器的投票。与启动时过程相同。</p>
+</li>
+<li><p>处理投票。与启动时过程相同，此时，Server1将会成为Leader。</p>
+</li>
+<li><p>统计投票。与启动时过程相同。</p>
+</li>
+<li><p>改变服务器的状态。与启动时过程相同。</p>
+</li>
+</ol>
+<h3 id="Leader选举算法分析"><a href="#Leader选举算法分析" class="headerlink" title="Leader选举算法分析"></a>Leader选举算法分析</h3><p><strong><em>在3.4.0后的Zookeeper的版本只保留了TCP版本的FastLeaderElection选举算法。</em></strong></p>
+<p>当一台机器进入Leader选举时，当前集群可能会处于以下两种状态</p>
+<ul>
+<li><p>集群中已经存在Leader。</p>
+</li>
+<li><p>集群中不存在Leader。</p>
+</li>
+</ul>
+<p>对于集群中已经存在Leader而言，此种情况一般都是某台机器启动得较晚，在其启动之前，集群已经在正常工作，对这种情况，该机器试图去选举Leader时，会被告知当前服务器的Leader信息，对于该机器而言，仅仅需要和Leader机器建立起连接，并进行状态同步即可。</p>
+<p>而在集群中不存在Leader情况下则会相对复杂，其步骤如下：</p>
+<ol>
+<li><p>第一次投票。无论哪种导致进行Leader选举，集群的所有机器都处于试图选举出一个Leader的状态，即LOOKING状态，LOOKING机器会向所有其他机器发送消息，该消息称为投票。投票中包含了SID（服务器的唯一标识）和ZXID（事务ID），(SID, ZXID)形式来标识一次投票信息。假定Zookeeper由5台机器组成，SID分别为1、2、3、4、5，ZXID分别为9、9、9、8、8，并且此时SID为2的机器是Leader机器，某一时刻，1、2所在机器出现故障，因此集群开始进行Leader选举。在第一次投票时，每台机器都会将自己作为投票对象，于是SID为3、4、5的机器投票情况分别为(3, 9)，(4, 8)， (5, 8)。</p>
+</li>
+<li><p>变更投票。每台机器发出投票后，也会收到其他机器的投票，每台机器会根据一定规则来处理收到的其他机器的投票，并以此来决定是否需要变更自己的投票，这个规则也是整个Leader选举算法的核心所在，其中术语描述如下</p>
+<ul>
+<li><p>vote_sid：接收到的投票中所推举Leader服务器的SID。</p>
+</li>
+<li><p>vote_zxid：接收到的投票中所推举Leader服务器的ZXID。</p>
+</li>
+<li><p>self_sid：当前服务器自己的SID。</p>
+</li>
+<li><p>self_zxid：当前服务器自己的ZXID。</p>
+<p>每次对收到的投票的处理，都是对(vote_sid, vote_zxid)和(self_sid, self_zxid)对比的过程。<br>规则一：如果vote_zxid大于self_zxid，就认可当前收到的投票，并再次将该投票发送出去。<br>规则二：如果vote_zxid小于self_zxid，那么坚持自己的投票，不做任何变更。<br>规则三：如果vote_zxid等于self_zxid，那么就对比两者的SID，如果vote_sid大于self_sid，那么就认可当前收到的投票，并再次将该投票发送出去。<br>规则四：如果vote_zxid等于self_zxid，并且vote_sid小于self_sid，那么坚持自己的投票，不做任何变更。</p>
+<p>结合上面规则，给出下面的集群变更过程:<br><img src="/uploads/zookeeper12.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>确定Leader。经过第二轮投票后，集群中的每台机器都会再次接收到其他机器的投票，然后开始统计投票，如果一台机器收到了超过半数的相同投票，那么这个投票对应的SID机器即为Leader。此时Server3将成为Leader。</p>
+</li>
+</ol>
+<p>由上面规则可知，通常那台服务器上的数据越新（ZXID会越大），其成为Leader的可能性越大，也就越能够保证数据的恢复。如果ZXID相同，则SID越大机会越大。</p>
+<h3 id="Leader选举实现细节"><a href="#Leader选举实现细节" class="headerlink" title="Leader选举实现细节"></a>Leader选举实现细节</h3><h4 id="服务器状态"><a href="#服务器状态" class="headerlink" title="服务器状态"></a>服务器状态</h4><p>服务器具有四种状态，分别是LOOKING、FOLLOWING、LEADING、OBSERVING。</p>
+<ul>
+<li><p>LOOKING：寻找Leader状态。当服务器处于该状态时，它会认为当前集群中没有Leader，因此需要进入Leader选举状态。</p>
+</li>
+<li><p>FOLLOWING：跟随者状态。表明当前服务器角色是Follower。</p>
+</li>
+<li><p>LEADING：领导者状态。表明当前服务器角色是Leader。</p>
+</li>
+<li><p>OBSERVING：观察者状态。表明当前服务器角色是Observer。</p>
+</li>
+</ul>
+<h4 id="投票数据结构"><a href="#投票数据结构" class="headerlink" title="投票数据结构"></a>投票数据结构</h4><p>每个投票中包含了两个最基本的信息，所推举服务器的SID和ZXID。<br>投票（Vote）在Zookeeper中包含字段如下：</p>
+<ul>
+<li><p>id：被推举的Leader的SID。</p>
+</li>
+<li><p>zxid：被推举的Leader事务ID。</p>
+</li>
+<li><p>electionEpoch：逻辑时钟，用来判断多个投票是否在同一轮选举周期中，该值在服务端是一个自增序列，每次进入新一轮的投票后，都会对该值进行加1操作。</p>
+</li>
+<li><p>peerEpoch：被推举的Leader的epoch。每次leader选举完成之后，都会选举出一个新的peerEpoch，用来标记事务请求所属的轮次。</p>
+</li>
+<li><p>state：当前服务器的状态。</p>
+</li>
+</ul>
+<h4 id="QuorumCnxManager：网络I-O"><a href="#QuorumCnxManager：网络I-O" class="headerlink" title="QuorumCnxManager：网络I/O"></a>QuorumCnxManager：网络I/O</h4><p>每台服务器在启动的过程中，会启动一个QuorumPeerManager，负责各台服务器之间的底层Leader选举过程中的网络通信。</p>
+<ol>
+<li><p>消息队列。QuorumCnxManager内部维护了一系列的队列，用来保存接收到的、待发送的消息以及消息的发送器，除接收队列以外，其他队列都按照SID分组形成队列集合，如一个集群中除了自身还有3台机器，那么就会为这3台机器分别创建一个发送队列，互不干扰。</p>
+<ul>
+<li><p>recvQueue：消息接收队列，用于存放那些从其他服务器接收到的消息。</p>
+</li>
+<li><p>queueSendMap：消息发送队列，用于保存那些待发送的消息，按照SID进行分组。</p>
+</li>
+<li><p>senderWorkerMap：发送器集合，每个SenderWorker消息发送器，都对应一台远程Zookeeper服务器，负责消息的发送，也按照SID进行分组。</p>
+</li>
+<li><p>lastMessageSent：最近发送过的消息，为每个SID保留最近发送过的一个消息。</p>
+</li>
+</ul>
+</li>
+<li><p>建立连接。为了能够相互投票，Zookeeper集群中的所有机器都需要两两建立起网络连接。QuorumCnxManager在启动时会创建一个ServerSocket来监听Leader选举的通信端口(默认为3888)。开启监听后，Zookeeper能够不断地接收到来自其他服务器的创建连接请求，在接收到其他服务器的TCP连接请求时，会进行处理。为了避免两台机器之间重复地创建TCP连接，Zookeeper只允许SID大的服务器主动和其他机器建立连接，否则断开连接。在接收到创建连接请求后，服务器通过对比自己和远程服务器的SID值来判断是否接收连接请求，如果当前服务器发现自己的SID更大，那么会断开当前连接，然后自己主动和远程服务器建立连接。一旦连接建立，就会根据远程服务器的SID来创建相应的消息发送器SendWorker和消息接收器RecvWorker，并启动。</p>
+</li>
+<li><p>消息接收与发送。消息接收：由消息接收器RecvWorker负责，由于Zookeeper为每个远程服务器都分配一个单独的RecvWorker，因此，每个RecvWorker只需要不断地从这个TCP连接中读取消息，并将其保存到recvQueue队列中。消息发送：由于Zookeeper为每个远程服务器都分配一个单独的SendWorker，因此，每个SendWorker只需要不断地从对应的消息发送队列中获取出一个消息发送即可，同时将这个消息放入lastMessageSent中。在SendWorker中，一旦Zookeeper发现针对当前服务器的消息发送队列为空，那么此时需要从lastMessageSent中取出一个最近发送过的消息来进行再次发送，这是为了解决接收方在消息接收前或者接收到消息后服务器挂了，导致消息尚未被正确处理。同时，Zookeeper能够保证接收方在处理消息时，会对重复消息进行正确的处理。</p>
+</li>
+</ol>
+<h4 id="FastLeaderElection：选举算法核心"><a href="#FastLeaderElection：选举算法核心" class="headerlink" title="FastLeaderElection：选举算法核心"></a>FastLeaderElection：选举算法核心</h4><ul>
+<li><p>外部投票：特指其他服务器发来的投票。</p>
+</li>
+<li><p>内部投票：服务器自身当前的投票。</p>
+</li>
+<li><p>选举轮次：Zookeeper服务器Leader选举的轮次，即logicalclock。</p>
+</li>
+<li><p>PK：对内部投票和外部投票进行对比来确定是否需要变更内部投票。</p>
+</li>
+</ul>
+<h5 id="选票管理"><a href="#选票管理" class="headerlink" title="选票管理"></a>选票管理</h5><ul>
+<li><p>sendqueue：选票发送队列，用于保存待发送的选票。</p>
+</li>
+<li><p>recvqueue：选票接收队列，用于保存接收到的外部投票。</p>
+</li>
+<li><p>WorkerReceiver：选票接收器。其会不断地从QuorumCnxManager中获取其他服务器发来的选举消息，并将其转换成一个选票，然后保存到recvqueue中，在选票接收过程中，如果发现该外部选票的选举轮次小于当前服务器的，那么忽略该外部投票，同时立即发送自己的内部投票。</p>
+</li>
+<li><p>WorkerSender：选票发送器，不断地从sendqueue中获取待发送的选票，并将其传递到底层QuorumCnxManager中。</p>
+</li>
+</ul>
+<h5 id="算法核心"><a href="#算法核心" class="headerlink" title="算法核心"></a>算法核心</h5><p><img src="/uploads/zookeeper13.jpg" alt=""></p>
+<p>　　上图展示了FastLeaderElection模块是如何与底层网络I/O进行交互的。Leader选举的基本流程如下</p>
+<ol>
+<li><p>自增选举轮次。Zookeeper规定所有有效的投票都必须在同一轮次中，在开始新一轮投票时，会首先对logicalclock进行自增操作。</p>
+</li>
+<li><p>初始化选票。在开始进行新一轮投票之前，每个服务器都会初始化自身的选票，并且在初始化阶段，每台服务器都会将自己推举为Leader。</p>
+</li>
+<li><p>发送初始化选票。完成选票的初始化后，服务器就会发起第一次投票。Zookeeper会将刚刚初始化好的选票放入sendqueue中，由发送器WorkerSender负责发送出去。</p>
+</li>
+<li><p>接收外部投票。每台服务器会不断地从recvqueue队列中获取外部选票。如果服务器发现无法获取到任何外部投票，那么就会立即确认自己是否和集群中其他服务器保持着有效的连接，如果没有连接，则马上建立连接，如果已经建立了连接，则再次发送自己当前的内部投票。</p>
+</li>
+<li><p>判断选举轮次。在发送完初始化选票之后，接着开始处理外部投票。在处理外部投票时，会根据选举轮次来进行不同的处理。</p>
+<ul>
+<li><p>外部投票的选举轮次大于内部投票。若服务器自身的选举轮次落后于该外部投票对应服务器的选举轮次，那么就会立即更新自己的选举轮次(logicalclock)，并且清空所有已经收到的投票，然后使用初始化的投票来进行PK以确定是否变更内部投票。最终再将内部投票发送出去。</p>
+</li>
+<li><p>外部投票的选举轮次小于内部投票。若服务器接收的外选票的选举轮次落后于自身的选举轮次，那么Zookeeper就会直接忽略该外部投票，不做任何处理，并返回步骤4。</p>
+</li>
+<li><p>外部投票的选举轮次等于内部投票。此时可以开始进行选票PK。</p>
+</li>
+</ul>
+</li>
+<li><p>选票PK。在进行选票PK时，符合任意一个条件就需要变更投票。</p>
+<ul>
+<li><p>若外部投票中推举的Leader服务器的选举轮次大于内部投票，那么需要变更投票。</p>
+</li>
+<li><p>若选举轮次一致，那么就对比两者的ZXID，若外部投票的ZXID大，那么需要变更投票。</p>
+</li>
+<li><p>若两者的ZXID一致，那么就对比两者的SID，若外部投票的SID大，那么就需要变更投票。</p>
+</li>
+</ul>
+</li>
+<li><p>变更投票。经过PK后，若确定了外部投票优于内部投票，那么就变更投票，即使用外部投票的选票信息来覆盖内部投票，变更完成后，再次将这个变更后的内部投票发送出去。</p>
+</li>
+<li><p>选票归档。无论是否变更了投票，都会将刚刚收到的那份外部投票放入选票集合recvset中进行归档。recvset用于记录当前服务器在本轮次的Leader选举中收到的所有外部投票（按照服务队的SID区别，如{(1, vote1), (2, vote2)…}）。</p>
+</li>
+<li><p>统计投票。完成选票归档后，就可以开始统计投票，统计投票是为了统计集群中是否已经有过半的服务器认可了当前的内部投票，如果确定已经有过半服务器认可了该投票，则终止投票。否则返回步骤4。</p>
+</li>
+<li><p>更新服务器状态。若已经确定可以终止投票，那么就开始更新服务器状态，服务器首选判断当前被过半服务器认可的投票所对应的Leader服务器是否是自己，若是自己，则将自己的服务器状态更新为LEADING，若不是，则根据具体情况来确定自己是FOLLOWING或是OBSERVING。</p>
+</li>
+</ol>
+<p>以上10个步骤就是FastLeaderElection的核心，其中步骤4-9会经过几轮循环，直到有Leader选举产生。</p>
+<p>可能出现的问题：<br>选举轮次，也就是逻辑时钟，即logicalclock。这个值，不会频繁变化，一次选举，自增一次。一次选举过程中，可能包括多次投票，投票不涉及逻辑时钟的自增。<br>举例，初始情况下5台机器，sid分别为1、2、3、4、5，逻辑时钟都是0。依次启动后，开始选举，所有的机器逻辑时钟自增为1。经过多次投票，假设第三台机器为leader，其他4台机器为follower，此时5台机器的逻辑时钟都为1。<br>一般情况下，逻辑时钟应该都是相同的。但是，由于一些机器崩溃的问题，是可能出现逻辑时钟不一致的情况的。例如，上例中，sid=3的机器为leader。之后某一刻，sid为1、3的机器崩溃，zookeeper仍然可以正常对外提供服务。但需要重新选主，剩下的2、4、5重新投票选主，假设sid=5成为新的leader，逻辑时钟自增，由1变成2。之后某一刻，sid为5的机器奔溃，sid为1的机器复活，仍然有3台机器运行，zookeeper可以对外提供服务，但需要重新选主。重新选主，逻辑时钟自增，这时sid为2、4的机器的逻辑时钟是由2自增为3，而sid为1的机器的逻辑时钟是由1自增为2。这种情况下，就出现了逻辑时钟不一致的情况。这时，需要清除sid为1的机器内部的投票数据，因为这些投票数据都是过时的数据。</p>
+<h4 id="选举源码实现"><a href="#选举源码实现" class="headerlink" title="选举源码实现"></a>选举源码实现</h4><h2 id="Zookeeper的典型应用场景："><a href="#Zookeeper的典型应用场景：" class="headerlink" title="Zookeeper的典型应用场景："></a>Zookeeper的典型应用场景：</h2><h3 id="统一命名服务"><a href="#统一命名服务" class="headerlink" title="统一命名服务"></a>统一命名服务</h3><p>在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）</p>
 <h3 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h3><p>配置的管理在分布式应用环境中很常见，例如同一个应用系统需要多台 PC Server 运行，但是它们运行的应用系统的某些配置项是相同的，如果要修改这些相同的配置项，那么就必须同时修改每台运行这个应用系统的 PC Server，这样非常麻烦而且容易出错。</p>
 <p>像这样的配置信息完全可以交给 Zookeeper 来管理，将配置信息保存在 Zookeeper 的某个目录节点中，然后将所有需要修改的应用机器监控配置信息的状态，一旦配置信息发生变化，每台应用机器就会收到 Zookeeper 的通知，然后从 Zookeeper 获取新的配置信息应用到系统中</p>
 <h3 id="集群管理"><a href="#集群管理" class="headerlink" title="集群管理"></a>集群管理</h3><p>Zookeeper 能够很容易的实现集群管理的功能，如有多台 Server 组成一个服务集群，那么必须要一个“总管”知道当前集群中每台机器的服务状态，一旦有机器不能提供服务，集群中其它集群必须知道，从而做出调整重新分配服务策略。同样当增加集群的服务能力时，就会增加一台或多台 Server，同样也必须让“总管”知道。</p>
